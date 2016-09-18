@@ -1,4 +1,5 @@
 from django.db import models
+import json
 
 # User superclass
 class User(models.Model):
@@ -11,10 +12,18 @@ class User(models.Model):
 
 class Host(models.Model):
     host_reputation = models.FloatField() # [did I lease the drones well?]
-    #TODO drones_owned # (list of all the host's drone objects)
+    drones_owned = Drone()
+    def setdrones_owned(self, x):
+      self.drones_owned = json.dumps(x)
+
+    def getdrones_owned(self):
+      return json.loads(self.drones_owned)
+
+
     #TODO drones_available # (list of ready-to-lease drone objects in the owned list)
     #TODO drones_deployed # (list of drone objects out for lease in the owned list)
     user = models.ManyToManyField(User) # ?
+
 
 class Client(models.Model):
     client_reputation = models.FloatField() # [did I treat the drones well?]
