@@ -1,0 +1,9 @@
+models:
+    image: tp33/django
+    external_links:
+      -  mysql:db
+    volumes:
+      - ./:/app
+    ports:
+      - "8001:8000"
+    command: bash -c "mod_wsgi-express start-server --reload-on-changes ./daas/wsgi.py"
