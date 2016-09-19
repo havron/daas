@@ -15,6 +15,7 @@ class Host(models.Model):
     #TODO drones_available # (list of ready-to-lease drone objects in the owned list)
     #TODO drones_deployed # (list of drone objects out for lease in the owned list)
 
+
 class Client(models.Model):
     client_reputation = models.FloatField()
     user = models.OneToOneField(User)
