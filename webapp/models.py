@@ -6,9 +6,13 @@ class User(models.Model):
 
     # some type of hash
     #user_id = models.IntegerField()
-    username = models.CharField(max_length=50)
+    username = models.CharField(max_length=50, unique=True)
     password = models.CharField(max_length=50)
     email_address = models.EmailField()
+
+    def __str__(self):
+      return "Username is %s, password is %s, email address is %s" % (self.username, self.password, self.email_address)
+
     #TODO jobs #(list of all Job objects that belong to the user)
 
 '''

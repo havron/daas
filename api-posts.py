@@ -1,5 +1,7 @@
+# compact access to post request for updating APIs!
 import json
 import requests
+
 
 username = 'sam'
 password = 'lol'
