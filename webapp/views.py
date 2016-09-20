@@ -15,6 +15,7 @@ class UserForm(ModelForm):
 def create_user(request):
     dictionary = {}
     if request.method == 'POST':
+        print(request.POST)
         #create a form to add an article
         form = UserForm(request.POST)
         if form.is_valid():
@@ -22,18 +23,17 @@ def create_user(request):
                 #new_user = form.save()
                 print(form)
                 dictionary = form
-                '''
-                u = models.User.(username=request.POST['username'],
+
+                u = models.User(username=request.POST['username'],
                          password=request.POST['password'],
                          email_address=request.POST['email_address'])
                 u.save()
-                '''
+                return JsonResponse(dictionary)
+
             except IntegrityError as e:
                 return HttpResponse("problem saving data")
         else:
             print(form.errors)
-
-
-        return JsonResponse(dictionary)
+            return HttpResponse("not valid post")
     else:
         return HttpResponse("not working")

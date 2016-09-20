@@ -5,7 +5,7 @@ import json
 class User(models.Model):
 
     # some type of hash
-    user_id = models.IntegerField()
+    #user_id = models.IntegerField()
     username = models.CharField(max_length=50)
     password = models.CharField(max_length=50)
     email_address = models.EmailField()
