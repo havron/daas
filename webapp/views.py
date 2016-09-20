@@ -12,6 +12,13 @@ class UserForm(ModelForm):
         model = User
         fields = ['username', 'password', 'email_address']
 
+def inspect_user(request):
+	if request.method == 'GET':
+		print(request.GET)
+		return HttpResponse('way to GET it')
+	else 
+		return HttpReponse('go GET em tiger')
+
 def create_user(request):
     dictionary = {}
     if request.method == 'POST':

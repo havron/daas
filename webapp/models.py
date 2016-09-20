@@ -14,12 +14,13 @@ class User(models.Model):
       return dict(
         username = self.username,
         password = self.password,
-        email_address = self.email_address
+        email_address = self.email_address,
+	user_id = self.id
       )
 
     def __str__(self):
       return "Username is %s, password is %s, email address is %s" % (self.username, self.password, self.email_address)
-
+	
     #TODO jobs #(list of all Job objects that belong to the user)
 
 '''
