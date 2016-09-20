@@ -5,3 +5,6 @@ github:
 	git add -A 
 	git commit -m "${MSG}"
 	git push
+
+post:
+	python api-posts.py > err.html && google-chrome err.html
