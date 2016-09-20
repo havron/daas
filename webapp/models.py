@@ -10,6 +10,13 @@ class User(models.Model):
     password = models.CharField(max_length=50)
     email_address = models.EmailField()
 
+    def to_json(self):
+      return dict(
+        username = self.username,
+        password = self.password,
+        email_address = self.email_address
+      )
+
     def __str__(self):
       return "Username is %s, password is %s, email address is %s" % (self.username, self.password, self.email_address)
 

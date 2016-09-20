@@ -37,9 +37,11 @@ def create_user(request):
                 new_user.save()
                 users = User.objects.all().order_by('username')
                 print (users)
-#                for u in User.objects.all():
- #                 u.delete()
+                for u in User.objects.all():
+                  u.delete()
                 print (users)
+
+
 
          #       print(type(new_user))
 
@@ -52,11 +54,14 @@ def create_user(request):
                 #         password=request.POST['password'],
                 #         email_address=request.POST['email_address'])
                 #u.save()
-                return JsonResponse(dictionary)
+                # return JsonResponse()
+                return HttpResponse(json.dumps(new_user.to_json()), content_type="application/json")
 
             except IntegrityError as e:
                 return HttpResponse("problem saving data")
         else:
+            for u in User.objects.all():
+              u.delete()
             print ("NOOOOOOOOOOOOOOOOOOO VALID!")
             #print (form)
             # print (form.errors)
