@@ -107,4 +107,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # what does this doe???????????
-POSTMAN_AUTO_MODERATE_AS = Ture
+#POSTMAN_AUTO_MODERATE_AS = Ture

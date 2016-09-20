@@ -15,10 +15,10 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from . import home
-from daas.webapp import views
+from webapp import views
 
 urlpatterns = [
     url(r'^$', home.index, name='index'),
     url(r'^api/v1/user/create$', views.create_user, name='user'),
-    (r'^messages/', include('postman.urls', namespace='postman', app_name='postman')),
+    #(r'^messages/', include('postman.urls', namespace='postman', app_name='postman')),
 ]

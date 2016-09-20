@@ -5,29 +5,13 @@ import json
 class User(models.Model):
 
     # some type of hash
-    user_id = models.IntField()
-
-    username = models.CharField()
-    def __setUsername__(self, username, val):
-        super(User, self).__setUsername__(username, val)
-    def __getUsername__(self, username):
-        return super(User, self).__getUsername__(username)
-    #TODO def __str__(self) for returning string
-
-    password = mdoels.CharField()
-    def __setPassword__(self, password, val):
-        super(User, self).setPassword__(password, val)
-    def __getPassword__(self, password):
-        return super(User, self).__getPassword__(password)
-
+    user_id = models.IntegerField()
+    username = models.CharField(max_length=50)
+    password = models.CharField(max_length=50)
     email_address = models.EmailField()
-    def __setEmailAddress__(self, email_address, val):
-        super(User, self).setEmailAddress__(email_address, val)
-    def __getEmailAddress__(self, email_address):
-        return super(User, self).__getEmailAddress__(email_address)
     #TODO jobs #(list of all Job objects that belong to the user)
 
-
+'''
 # Host subclass extends from User class
 class Host(models.Model):
 
@@ -82,3 +66,4 @@ class Schedule(models.Model): # [perhaps create superclass and have separate job
 #Client_Reputation: [to be determined. includes block cipher stuffs.]
 
 #Host_Reputation: [to be determined. includes block cipher stuffs.]
+'''
