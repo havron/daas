@@ -33,7 +33,6 @@ class Host(models.Model):
 
     # calculation based on specific equation
     host_reputation = models.FloatField()
-
     user = models.OneToOneField(User)
     drones_owned = models.OneToManyField(Drone)
     drones_available = models.OneToManyField(Drone)
