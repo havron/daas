@@ -5,7 +5,9 @@ from django.forms import ModelForm
 from webapp.models import User
 from django.http import JsonResponse
 from django.db import IntegrityError
+from django.core.exceptions import ObjectDoesNotExist
 import json
+import os
 
 class UserForm(ModelForm):
     class Meta:
@@ -13,6 +15,21 @@ class UserForm(ModelForm):
         fields = ['username', 'password', 'email_address']
 
 def inspect_user(request):
+	user = int(os.path.basename(os.path.normpath(request.path)))
+	print(user)
+	print(type(user))
+	for u in User.objects.all():
+		print(u)
+	try: 
+		obj= User.objects.get(pk=user)
+		
+		print(obj)
+		
+	except ObjectDoesNotExist as e:
+		return HttpResponse('user does not exist')
+	
+
+	print(obj)
 	if request.method == 'GET':
 		print(request.GET)
 		return HttpResponse('way to GET it')
@@ -40,7 +57,7 @@ def create_user(request):
                 new_user = form.save(commit='false')
 
                 print (new_user)
-                new_user.username = 'bob'
+                #new_user.username = 'bob'
                 new_user.save()
                 users = User.objects.all().order_by('username')
                 print (users)

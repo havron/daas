@@ -9,7 +9,7 @@ password = 'rofl'
 email_address = 'jo@b.in'
 
 #maybe user_id isn't the best name?
-user_id = 2
+user_id = 89728897
 url = "http://localhost:8000/api/v1/user/" + str(user_id) + '/'
 
 r = requests.get(url)
