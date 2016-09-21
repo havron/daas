@@ -6,4 +6,5 @@ models:
       - ./:/app
     ports:
       - "8001:8000"
-    command: bash -c "mod_wsgi-express start-server --reload-on-changes ./daas/wsgi.py"
+    command: bash -c "python manage.py migrate && python manage.py makemigrations && python manage.py loaddata db.json && mod_wsgi-express start-server --reload-on-changes ./daas/wsgi.py"
+
