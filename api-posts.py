@@ -43,4 +43,3 @@ def updateDrone(model_name, drone_desc, demo_link, permissions, owner_email,
 
 makeNewDrone("5oreo", "black and white, best drone ever", "http://www.2sly4u.com", "can do everything",
  "cooldude@awesome.net", "datetime.date.today().isoformat()", 56.6, "ready to roll", True)
-
