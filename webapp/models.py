@@ -5,7 +5,7 @@ import datetime
 # User superclass
 class User(models.Model):
     username = models.CharField(max_length=50, unique=True)
-    password = models.CharField(max_length=50)
+    password = models.CharField(max_length=50) # will change to Django hash
     email_address = models.EmailField()
 
     def to_json(self):
@@ -39,19 +39,37 @@ class Client(models.Model):
     user = models.OneToOneField(User)
 
 '''
+
 class Drone(models.Model):
     model_name = models.CharField(max_length=50)
     drone_desc = models.TextField()
     demo_link = models.URLField() # (link to photo gallery or videos)
     permissions = models.CharField(max_length=50)
     owner_email = models.EmailField()
-    last_checked_out = models.DateTimeField()
+    last_checked_out = models.TextField()
+    #last_checked_out = models.DateTimeField()
     battery_level = models.FloatField()
     maintenance_status = models.TextField()
     available_for_hire = models.BooleanField()
     # host = models.ForeignKey(Host, on_delete=models.CASCADE)
     #TODO location (tuple(float, float))
     # picture = models.ImageField() (image format)
+    def to_json(self):
+      return dict(
+        model_name = self.model_name,
+        drone_desc = self.drone_desc,
+        demo_link = self.demo_link,
+      	permissions = self.permissions,
+        owner_email = self.owner_email,
+        last_checked_out = self.last_checked_out,
+        battery_level = self.battery_level,
+        maintenance_status = self.maintenance_status,
+        available_for_hire = self.available_for_hire,
+        drone_id = self.id
+      )
+
+    def __str__(self):
+      return "Drone model name is %s, description is %s, id number is %s" % (self.model_name, self.drone_desc, self.id)
 
 '''
 # [all of the subprocesses happening between client wanting a drone and drone returning to owner]

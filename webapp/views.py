@@ -21,6 +21,16 @@ class DroneForm(ModelForm):
     'last_checked_out', 'battery_level', 'maintenance_status', 'available_for_hire']
 
 ### USER VIEWS ###################
+def all_user(request):
+  if request.method == 'GET':
+    for u in User.objects.all():
+      print(u)
+    return HttpResponse("Look at the log!")
+  else:
+        return HttpResponse("%s is not a valid request method. Use a GET request instead!" % request.method)
+
+
+
 def inspect_user(request):
   user_id = os.path.basename(os.path.normpath(request.path))
   try: 
@@ -54,6 +64,14 @@ def create_user(request):
         return HttpResponse("%s is not a valid request method. Use a POST request instead!" % request.method)
 
 #### DRONE VIEWS ##############
+def all_drone(request):
+  if request.method == 'GET':
+    for u in Drone.objects.all():
+      print(u)
+    return HttpResponse("Look at the log!")
+  else:
+        return HttpResponse("%s is not a valid request method. Use a GET request instead!" % request.method)
+
 def inspect_drone(request):
   drone_id = os.path.basename(os.path.normpath(request.path))
   try: 
@@ -78,6 +96,7 @@ def create_drone(request):
           try:
             new_drone = form.save(commit='false')
             new_drone.save()
+            print(new_drone)
             return HttpResponse(json.dumps(new_drone.to_json()), content_type="application/json")
           except IntegrityError as e:
               return HttpResponse("problem saving data")

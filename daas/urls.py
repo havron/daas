@@ -20,8 +20,10 @@ from webapp import views
 urlpatterns = [
     url(r'^$', home.index, name='index'),
     url(r'^api/v1/user/create$', views.create_user, name='user'),
+    url(r'^api/v1/user/all$', views.all_user, name='user'),
     url(r'^api/v1/user/[0-9]*$', views.inspect_user),
     url(r'^api/v1/drone/create$', views.create_drone, name='drone'),
+    url(r'^api/v1/drone/all$', views.all_drone, name='drone'),
     url(r'^api/v1/drone/[0-9]*$', views.inspect_drone),
     (r'^messages/', include('postman.urls', namespace='postman', app_name='postman')),
 ]
