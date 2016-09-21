@@ -16,7 +16,7 @@ def inspect_user(request):
 	if request.method == 'GET':
 		print(request.GET)
 		return HttpResponse('way to GET it')
-	else 
+	else: 
 		return HttpReponse('go GET em tiger')
 
 def create_user(request):

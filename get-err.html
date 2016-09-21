@@ -4,7 +4,7 @@
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="robots" content="NONE,NOARCHIVE">
-  <title>SyntaxError at /api/v1/user/2/</title>
+  <title>AttributeError at /api/v1/user/2/</title>
   <style type="text/css">
     html * { padding:0; margin:0; }
     body * { padding:10px 20px; }
@@ -121,8 +121,8 @@
 </head>
 <body>
 <div id="summary">
-  <h1>SyntaxError at /api/v1/user/2/</h1>
-  <pre class="exception_value">invalid syntax (views.py, line 19)</pre>
+  <h1>AttributeError at /api/v1/user/2/</h1>
+  <pre class="exception_value">module &#39;webapp.views&#39; has no attribute &#39;inpsect_user&#39;</pre>
   <table class="meta">
 
     <tr>
@@ -141,19 +141,19 @@
 
     <tr>
       <th>Exception Type:</th>
-      <td>SyntaxError</td>
+      <td>AttributeError</td>
     </tr>
 
 
     <tr>
       <th>Exception Value:</th>
-      <td><pre>invalid syntax (views.py, line 19)</pre></td>
+      <td><pre>module &#39;webapp.views&#39; has no attribute &#39;inpsect_user&#39;</pre></td>
     </tr>
 
 
     <tr>
       <th>Exception Location:</th>
-      <td>/app/daas/daas/urls.py in &lt;module&gt;, line 18</td>
+      <td>/app/daas/daas/urls.py in &lt;module&gt;, line 23</td>
     </tr>
 
     <tr>
@@ -175,7 +175,7 @@
     </tr>
     <tr>
       <th>Server time:</th>
-      <td>Tue, 20 Sep 2016 22:44:01 +0000</td>
+      <td>Wed, 21 Sep 2016 00:07:16 +0000</td>
     </tr>
   </table>
 </div>
@@ -195,43 +195,43 @@
           <code>/usr/local/python/lib/python3.5/site-packages/django/core/handlers/base.py</code> in <code>get_response</code>
 
           
-            <div class="context" id="c139977958412424">
+            <div class="context" id="c139977958537096">
               
-                <ol start="112" class="pre-context" id="pre139977958412424">
+                <ol start="112" class="pre-context" id="pre139977958537096">
                 
-                  <li onclick="toggle('pre139977958412424', 'post139977958412424')"><pre>            if response is None:</pre></li>
+                  <li onclick="toggle('pre139977958537096', 'post139977958537096')"><pre>            if response is None:</pre></li>
                 
-                  <li onclick="toggle('pre139977958412424', 'post139977958412424')"><pre>                if hasattr(request, &#39;urlconf&#39;):</pre></li>
+                  <li onclick="toggle('pre139977958537096', 'post139977958537096')"><pre>                if hasattr(request, &#39;urlconf&#39;):</pre></li>
                 
-                  <li onclick="toggle('pre139977958412424', 'post139977958412424')"><pre>                    # Reset url resolver with a custom urlconf.</pre></li>
+                  <li onclick="toggle('pre139977958537096', 'post139977958537096')"><pre>                    # Reset url resolver with a custom urlconf.</pre></li>
                 
-                  <li onclick="toggle('pre139977958412424', 'post139977958412424')"><pre>                    urlconf = request.urlconf</pre></li>
+                  <li onclick="toggle('pre139977958537096', 'post139977958537096')"><pre>                    urlconf = request.urlconf</pre></li>
                 
-                  <li onclick="toggle('pre139977958412424', 'post139977958412424')"><pre>                    urlresolvers.set_urlconf(urlconf)</pre></li>
+                  <li onclick="toggle('pre139977958537096', 'post139977958537096')"><pre>                    urlresolvers.set_urlconf(urlconf)</pre></li>
                 
-                  <li onclick="toggle('pre139977958412424', 'post139977958412424')"><pre>                    resolver = urlresolvers.RegexURLResolver(r&#39;^/&#39;, urlconf)</pre></li>
+                  <li onclick="toggle('pre139977958537096', 'post139977958537096')"><pre>                    resolver = urlresolvers.RegexURLResolver(r&#39;^/&#39;, urlconf)</pre></li>
                 
-                  <li onclick="toggle('pre139977958412424', 'post139977958412424')"><pre></pre></li>
+                  <li onclick="toggle('pre139977958537096', 'post139977958537096')"><pre></pre></li>
                 
                 </ol>
               
               <ol start="119" class="context-line">
-                <li onclick="toggle('pre139977958412424', 'post139977958412424')"><pre>
+                <li onclick="toggle('pre139977958537096', 'post139977958537096')"><pre>
                             resolver_match = resolver.resolve(request.path_info)</pre> <span>...</span></li></ol>
               
-                <ol start='120' class="post-context" id="post139977958412424">
+                <ol start='120' class="post-context" id="post139977958537096">
                   
-                  <li onclick="toggle('pre139977958412424', 'post139977958412424')"><pre>                callback, callback_args, callback_kwargs = resolver_match</pre></li>
+                  <li onclick="toggle('pre139977958537096', 'post139977958537096')"><pre>                callback, callback_args, callback_kwargs = resolver_match</pre></li>
                   
-                  <li onclick="toggle('pre139977958412424', 'post139977958412424')"><pre>                request.resolver_match = resolver_match</pre></li>
+                  <li onclick="toggle('pre139977958537096', 'post139977958537096')"><pre>                request.resolver_match = resolver_match</pre></li>
                   
-                  <li onclick="toggle('pre139977958412424', 'post139977958412424')"><pre></pre></li>
+                  <li onclick="toggle('pre139977958537096', 'post139977958537096')"><pre></pre></li>
                   
-                  <li onclick="toggle('pre139977958412424', 'post139977958412424')"><pre>                # Apply view middleware</pre></li>
+                  <li onclick="toggle('pre139977958537096', 'post139977958537096')"><pre>                # Apply view middleware</pre></li>
                   
-                  <li onclick="toggle('pre139977958412424', 'post139977958412424')"><pre>                for middleware_method in self._view_middleware:</pre></li>
+                  <li onclick="toggle('pre139977958537096', 'post139977958537096')"><pre>                for middleware_method in self._view_middleware:</pre></li>
                   
-                  <li onclick="toggle('pre139977958412424', 'post139977958412424')"><pre>                    response = middleware_method(request, callback, callback_args, callback_kwargs)</pre></li>
+                  <li onclick="toggle('pre139977958537096', 'post139977958537096')"><pre>                    response = middleware_method(request, callback, callback_args, callback_kwargs)</pre></li>
                   
               </ol>
               
@@ -241,10 +241,10 @@
           
             <div class="commands">
                 
-                    <a href="#" onclick="return varToggle(this, '139977958412424')"><span>&#x25b6;</span> Local vars</a>
+                    <a href="#" onclick="return varToggle(this, '139977958537096')"><span>&#x25b6;</span> Local vars</a>
                 
             </div>
-            <table class="vars" id="v139977958412424">
+            <table class="vars" id="v139977958537096">
               <thead>
                 <tr>
                   <th>Variable</th>
@@ -357,43 +357,43 @@
           <code>/usr/local/python/lib/python3.5/site-packages/django/core/urlresolvers.py</code> in <code>resolve</code>
 
           
-            <div class="context" id="c139977958415112">
+            <div class="context" id="c139977958537992">
               
-                <ol start="358" class="pre-context" id="pre139977958415112">
+                <ol start="358" class="pre-context" id="pre139977958537992">
                 
-                  <li onclick="toggle('pre139977958415112', 'post139977958415112')"><pre></pre></li>
+                  <li onclick="toggle('pre139977958537992', 'post139977958537992')"><pre></pre></li>
                 
-                  <li onclick="toggle('pre139977958415112', 'post139977958415112')"><pre>    def resolve(self, path):</pre></li>
+                  <li onclick="toggle('pre139977958537992', 'post139977958537992')"><pre>    def resolve(self, path):</pre></li>
                 
-                  <li onclick="toggle('pre139977958415112', 'post139977958415112')"><pre>        path = force_text(path)  # path may be a reverse_lazy object</pre></li>
+                  <li onclick="toggle('pre139977958537992', 'post139977958537992')"><pre>        path = force_text(path)  # path may be a reverse_lazy object</pre></li>
                 
-                  <li onclick="toggle('pre139977958415112', 'post139977958415112')"><pre>        tried = []</pre></li>
+                  <li onclick="toggle('pre139977958537992', 'post139977958537992')"><pre>        tried = []</pre></li>
                 
-                  <li onclick="toggle('pre139977958415112', 'post139977958415112')"><pre>        match = self.regex.search(path)</pre></li>
+                  <li onclick="toggle('pre139977958537992', 'post139977958537992')"><pre>        match = self.regex.search(path)</pre></li>
                 
-                  <li onclick="toggle('pre139977958415112', 'post139977958415112')"><pre>        if match:</pre></li>
+                  <li onclick="toggle('pre139977958537992', 'post139977958537992')"><pre>        if match:</pre></li>
                 
-                  <li onclick="toggle('pre139977958415112', 'post139977958415112')"><pre>            new_path = path[match.end():]</pre></li>
+                  <li onclick="toggle('pre139977958537992', 'post139977958537992')"><pre>            new_path = path[match.end():]</pre></li>
                 
                 </ol>
               
               <ol start="365" class="context-line">
-                <li onclick="toggle('pre139977958415112', 'post139977958415112')"><pre>
+                <li onclick="toggle('pre139977958537992', 'post139977958537992')"><pre>
                         for pattern in self.url_patterns:</pre> <span>...</span></li></ol>
               
-                <ol start='366' class="post-context" id="post139977958415112">
+                <ol start='366' class="post-context" id="post139977958537992">
                   
-                  <li onclick="toggle('pre139977958415112', 'post139977958415112')"><pre>                try:</pre></li>
+                  <li onclick="toggle('pre139977958537992', 'post139977958537992')"><pre>                try:</pre></li>
                   
-                  <li onclick="toggle('pre139977958415112', 'post139977958415112')"><pre>                    sub_match = pattern.resolve(new_path)</pre></li>
+                  <li onclick="toggle('pre139977958537992', 'post139977958537992')"><pre>                    sub_match = pattern.resolve(new_path)</pre></li>
                   
-                  <li onclick="toggle('pre139977958415112', 'post139977958415112')"><pre>                except Resolver404 as e:</pre></li>
+                  <li onclick="toggle('pre139977958537992', 'post139977958537992')"><pre>                except Resolver404 as e:</pre></li>
                   
-                  <li onclick="toggle('pre139977958415112', 'post139977958415112')"><pre>                    sub_tried = e.args[0].get(&#39;tried&#39;)</pre></li>
+                  <li onclick="toggle('pre139977958537992', 'post139977958537992')"><pre>                    sub_tried = e.args[0].get(&#39;tried&#39;)</pre></li>
                   
-                  <li onclick="toggle('pre139977958415112', 'post139977958415112')"><pre>                    if sub_tried is not None:</pre></li>
+                  <li onclick="toggle('pre139977958537992', 'post139977958537992')"><pre>                    if sub_tried is not None:</pre></li>
                   
-                  <li onclick="toggle('pre139977958415112', 'post139977958415112')"><pre>                        tried.extend([pattern] + t for t in sub_tried)</pre></li>
+                  <li onclick="toggle('pre139977958537992', 'post139977958537992')"><pre>                        tried.extend([pattern] + t for t in sub_tried)</pre></li>
                   
               </ol>
               
@@ -403,10 +403,10 @@
           
             <div class="commands">
                 
-                    <a href="#" onclick="return varToggle(this, '139977958415112')"><span>&#x25b6;</span> Local vars</a>
+                    <a href="#" onclick="return varToggle(this, '139977958537992')"><span>&#x25b6;</span> Local vars</a>
                 
             </div>
-            <table class="vars" id="v139977958415112">
+            <table class="vars" id="v139977958537992">
               <thead>
                 <tr>
                   <th>Variable</th>
@@ -449,43 +449,43 @@
           <code>/usr/local/python/lib/python3.5/site-packages/django/core/urlresolvers.py</code> in <code>url_patterns</code>
 
           
-            <div class="context" id="c139978002184968">
+            <div class="context" id="c139977958536712">
               
-                <ol start="394" class="pre-context" id="pre139978002184968">
+                <ol start="394" class="pre-context" id="pre139977958536712">
                 
-                  <li onclick="toggle('pre139978002184968', 'post139978002184968')"><pre>        except AttributeError:</pre></li>
+                  <li onclick="toggle('pre139977958536712', 'post139977958536712')"><pre>        except AttributeError:</pre></li>
                 
-                  <li onclick="toggle('pre139978002184968', 'post139978002184968')"><pre>            self._urlconf_module = import_module(self.urlconf_name)</pre></li>
+                  <li onclick="toggle('pre139977958536712', 'post139977958536712')"><pre>            self._urlconf_module = import_module(self.urlconf_name)</pre></li>
                 
-                  <li onclick="toggle('pre139978002184968', 'post139978002184968')"><pre>            return self._urlconf_module</pre></li>
+                  <li onclick="toggle('pre139977958536712', 'post139977958536712')"><pre>            return self._urlconf_module</pre></li>
                 
-                  <li onclick="toggle('pre139978002184968', 'post139978002184968')"><pre></pre></li>
+                  <li onclick="toggle('pre139977958536712', 'post139977958536712')"><pre></pre></li>
                 
-                  <li onclick="toggle('pre139978002184968', 'post139978002184968')"><pre>    @property</pre></li>
+                  <li onclick="toggle('pre139977958536712', 'post139977958536712')"><pre>    @property</pre></li>
                 
-                  <li onclick="toggle('pre139978002184968', 'post139978002184968')"><pre>    def url_patterns(self):</pre></li>
+                  <li onclick="toggle('pre139977958536712', 'post139977958536712')"><pre>    def url_patterns(self):</pre></li>
                 
-                  <li onclick="toggle('pre139978002184968', 'post139978002184968')"><pre>        # urlconf_module might be a valid set of patterns, so we default to it</pre></li>
+                  <li onclick="toggle('pre139977958536712', 'post139977958536712')"><pre>        # urlconf_module might be a valid set of patterns, so we default to it</pre></li>
                 
                 </ol>
               
               <ol start="401" class="context-line">
-                <li onclick="toggle('pre139978002184968', 'post139978002184968')"><pre>
+                <li onclick="toggle('pre139977958536712', 'post139977958536712')"><pre>
                     patterns = getattr(self.urlconf_module, &quot;urlpatterns&quot;, self.urlconf_module)</pre> <span>...</span></li></ol>
               
-                <ol start='402' class="post-context" id="post139978002184968">
+                <ol start='402' class="post-context" id="post139977958536712">
                   
-                  <li onclick="toggle('pre139978002184968', 'post139978002184968')"><pre>        try:</pre></li>
+                  <li onclick="toggle('pre139977958536712', 'post139977958536712')"><pre>        try:</pre></li>
                   
-                  <li onclick="toggle('pre139978002184968', 'post139978002184968')"><pre>            iter(patterns)</pre></li>
+                  <li onclick="toggle('pre139977958536712', 'post139977958536712')"><pre>            iter(patterns)</pre></li>
                   
-                  <li onclick="toggle('pre139978002184968', 'post139978002184968')"><pre>        except TypeError:</pre></li>
+                  <li onclick="toggle('pre139977958536712', 'post139977958536712')"><pre>        except TypeError:</pre></li>
                   
-                  <li onclick="toggle('pre139978002184968', 'post139978002184968')"><pre>            msg = (</pre></li>
+                  <li onclick="toggle('pre139977958536712', 'post139977958536712')"><pre>            msg = (</pre></li>
                   
-                  <li onclick="toggle('pre139978002184968', 'post139978002184968')"><pre>                &quot;The included urlconf &#39;{name}&#39; does not appear to have any &quot;</pre></li>
+                  <li onclick="toggle('pre139977958536712', 'post139977958536712')"><pre>                &quot;The included urlconf &#39;{name}&#39; does not appear to have any &quot;</pre></li>
                   
-                  <li onclick="toggle('pre139978002184968', 'post139978002184968')"><pre>                &quot;patterns in it. If you see valid patterns in the file then &quot;</pre></li>
+                  <li onclick="toggle('pre139977958536712', 'post139977958536712')"><pre>                &quot;patterns in it. If you see valid patterns in the file then &quot;</pre></li>
                   
               </ol>
               
@@ -495,10 +495,10 @@
           
             <div class="commands">
                 
-                    <a href="#" onclick="return varToggle(this, '139978002184968')"><span>&#x25b6;</span> Local vars</a>
+                    <a href="#" onclick="return varToggle(this, '139977958536712')"><span>&#x25b6;</span> Local vars</a>
                 
             </div>
-            <table class="vars" id="v139978002184968">
+            <table class="vars" id="v139977958536712">
               <thead>
                 <tr>
                   <th>Variable</th>
@@ -521,43 +521,43 @@
           <code>/usr/local/python/lib/python3.5/site-packages/django/core/urlresolvers.py</code> in <code>urlconf_module</code>
 
           
-            <div class="context" id="c139978002183688">
+            <div class="context" id="c139977958535624">
               
-                <ol start="388" class="pre-context" id="pre139978002183688">
+                <ol start="388" class="pre-context" id="pre139977958535624">
                 
-                  <li onclick="toggle('pre139978002183688', 'post139978002183688')"><pre>        raise Resolver404({&#39;path&#39;: path})</pre></li>
+                  <li onclick="toggle('pre139977958535624', 'post139977958535624')"><pre>        raise Resolver404({&#39;path&#39;: path})</pre></li>
                 
-                  <li onclick="toggle('pre139978002183688', 'post139978002183688')"><pre></pre></li>
+                  <li onclick="toggle('pre139977958535624', 'post139977958535624')"><pre></pre></li>
                 
-                  <li onclick="toggle('pre139978002183688', 'post139978002183688')"><pre>    @property</pre></li>
+                  <li onclick="toggle('pre139977958535624', 'post139977958535624')"><pre>    @property</pre></li>
                 
-                  <li onclick="toggle('pre139978002183688', 'post139978002183688')"><pre>    def urlconf_module(self):</pre></li>
+                  <li onclick="toggle('pre139977958535624', 'post139977958535624')"><pre>    def urlconf_module(self):</pre></li>
                 
-                  <li onclick="toggle('pre139978002183688', 'post139978002183688')"><pre>        try:</pre></li>
+                  <li onclick="toggle('pre139977958535624', 'post139977958535624')"><pre>        try:</pre></li>
                 
-                  <li onclick="toggle('pre139978002183688', 'post139978002183688')"><pre>            return self._urlconf_module</pre></li>
+                  <li onclick="toggle('pre139977958535624', 'post139977958535624')"><pre>            return self._urlconf_module</pre></li>
                 
-                  <li onclick="toggle('pre139978002183688', 'post139978002183688')"><pre>        except AttributeError:</pre></li>
+                  <li onclick="toggle('pre139977958535624', 'post139977958535624')"><pre>        except AttributeError:</pre></li>
                 
                 </ol>
               
               <ol start="395" class="context-line">
-                <li onclick="toggle('pre139978002183688', 'post139978002183688')"><pre>
+                <li onclick="toggle('pre139977958535624', 'post139977958535624')"><pre>
                         self._urlconf_module = import_module(self.urlconf_name)</pre> <span>...</span></li></ol>
               
-                <ol start='396' class="post-context" id="post139978002183688">
+                <ol start='396' class="post-context" id="post139977958535624">
                   
-                  <li onclick="toggle('pre139978002183688', 'post139978002183688')"><pre>            return self._urlconf_module</pre></li>
+                  <li onclick="toggle('pre139977958535624', 'post139977958535624')"><pre>            return self._urlconf_module</pre></li>
                   
-                  <li onclick="toggle('pre139978002183688', 'post139978002183688')"><pre></pre></li>
+                  <li onclick="toggle('pre139977958535624', 'post139977958535624')"><pre></pre></li>
                   
-                  <li onclick="toggle('pre139978002183688', 'post139978002183688')"><pre>    @property</pre></li>
+                  <li onclick="toggle('pre139977958535624', 'post139977958535624')"><pre>    @property</pre></li>
                   
-                  <li onclick="toggle('pre139978002183688', 'post139978002183688')"><pre>    def url_patterns(self):</pre></li>
+                  <li onclick="toggle('pre139977958535624', 'post139977958535624')"><pre>    def url_patterns(self):</pre></li>
                   
-                  <li onclick="toggle('pre139978002183688', 'post139978002183688')"><pre>        # urlconf_module might be a valid set of patterns, so we default to it</pre></li>
+                  <li onclick="toggle('pre139977958535624', 'post139977958535624')"><pre>        # urlconf_module might be a valid set of patterns, so we default to it</pre></li>
                   
-                  <li onclick="toggle('pre139978002183688', 'post139978002183688')"><pre>        patterns = getattr(self.urlconf_module, &quot;urlpatterns&quot;, self.urlconf_module)</pre></li>
+                  <li onclick="toggle('pre139977958535624', 'post139977958535624')"><pre>        patterns = getattr(self.urlconf_module, &quot;urlpatterns&quot;, self.urlconf_module)</pre></li>
                   
               </ol>
               
@@ -567,10 +567,10 @@
           
             <div class="commands">
                 
-                    <a href="#" onclick="return varToggle(this, '139978002183688')"><span>&#x25b6;</span> Local vars</a>
+                    <a href="#" onclick="return varToggle(this, '139977958535624')"><span>&#x25b6;</span> Local vars</a>
                 
             </div>
-            <table class="vars" id="v139978002183688">
+            <table class="vars" id="v139977958535624">
               <thead>
                 <tr>
                   <th>Variable</th>
@@ -593,43 +593,43 @@
           <code>/usr/local/python/lib/python3.5/importlib/__init__.py</code> in <code>import_module</code>
 
           
-            <div class="context" id="c139978002185544">
+            <div class="context" id="c139977958536328">
               
-                <ol start="119" class="pre-context" id="pre139978002185544">
+                <ol start="119" class="pre-context" id="pre139977958536328">
                 
-                  <li onclick="toggle('pre139978002185544', 'post139978002185544')"><pre>            msg = (&quot;the &#39;package&#39; argument is required to perform a relative &quot;</pre></li>
+                  <li onclick="toggle('pre139977958536328', 'post139977958536328')"><pre>            msg = (&quot;the &#39;package&#39; argument is required to perform a relative &quot;</pre></li>
                 
-                  <li onclick="toggle('pre139978002185544', 'post139978002185544')"><pre>                   &quot;import for {!r}&quot;)</pre></li>
+                  <li onclick="toggle('pre139977958536328', 'post139977958536328')"><pre>                   &quot;import for {!r}&quot;)</pre></li>
                 
-                  <li onclick="toggle('pre139978002185544', 'post139978002185544')"><pre>            raise TypeError(msg.format(name))</pre></li>
+                  <li onclick="toggle('pre139977958536328', 'post139977958536328')"><pre>            raise TypeError(msg.format(name))</pre></li>
                 
-                  <li onclick="toggle('pre139978002185544', 'post139978002185544')"><pre>        for character in name:</pre></li>
+                  <li onclick="toggle('pre139977958536328', 'post139977958536328')"><pre>        for character in name:</pre></li>
                 
-                  <li onclick="toggle('pre139978002185544', 'post139978002185544')"><pre>            if character != &#39;.&#39;:</pre></li>
+                  <li onclick="toggle('pre139977958536328', 'post139977958536328')"><pre>            if character != &#39;.&#39;:</pre></li>
                 
-                  <li onclick="toggle('pre139978002185544', 'post139978002185544')"><pre>                break</pre></li>
+                  <li onclick="toggle('pre139977958536328', 'post139977958536328')"><pre>                break</pre></li>
                 
-                  <li onclick="toggle('pre139978002185544', 'post139978002185544')"><pre>            level += 1</pre></li>
+                  <li onclick="toggle('pre139977958536328', 'post139977958536328')"><pre>            level += 1</pre></li>
                 
                 </ol>
               
               <ol start="126" class="context-line">
-                <li onclick="toggle('pre139978002185544', 'post139978002185544')"><pre>
+                <li onclick="toggle('pre139977958536328', 'post139977958536328')"><pre>
                 return _bootstrap._gcd_import(name[level:], package, level)</pre> <span>...</span></li></ol>
               
-                <ol start='127' class="post-context" id="post139978002185544">
+                <ol start='127' class="post-context" id="post139977958536328">
                   
-                  <li onclick="toggle('pre139978002185544', 'post139978002185544')"><pre></pre></li>
+                  <li onclick="toggle('pre139977958536328', 'post139977958536328')"><pre></pre></li>
                   
-                  <li onclick="toggle('pre139978002185544', 'post139978002185544')"><pre></pre></li>
+                  <li onclick="toggle('pre139977958536328', 'post139977958536328')"><pre></pre></li>
                   
-                  <li onclick="toggle('pre139978002185544', 'post139978002185544')"><pre>_RELOADING = {}</pre></li>
+                  <li onclick="toggle('pre139977958536328', 'post139977958536328')"><pre>_RELOADING = {}</pre></li>
                   
-                  <li onclick="toggle('pre139978002185544', 'post139978002185544')"><pre></pre></li>
+                  <li onclick="toggle('pre139977958536328', 'post139977958536328')"><pre></pre></li>
                   
-                  <li onclick="toggle('pre139978002185544', 'post139978002185544')"><pre></pre></li>
+                  <li onclick="toggle('pre139977958536328', 'post139977958536328')"><pre></pre></li>
                   
-                  <li onclick="toggle('pre139978002185544', 'post139978002185544')"><pre>def reload(module):</pre></li>
+                  <li onclick="toggle('pre139977958536328', 'post139977958536328')"><pre>def reload(module):</pre></li>
                   
               </ol>
               
@@ -639,10 +639,10 @@
           
             <div class="commands">
                 
-                    <a href="#" onclick="return varToggle(this, '139978002185544')"><span>&#x25b6;</span> Local vars</a>
+                    <a href="#" onclick="return varToggle(this, '139977958536328')"><span>&#x25b6;</span> Local vars</a>
                 
             </div>
-            <table class="vars" id="v139978002185544">
+            <table class="vars" id="v139977958536328">
               <thead>
                 <tr>
                   <th>Variable</th>
@@ -675,43 +675,35 @@
           <code>/app/daas/daas/urls.py</code> in <code>&lt;module&gt;</code>
 
           
-            <div class="context" id="c139978002183880">
+            <div class="context" id="c139978002194632">
               
-                <ol start="11" class="pre-context" id="pre139978002183880">
+                <ol start="16" class="pre-context" id="pre139978002194632">
                 
-                  <li onclick="toggle('pre139978002183880', 'post139978002183880')"><pre>    2. Add a URL to urlpatterns:  url(r&#39;^$&#39;, Home.as_view(), name=&#39;home&#39;)</pre></li>
+                  <li onclick="toggle('pre139978002194632', 'post139978002194632')"><pre>from django.contrib import admin</pre></li>
                 
-                  <li onclick="toggle('pre139978002183880', 'post139978002183880')"><pre>Including another URLconf</pre></li>
+                  <li onclick="toggle('pre139978002194632', 'post139978002194632')"><pre>from . import home</pre></li>
                 
-                  <li onclick="toggle('pre139978002183880', 'post139978002183880')"><pre>    1. Add a URL to urlpatterns:  url(r&#39;^blog/&#39;, include(&#39;blog.urls&#39;))</pre></li>
+                  <li onclick="toggle('pre139978002194632', 'post139978002194632')"><pre>from webapp import views</pre></li>
                 
-                  <li onclick="toggle('pre139978002183880', 'post139978002183880')"><pre>&quot;&quot;&quot;</pre></li>
+                  <li onclick="toggle('pre139978002194632', 'post139978002194632')"><pre></pre></li>
                 
-                  <li onclick="toggle('pre139978002183880', 'post139978002183880')"><pre>from django.conf.urls import include, url</pre></li>
+                  <li onclick="toggle('pre139978002194632', 'post139978002194632')"><pre>urlpatterns = [</pre></li>
                 
-                  <li onclick="toggle('pre139978002183880', 'post139978002183880')"><pre>from django.contrib import admin</pre></li>
+                  <li onclick="toggle('pre139978002194632', 'post139978002194632')"><pre>    url(r&#39;^$&#39;, home.index, name=&#39;index&#39;),</pre></li>
                 
-                  <li onclick="toggle('pre139978002183880', 'post139978002183880')"><pre>from . import home</pre></li>
+                  <li onclick="toggle('pre139978002194632', 'post139978002194632')"><pre>    url(r&#39;^api/v1/user/create$&#39;, views.create_user, name=&#39;user&#39;),</pre></li>
                 
                 </ol>
               
-              <ol start="18" class="context-line">
-                <li onclick="toggle('pre139978002183880', 'post139978002183880')"><pre>
-            from webapp import views</pre> <span>...</span></li></ol>
+              <ol start="23" class="context-line">
+                <li onclick="toggle('pre139978002194632', 'post139978002194632')"><pre>
+                url(r&#39;^api/v1/user/[0-9]*/$&#39;, views.inpsect_user),</pre> <span>...</span></li></ol>
               
-                <ol start='19' class="post-context" id="post139978002183880">
+                <ol start='24' class="post-context" id="post139978002194632">
                   
-                  <li onclick="toggle('pre139978002183880', 'post139978002183880')"><pre></pre></li>
+                  <li onclick="toggle('pre139978002194632', 'post139978002194632')"><pre>    (r&#39;^messages/&#39;, include(&#39;postman.urls&#39;, namespace=&#39;postman&#39;, app_name=&#39;postman&#39;)),</pre></li>
                   
-                  <li onclick="toggle('pre139978002183880', 'post139978002183880')"><pre>urlpatterns = [</pre></li>
-                  
-                  <li onclick="toggle('pre139978002183880', 'post139978002183880')"><pre>    url(r&#39;^$&#39;, home.index, name=&#39;index&#39;),</pre></li>
-                  
-                  <li onclick="toggle('pre139978002183880', 'post139978002183880')"><pre>    url(r&#39;^api/v1/user/create$&#39;, views.create_user, name=&#39;user&#39;),</pre></li>
-                  
-                  <li onclick="toggle('pre139978002183880', 'post139978002183880')"><pre>    url(r&#39;^api/v1/user/[0-9]*/$&#39;, views.inpsect_user),</pre></li>
-                  
-                  <li onclick="toggle('pre139978002183880', 'post139978002183880')"><pre>    (r&#39;^messages/&#39;, include(&#39;postman.urls&#39;, namespace=&#39;postman&#39;, app_name=&#39;postman&#39;)),</pre></li>
+                  <li onclick="toggle('pre139978002194632', 'post139978002194632')"><pre>]</pre></li>
                   
               </ol>
               
@@ -721,10 +713,10 @@
           
             <div class="commands">
                 
-                    <a href="#" onclick="return varToggle(this, '139978002183880')"><span>&#x25b6;</span> Local vars</a>
+                    <a href="#" onclick="return varToggle(this, '139978002194632')"><span>&#x25b6;</span> Local vars</a>
                 
             </div>
-            <table class="vars" id="v139978002183880">
+            <table class="vars" id="v139978002194632">
               <thead>
                 <tr>
                   <th>Variable</th>
@@ -758,7 +750,7 @@
                 
                   <tr>
                     <td>__spec__</td>
-                    <td class="code"><pre>ModuleSpec(name=&#39;daas.urls&#39;, loader=&lt;_frozen_importlib_external.SourceFileLoader object at 0x7f4f2b188ef0&gt;, origin=&#39;/app/daas/daas/urls.py&#39;)</pre></td>
+                    <td class="code"><pre>ModuleSpec(name=&#39;daas.urls&#39;, loader=&lt;_frozen_importlib_external.SourceFileLoader object at 0x7f4f2b193588&gt;, origin=&#39;/app/daas/daas/urls.py&#39;)</pre></td>
                   </tr>
                 
                   <tr>
@@ -774,26 +766,6 @@
                   <tr>
                     <td>url</td>
                     <td class="code"><pre>&lt;function url at 0x7f4f294eaa60&gt;</pre></td>
-                  </tr>
-                
-                  <tr>
-                    <td>__name__</td>
-                    <td class="code"><pre>&#39;daas.urls&#39;</pre></td>
-                  </tr>
-                
-                  <tr>
-                    <td>__loader__</td>
-                    <td class="code"><pre>&lt;_frozen_importlib_external.SourceFileLoader object at 0x7f4f2b188ef0&gt;</pre></td>
-                  </tr>
-                
-                  <tr>
-                    <td>home</td>
-                    <td class="code"><pre>&lt;module &#39;daas.home&#39; from &#39;/app/daas/daas/home.py&#39;&gt;</pre></td>
-                  </tr>
-                
-                  <tr>
-                    <td>__file__</td>
-                    <td class="code"><pre>&#39;/app/daas/daas/urls.py&#39;</pre></td>
                   </tr>
                 
                   <tr>
@@ -899,6 +871,31 @@ Copyright (c) 2000 BeOpen.co... &lt;trimmed 6485 bytes string&gt;</pre></td>
                   </tr>
                 
                   <tr>
+                    <td>__loader__</td>
+                    <td class="code"><pre>&lt;_frozen_importlib_external.SourceFileLoader object at 0x7f4f2b193588&gt;</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>home</td>
+                    <td class="code"><pre>&lt;module &#39;daas.home&#39; from &#39;/app/daas/daas/home.py&#39;&gt;</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>views</td>
+                    <td class="code"><pre>&lt;module &#39;webapp.views&#39; from &#39;/app/daas/webapp/views.py&#39;&gt;</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>__file__</td>
+                    <td class="code"><pre>&#39;/app/daas/daas/urls.py&#39;</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>__name__</td>
+                    <td class="code"><pre>&#39;daas.urls&#39;</pre></td>
+                  </tr>
+                
+                  <tr>
                     <td>admin</td>
                     <td class="code"><pre>&lt;module &#39;django.contrib.admin&#39; from &#39;/usr/local/python/lib/python3.5/site-packages/django/contrib/admin/__init__.py&#39;&gt;</pre></td>
                   </tr>
@@ -916,7 +913,7 @@ Copyright (c) 2000 BeOpen.co... &lt;trimmed 6485 bytes string&gt;</pre></td>
   <div id="pastebinTraceback" class="pastebin">
     <input type="hidden" name="language" value="PythonConsole">
     <input type="hidden" name="title"
-      value="SyntaxError at /api/v1/user/2/">
+      value="AttributeError at /api/v1/user/2/">
     <input type="hidden" name="source" value="Django Dpaste Agent">
     <input type="hidden" name="poster" value="Django">
     <textarea name="content" id="traceback_area" cols="140" rows="25">
@@ -959,10 +956,10 @@ File "/usr/local/python/lib/python3.5/site-packages/django/core/urlresolvers.py"
 File "/usr/local/python/lib/python3.5/importlib/__init__.py" in import_module
   126.     return _bootstrap._gcd_import(name[level:], package, level)
 File "/app/daas/daas/urls.py" in &lt;module&gt;
-  18. from webapp import views
+  23.     url(r&#39;^api/v1/user/[0-9]*/$&#39;, views.inpsect_user),
 
-Exception Type: SyntaxError at /api/v1/user/2/
-Exception Value: invalid syntax (views.py, line 19)
+Exception Type: AttributeError at /api/v1/user/2/
+Exception Value: module &#39;webapp.views&#39; has no attribute &#39;inpsect_user&#39;
 </textarea>
   <br><br>
   <input type="submit" value="Share this traceback on a public Web site">
