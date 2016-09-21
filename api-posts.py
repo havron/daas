@@ -42,5 +42,9 @@ def updateDrone(model_name, drone_desc, demo_link, permissions, owner_email,
     #available_for_hire = models.BooleanField()
 
 ###### MAKE POST REQUEST CALLS HERE ######################
-makeNewDrone("6oreo", "black and white, best drone ever", "http://www.2sly4u.com", "can do everything",
- "cooldude@awesome.net", "datetime.date.today().isoformat()", 56.6, "ready to roll", True)
+makeNewDrone("awesome drone name", "black and white, best drone ever", "http://www.2sly4u.com", "can do everything",
+ "cooldude@awesome.net", "the date! just a string for now", 56.6, "ready to roll", True)
+
+
+### make calls to the other methods for simple POST request management : the fields are 
+# all strings at the moment, so you can fill them with dummy values.
