@@ -15,80 +15,33 @@ class UserForm(ModelForm):
         fields = ['username', 'password', 'email_address']
 
 def inspect_user(request):
-	user = int(os.path.basename(os.path.normpath(request.path)))
-	print(user)
-	print(type(user))
-	for u in User.objects.all():
-		print(u)
-	try: 
-		obj= User.objects.get(pk=user)
-		
-		print(obj)
-		
-	except ObjectDoesNotExist as e:
-		return HttpResponse('user does not exist')
-	
+  user_id = os.path.basename(os.path.normpath(request.path))
+  try: 
+    user = User.objects.get(pk=user_id)
+  except ObjectDoesNotExist as e:
+    return HttpResponse('%s does not exist' % user_id)
 
-	print(obj)
-	if request.method == 'GET':
-		print(request.GET)
-		return HttpResponse('way to GET it')
-	else: 
-		return HttpReponse('go GET em tiger')
+  if request.method == 'GET':
+    return HttpResponse(json.dumps(user.to_json()), content_type="application/json")
+  else: # POST request
+    form = UserForm(request.POST, instance=user) # magically updates the fields!
+    if form.is_valid():
+      user.save()
+    else:
+      return HttpResponse(form.errors)
+    return HttpResponse(json.dumps(user.to_json()), content_type="application/json")
 
 def create_user(request):
-    dictionary = {}
     if request.method == 'POST':
-        #print(request.POST)
-        #create a form to add an article
         form = UserForm(request.POST)
-        
-        
-        #print(request.POST)
-        for key in request.POST:
-
-          #print(key)
-          #print (1)
-          v = request.POST[key]
-          #print(v)
         if form.is_valid():
-            print ("VALID!")
-            try:
-                new_user = form.save(commit='false')
-
-                print (new_user)
-                #new_user.username = 'bob'
-                new_user.save()
-                users = User.objects.all().order_by('username')
-                print (users)
-                for u in User.objects.all():
-                  u.delete()
-                print (users)
-
-
-
-         #       print(type(new_user))
-
-         #       print("form looks like:")
-        #        print(form)
-                
-                dictionary = form
-
-                #u = models.User(username=request.POST['username'],
-                #         password=request.POST['password'],
-                #         email_address=request.POST['email_address'])
-                #u.save()
-                # return JsonResponse()
-                return HttpResponse(json.dumps(new_user.to_json()), content_type="application/json")
-
-            except IntegrityError as e:
-                return HttpResponse("problem saving data")
+          try:
+            new_user = form.save(commit='false')
+            new_user.save()
+            return HttpResponse(json.dumps(new_user.to_json()), content_type="application/json")
+          except IntegrityError as e:
+              return HttpResponse("problem saving data")
         else:
-            for u in User.objects.all():
-              u.delete()
-            print ("NOOOOOOOOOOOOOOOOOOO VALID!")
-            #print (form)
-            # print (form.errors)
             return HttpResponse(form.errors)
     else:
-        return HttpResponse("not working")
+        return HttpResponse("%s is not a valid request method. Use a POST request instead!" % request.method)
