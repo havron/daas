@@ -8,7 +8,9 @@ class User(models.Model):
     password = models.CharField(max_length=50) # will change to Django hash
     email_address = models.EmailField()
 
-    def to_json(self):
+
+    # POST APIs are in ../api-posts.py
+    def to_json(self): 
       return dict(
         username = self.username,
         password = self.password,
@@ -21,7 +23,7 @@ class User(models.Model):
 	
     #TODO jobs #(list of all Job objects that belong to the user)
 
-'''
+''' our future plans.... :-) stay tuned!
 # Host subclass extends from User class
 class Host(models.Model):
 
@@ -54,6 +56,8 @@ class Drone(models.Model):
     # host = models.ForeignKey(Host, on_delete=models.CASCADE)
     #TODO location (tuple(float, float))
     # picture = models.ImageField() (image format)
+
+    # POST APIs are in ../api-posts.py
     def to_json(self):
       return dict(
         model_name = self.model_name,
@@ -71,7 +75,7 @@ class Drone(models.Model):
     def __str__(self):
       return "Drone model name is %s, description is %s, id number is %s" % (self.model_name, self.drone_desc, self.id)
 
-'''
+''' more future plans for our marketplace...
 # [all of the subprocesses happening between client wanting a drone and drone returning to owner]
 class Jobs(models.Model):
     transaction_id = models.CharField()
