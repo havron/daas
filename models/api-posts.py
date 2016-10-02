@@ -42,8 +42,14 @@ def updateDrone(model_name, drone_desc, demo_link, permissions, owner_email,
     #available_for_hire = models.BooleanField()
 
 ###### MAKE POST REQUEST CALLS HERE ######################
-makeNewDrone("awesome drone name", "black and white, best drone ever", "http://www.2sly4u.com", "can do everything",
- "cooldude@awesome.net", "the date! just a string for now", 56.6, "ready to roll", True)
+
+# do not run unless you have flushed the database.
+for i in range(0,100):
+  makeNewUser("user"+str(i),"password"+str(i),"email"+str(i)+"@email.com")
+
+for i in range(0,100):
+  makeNewDrone("model"+str(i),"description"+str(i),"http://demolink"+str(i)+".com","permissions"+str(i),"owneremail"+str(i)+"@email.com",
+  "lastcheckedout"+str(i), i,"maintenancestatus"+str(i),True)
 
 
 ### make calls to the other methods for simple POST request management : the fields are 
