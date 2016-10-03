@@ -10,10 +10,12 @@ To check out our project locally:
 
 3. clone our repository `git clone https://github.com/samuelhavron/daas.git`
 
-4. create a `mySQL` database, [following these
+4. this is the tricky part: you need to create a `mySQL` database with `docker`
+and initialize it properly, [following these
 instructions](https://github.com/thomaspinckney3/cs4501/blob/master/Project1.md).
-you need to hard-code in the password to match our [models db
-connection](https://github.com/samuelhavron/daas/blob/master/models/models/settings.py#L75-L83) 
+hard-code in the password to match our [models db
+connection](https://github.com/samuelhavron/daas/blob/master/models/models/settings.py#L75-L83).
+ensure the directories you are using are consistent with your local paths.
 
 5. `cd daas` and run `docker-compose up`
 
