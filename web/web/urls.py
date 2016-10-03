@@ -24,5 +24,14 @@ urlpatterns = [
     #url(r'^admin/', include(admin.site.urls)),
     #url(r'^$', home.index, name='index'),
     url(r'^$', views.index, name='index'),
-    url(r'^login$', views.login, name='login'),
+    url(r'^login/$', views.login, name='login'),
+    url(r'^checkout/$', views.checkout, name='checkout'),
+    url(r'^cart/$', views.cart, name='cart'),
+    url(r'^shop/$', views.shop, name='shop'),
+    url(r'^product-details/$', views.productdetails, name='product-details'),
+    url(r'^blog/$', views.blog, name='blog'),
+    url(r'^blog-single/$', views.blogsingle, name='blog-single'),
+    url(r'^t404/$', views.t404, name='t404'),
+    url(r'^contact-us/$', views.contactus, name='contact-us'),
 ] # + staticfiles_urlpatterns()
+
