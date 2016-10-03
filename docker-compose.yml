@@ -6,7 +6,7 @@ models: # PORT 8002
       - ./models/:/app
     ports:
       - "8002:8000"
-    command: bash -c "python /app/manage.py migrate && python /app/manage.py makemigrations && pip install --upgrade requests && pip install --upgrade urllib3 && python /app/manage.py loaddata /app/db.json && mod_wsgi-express start-server --reload-on-changes /app/models/wsgi.py"
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && pip install --upgrade requests && pip install --upgrade urllib3 && python manage.py loaddata db.json && mod_wsgi-express start-server --reload-on-changes ./models/wsgi.py"
 
 exp: # PORT 8001
     image: tp33/django
