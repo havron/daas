@@ -1,6 +1,9 @@
 ## drones as a service (daas)
 Welcome! This repository is home to a daas marketplace, with a catch: user
-reputations are stored in a block-chain.
+reputations are stored in a block-chain. The marketplace is built on 4
+dockerized (isolated Linux VMs) tiers: a `mySQL` database, a models/entity API,
+an experience service API, and a bootstrap-powered HTML front-end (the latter
+three built with `django`).
 
 To check out our project locally:
 
@@ -15,7 +18,9 @@ and initialize it properly, [following these
 instructions](https://github.com/thomaspinckney3/cs4501/blob/master/Project1.md).
 hard-code in the password to match our [models db
 connection](https://github.com/samuelhavron/daas/blob/master/models/models/settings.py#L75-L83).
-ensure the directories you are using are consistent with your local paths.
+ensure the directories you are using are consistent with your local paths. once
+your db is set-up, it will be pre-loaded with fixtures (test/dummy data), so you
+can interact with a "living" site.
 
 5. `cd daas` and run `docker-compose up`
 
