@@ -13,11 +13,15 @@ Including another URLconf
     1. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import include, url
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib import admin
 from . import home
 from daasapp import views
 
 urlpatterns = [
     #url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', home.index, name='index'),
-]
+    #url(r'^$', home.index, name='index'),
+    url(r'^$', views.index),
+] # + staticfiles_urlpatterns()
