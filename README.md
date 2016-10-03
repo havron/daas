@@ -35,3 +35,8 @@ APIs are at `http://localhost:8001` and the entity/model APIs are at
 `http://localhost:8002`.
 
 7. questions? contact us: `{mdk6jd, jat9kf, sgh7cc} @ virginia.edu`
+
+### usage notes
+* if any of the `django` containers exit when you stand them up, run `touch 
+<container_name>/<container_name>/wsgi.py` to modify their timestamp and force
+`docker` to reload them.
