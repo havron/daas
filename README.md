@@ -23,7 +23,8 @@ instructions](https://github.com/thomaspinckney3/cs4501/blob/master/Project1.md)
 hard-code in the password to match our [models db
 connection](https://github.com/samuelhavron/daas/blob/master/models/models/settings.py#L75-L83).
 ensure the directories you are using are consistent with your local paths. once
-your db is set-up, it will be pre-loaded with fixtures (test/dummy data), so you
+your db is setup, it will be pre-loaded with fixtures (test/dummy data) when you
+stand the docker containers up -- so you
 can interact with a "living" site.
 
 5. `cd daas` and run `docker-compose up`
