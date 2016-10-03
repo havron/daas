@@ -1,4 +1,4 @@
-"""market URL Configuration
+"""models URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.8/topics/http/urls/
@@ -14,15 +14,28 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from . import home
-from webapp import views
+from daasapp import views
+from . import home, apiposts
 
 urlpatterns = [
-    url(r'^$', home.index, name='index'),
-    url(r'^api/v1/user/create$', views.create_user, name='user'),
-    url(r'^api/v1/user/all$', views.all_user, name='user'),
-    url(r'^api/v1/user/[0-9]*$', views.inspect_user),
+    #url(r'^admin/', include(admin.site.urls)),
+    url(r'^$', home.index),
+    url(r'^api/v1/populate$', apiposts.populate),
+
+    url(r'^api/v1/user/create$', views.create_user),
+    url(r'^api/v1/user/all$', views.all_users),
+    url(r'^api/v1/user/recent_givers$', views.recent_givers),
+    url(r'^api/v1/user/(?P<user_id>\d+)/updater$', apiposts.updateUser),
+    url(r'^api/v1/user/(?P<user_id>\d+)/update$', views.update_user),
+    url(r'^api/v1/user/(?P<user_id>\d+)$', views.inspect_user),
+
     url(r'^api/v1/drone/create$', views.create_drone, name='drone'),
-    url(r'^api/v1/drone/all$', views.all_drone, name='drone'),
-    url(r'^api/v1/drone/[0-9]*$', views.inspect_drone),
+    url(r'^api/v1/drone/all$', views.all_drones, name='drone'),
+    url(r'^api/v1/drone/recent$', views.recent_drones),
+    url(r'^api/v1/drone/(?P<drone_id>\d+)/updater$', apiposts.updateDrone),
+    url(r'^api/v1/drone/(?P<drone_id>\d+)/update$', views.update_drone),
+    url(r'^api/v1/drone/(?P<drone_id>\d+)$', views.inspect_drone),
 ]
+
+# more on how ?P<> works:
+# https://www.webforefront.com/django/accessurlparamsviewmethods.html 

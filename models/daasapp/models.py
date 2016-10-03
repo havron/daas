@@ -7,23 +7,33 @@ class User(models.Model):
     username = models.CharField(max_length=50, unique=True)
     password = models.CharField(max_length=50) # will change to Django hash
     email_address = models.EmailField()
+    date_joined = models.DateTimeField()
+    is_active = models.BooleanField()
+    f_name = models.CharField(max_length=16)
+    l_name = models.CharField(max_length=16)
 
-
-    # POST APIs are in ../api-posts.py
     def to_json(self): 
       return dict(
         username = self.username,
         password = self.password,
         email_address = self.email_address,
-      	user_id = self.id
+      	date_joined = self.date_joined,
+        is_active = self.is_active,
+        f_name = self.f_name,
+        l_name = self.l_name,
+        user_id = self.id
       )
+    
+    def __unicode__(self):
+      return self.id
 
     def __str__(self):
-      return "Username is %s, password is %s, email address is %s" % (self.username, self.password, self.email_address)
+      return "ID is %s, Username is %s, password is %s, email address is %s" % (self.id, self.username, self.password, self.email_address)
 	
     #TODO jobs #(list of all Job objects that belong to the user)
 
-''' our future plans.... :-) stay tuned!
+''' 
+our future plans.... :-) stay tuned!
 # Host subclass extends from User class
 class Host(models.Model):
 
@@ -48,12 +58,12 @@ class Drone(models.Model):
     demo_link = models.URLField() # (link to photo gallery or videos)
     permissions = models.CharField(max_length=50)
     owner_email = models.EmailField()
-    last_checked_out = models.TextField()
-    #last_checked_out = models.DateTimeField()
     battery_level = models.FloatField()
     maintenance_status = models.TextField()
     available_for_hire = models.BooleanField()
-    # host = models.ForeignKey(Host, on_delete=models.CASCADE)
+    owner = models.ForeignKey('User')
+    last_checked_out = models.DateTimeField() 
+    
     #TODO location (tuple(float, float))
     # picture = models.ImageField() (image format)
 
@@ -65,15 +75,19 @@ class Drone(models.Model):
         demo_link = self.demo_link,
       	permissions = self.permissions,
         owner_email = self.owner_email,
-        last_checked_out = self.last_checked_out,
         battery_level = self.battery_level,
         maintenance_status = self.maintenance_status,
         available_for_hire = self.available_for_hire,
+        owner = self.owner.to_json(), # need to serialize the foreignkey object
+        last_checked_out = self.last_checked_out,
         drone_id = self.id
       )
 
     def __str__(self):
       return "Drone model name is %s, description is %s, id number is %s" % (self.model_name, self.drone_desc, self.id)
+
+    def __unicode__(self):
+      return self.id
 
 ''' more future plans for our marketplace...
 # [all of the subprocesses happening between client wanting a drone and drone returning to owner]

@@ -20,30 +20,32 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '=bc^#2$lt3bcro9j8&o%@$!2g23a*30rgj3i-@-8)3^gizea_l'
+SECRET_KEY = 'v7mj=1j*#fuyy0h-3lu9d(f2wjq(^fxmwjiu&c#fr0ow06w(am'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
+APPEND_SLASH = True
+PREPEND_WWW = False
 
 # Application definition
 
 INSTALLED_APPS = (
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'webapp',
+    #'django.contrib.admin',
+    #'django.contrib.auth',
+    #'django.contrib.contenttypes',
+    #'django.contrib.sessions',
+    #'django.contrib.messages',
+    #'django.contrib.staticfiles',
+    'daasapp',
 )
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    #'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -76,13 +78,6 @@ WSGI_APPLICATION = 'exp.wsgi.application'
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-     'ENGINE': 'mysql.connector.django',
-     'NAME': 'cs4501',
-     'USER': 'www',
-     'PASSWORD': '$3cureUS',
-     'HOST': 'db',
-    }
 }
 
 
@@ -104,6 +99,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
-
-# what does this doe???????????
-#POSTMAN_AUTO_MODERATE_AS = Ture
