@@ -15,3 +15,9 @@ touch:
 
 run: touch
 	sudo docker-compose up
+
+hardrun: 
+	sudo docker rm app_web_1
+	sudo docker rm app_models_1
+	sudo docker rm app_exp_1
+	make run
