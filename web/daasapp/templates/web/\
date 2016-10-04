@@ -1,17 +1,9 @@
 {% extends 'base.html' %}	
 {% load staticfiles %}
 {% block title_block %} daas home {% endblock %}
-{% block headtag_block %}
-    <link href="{% static "css/glow.css" %}" rel="stylesheet">
-{% endblock %}
 {% block body_block %}
-
-
 	<section id="slider"><!--slider-->
 		<div class="container">
-<a class="glow" href="{% url 'lets-grade' %}">ISA TAs, click here for project 3 navigation stuffs!</a>
-<br> <br>
-<!-- <button type="submit" class="button">Click me!</button> -->
 			<div class="row">
 				<div class="col-sm-12">
 					<div id="slider-carousel" class="carousel slide" data-ride="carousel">
@@ -26,7 +18,7 @@
 								<div class="col-sm-6">
 									<h1><span>Drones.</span> Find yours.</h1>
 									<h2>Welcome to DAAS market!</h2>
-									<p>the cooliest drones ever, all for you. <span style ="color:blue">want a tank?</span> you got it! <span style ="color:blue">need to survey some land?</span> easy. <span style ="color:blue">gotta move?</span> schedule a swarm :-) </p>
+									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
 									<button type="button" class="btn btn-default get">Get it now</button>
 								</div>
 								<div class="col-sm-6">
@@ -38,7 +30,7 @@
 								<div class="col-sm-6">
 									<h1><span>Drones.</span> Lend yours.</h1>
 									<h2>Welcome to DAAS market!</h2>
-									<p>the cooliest drones ever, all for you. <span style ="color:blue">want a tank?</span> you got it! <span style ="color:blue">need to survey some land?</span> easy. <span style ="color:blue">gotta move?</span> schedule a swarm :-)  </p>
+									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
 									<button type="button" class="btn btn-default get">Get it now</button>
 								</div>
 								<div class="col-sm-6">
@@ -51,7 +43,7 @@
 								<div class="col-sm-6">
 									<h1><span><strike>Drones</strike> Pugs.</span> At your service.</h1>
 									<h2>Welcome to DAAS market!</h2>
-									<p>the cooliest drones ever, all for you. <span style ="color:blue">want a tank?</span> you got it! <span style ="color:blue">need to survey some land?</span> easy. <span style ="color:blue">gotta move?</span> schedule a swarm :-) </p>
+									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
 									<button type="button" class="btn btn-default get">Get it now</button>
 								</div>
 								<div class="col-sm-6">
@@ -227,13 +219,13 @@
 										<div class="productinfo text-center">
 											<img src="{% static "images/home/drone.jpg" %}" alt="" />
 											<h2>$56</h2>
-											<p>Go-Pro Drones!</p>
+											<p>Easy Polo Black Edition</p>
 											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 										</div>
 										<div class="product-overlay">
 											<div class="overlay-content">
 												<h2>$56</h2>
-												<p>Polo Black Edition</p>
+												<p>Easy Polo Black Edition</p>
 												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
 										</div>
@@ -252,7 +244,7 @@
 									<div class="productinfo text-center">
 										<img src="{% static "images/home/storm.png" %}" alt="" />
 										<h2>$56</h2>
-										<p>Our best Stormtroopers</p>
+										<p>Easy Polo Black Edition</p>
 										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 									</div>
 									<div class="product-overlay">
@@ -275,9 +267,9 @@
 							<div class="product-image-wrapper">
 								<div class="single-products">
 									<div class="productinfo text-center">
-										<img src="{% static "images/home/nano-drone.jpg" %}" alt="" />
+										<img src="{% static "images/home/product3.jpg" %}" alt="" />
 										<h2>$56</h2>
-										<p>K3WL nano-drones</p>
+										<p>Easy Polo Black Edition</p>
 										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 									</div>
 									<div class="product-overlay">

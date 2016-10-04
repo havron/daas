@@ -51,6 +51,11 @@ def hi(request):
   print(resp)
   return render(request, 'web/hi.html', resp)
 
+
+def letsgrade(request):
+  context = {} # can send dictionary values (results of api calls) to the template
+  return render(request, 'web/lets-grade.html', context)
+
 ###
 #    url(r'^checkout/$', views.checkout, name='checkout'),
 #    url(r'^cart/$', views.cart, name='cart'),
