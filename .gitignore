@@ -4,3 +4,4 @@ __pycache__
 *.pot
 *.py[co]
 .tox/
+./web/staticfiles/*
