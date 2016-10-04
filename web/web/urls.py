@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^checkout/$', views.checkout, name='checkout'),
     url(r'^cart/$', views.cart, name='cart'),
     url(r'^shop/$', views.shop, name='shop'),
+    url(r'^product-details/(?P<drone_id>\d+)/$', views.productdetails, name='product-details'),
     url(r'^product-details/$', views.productdetails, name='product-details'),
     url(r'^blog/$', views.blog, name='blog'),
     url(r'^blog-single/$', views.blogsingle, name='blog-single'),
