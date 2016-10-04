@@ -32,6 +32,7 @@ urlpatterns = [
     url(r'^blog/$', views.blog, name='blog'),
     url(r'^blog-single/$', views.blogsingle, name='blog-single'),
     url(r'^t404/$', views.t404, name='t404'),
+    url(r'^hi/$', views.hi, name='hi'),
     url(r'^contact-us/$', views.contactus, name='contact-us'),
 ] # + staticfiles_urlpatterns()
 

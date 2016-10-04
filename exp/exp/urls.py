@@ -20,4 +20,6 @@ from daasapp import views
 urlpatterns = [
     #url(r'^admin/', include(admin.site.urls)),
     url(r'^$', home.index, name='index'),
+    url(r'^hi/$', views.hi, name='hi'),
 ]
+

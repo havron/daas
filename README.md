@@ -1,7 +1,7 @@
 ## drones as a service (daas)
 Welcome! This repository is home to a daas marketplace, with a catch: user
 reputations are stored in a block-chain. The marketplace is built on 4
-dockerized (isolated Linux VMs) tiers: a `mySQL` database, a models/entity API,
+dockerized (isolated Linux containers) tiers: a `mySQL` database, a models/entity API,
 an experience service API, and a bootstrap-powered HTML front-end (the latter
 three built on separate `django` projects). The tiers interact via `http/json`
 requests and

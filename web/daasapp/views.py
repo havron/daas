@@ -1,4 +1,7 @@
 from django.shortcuts import render
+import urllib.request
+import urllib.parse
+import json
 
 def index(request):
   context = {} # can send dictionary values (results of api calls) to the template
@@ -38,6 +41,15 @@ def t404(request):
 def contactus(request):
   context = {} # can send dictionary values (results of api calls) to the template
   return render(request, 'web/contact-us.html', context)
+
+def hi(request):
+  context = {} # can send dictionary values (results of api calls) to the template
+  print ("About to do the GET...")
+  req = urllib.request.Request('http://exp-api:8000/hi')
+  resp_json = urllib.request.urlopen(req).read().decode('utf-8')
+  resp = json.loads(resp_json)
+  print(resp)
+  return render(request, 'web/hi.html', resp)
 
 ###
 #    url(r'^checkout/$', views.checkout, name='checkout'),
