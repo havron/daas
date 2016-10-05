@@ -63,6 +63,7 @@ def letsgrade(request):
 def productdetails(request, drone_id=None): # allow conditional params
 
   resp = {}
+  resp2 = {}
   if drone_id:
     req = urllib.request.Request('http://exp-api:8000/product-details/'+drone_id)
     resp_json = urllib.request.urlopen(req).read().decode('utf-8')
@@ -71,10 +72,12 @@ def productdetails(request, drone_id=None): # allow conditional params
     if resp['resp']['ok'] == False:
       return render(request, 'web/t404.html', resp)
     
-    resp = resp['resp']
+    resp2 = resp['resp']
+    t = arrow.get(resp2['resp']['last_checked_out'])
+    resp2['resp']['last_checked_out'] = str(t.format('D MMMM, YYYY') + " at " + t.format('h:mma'))
 
 
-  return render(request, 'web/product-details.html', resp)
+  return render(request, 'web/product-details.html', resp2)
 
 def userprofile(request, user_id=None): # allow conditional params
 
@@ -89,10 +92,7 @@ def userprofile(request, user_id=None): # allow conditional params
       return render(request, 'web/t404.html', resp)
     
     resp2 = resp['resp']
-    print(resp2['resp']['date_joined'])
-    
     t = arrow.get(resp2['resp']['date_joined'])
-    
     resp2['resp']['date_joined'] = str(t.format('D MMMM, YYYY') + " at " + t.format('h:mma'))
 
   return render(request, 'web/userprofile.html', resp2)

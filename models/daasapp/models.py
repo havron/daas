@@ -4,13 +4,14 @@ import datetime
 
 # User superclass
 class User(models.Model):
-    username = models.CharField(max_length=50, unique=True)
+    username = models.CharField(max_length=65, unique=True)
     password = models.CharField(max_length=50) # will change to Django hash
     email_address = models.EmailField()
     date_joined = models.DateTimeField()
     is_active = models.BooleanField()
     f_name = models.CharField(max_length=16)
     l_name = models.CharField(max_length=16)
+    bio = models.TextField()
 
     def to_json(self): 
       return dict(
@@ -21,6 +22,7 @@ class User(models.Model):
         is_active = self.is_active,
         f_name = self.f_name,
         l_name = self.l_name,
+        bio = self.bio,
         user_id = self.id
       )
     
@@ -56,7 +58,7 @@ class Drone(models.Model):
     model_name = models.CharField(max_length=50)
     drone_desc = models.TextField()
     demo_link = models.URLField() # (link to photo gallery or videos)
-    permissions = models.CharField(max_length=50)
+    permissions = models.TextField()
     owner_email = models.EmailField()
     battery_level = models.FloatField()
     maintenance_status = models.TextField()

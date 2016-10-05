@@ -14,8 +14,11 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+import daasapp
 from daasapp import views
 from . import home, apiposts
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     #url(r'^admin/', include(admin.site.urls)),
@@ -35,7 +38,11 @@ urlpatterns = [
     url(r'^api/v1/drone/(?P<drone_id>\d+)/updater$', apiposts.updateDrone),
     url(r'^api/v1/drone/(?P<drone_id>\d+)/update$', views.update_drone),
     url(r'^api/v1/drone/(?P<drone_id>\d+)$', views.inspect_drone),
-]
+] #+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
+from django.contrib.staticfiles import views
+urlpatterns += [
+  url(r'^/daasapp/static/(?P<path>.*)$', views.serve),
+]
 # more on how ?P<> works:
 # https://www.webforefront.com/django/accessurlparamsviewmethods.html 

@@ -11,12 +11,12 @@ from . import models
 class UserForm(ModelForm): 
     class Meta:
         model = models.User
-        fields = ['username', 'password', 'email_address','date_joined','is_active','f_name','l_name']
+        fields = ['username', 'password', 'email_address','date_joined','is_active','f_name','l_name', 'bio']
 
 class UpdateUserForm(ModelForm): 
     class Meta:
         model = models.User
-        fields = ['password', 'email_address','is_active','f_name','l_name']
+        fields = ['password', 'email_address','is_active','f_name','l_name', 'bio']
 
 
 class DroneForm(ModelForm): # currently not using this form ... see create_drone()
