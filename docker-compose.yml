@@ -25,4 +25,4 @@ web: # PORT 8000
       - ./web/:/app
     ports:
       - "8000:8000"
-    command: bash -c "pip install whitenoise --upgrade && python manage.py collectstatic --noinput && mod_wsgi-express start-server --reload-on-changes ./web/wsgi.py"
+    command: bash -c "pip install whitenoise --upgrade && pip install arrow --upgrade && python manage.py collectstatic --noinput && mod_wsgi-express start-server --reload-on-changes ./web/wsgi.py"

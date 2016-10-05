@@ -2,6 +2,10 @@ from django.shortcuts import render
 import urllib.request
 import urllib.parse
 import json
+import datetime
+import time
+from datetime import datetime
+import arrow
 
 def index(request):
   context = {} # can send dictionary values (results of api calls) to the template
@@ -66,6 +70,29 @@ def productdetails(request, drone_id=None): # allow conditional params
 
     if resp['resp']['ok'] == False:
       return render(request, 'web/t404.html', resp)
-  
+    
+    resp = resp['resp']
+
+
   return render(request, 'web/product-details.html', resp)
 
+def userprofile(request, user_id=None): # allow conditional params
+
+  resp = {}
+  resp2 = {}
+  if user_id:
+    req = urllib.request.Request('http://exp-api:8000/userprofile/'+user_id)
+    resp_json = urllib.request.urlopen(req).read().decode('utf-8')
+    resp = json.loads(resp_json)
+
+    if resp['resp']['ok'] == False:
+      return render(request, 'web/t404.html', resp)
+    
+    resp2 = resp['resp']
+    print(resp2['resp']['date_joined'])
+    
+    t = arrow.get(resp2['resp']['date_joined'])
+    
+    resp2['resp']['date_joined'] = str(t.format('D MMMM, YYYY') + " at " + t.format('h:mma'))
+
+  return render(request, 'web/userprofile.html', resp2)
