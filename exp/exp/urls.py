@@ -21,5 +21,6 @@ urlpatterns = [
     #url(r'^admin/', include(admin.site.urls)),
     url(r'^$', home.index, name='index'),
     url(r'^hi/$', views.hi, name='hi'),
+    url(r'^product-details/(?P<drone_id>\d+)$', views.productdetails, name='product-details'),
 ]
 

@@ -22,9 +22,6 @@ def shop(request):
   context = {} # can send dictionary values (results of api calls) to the template
   return render(request, 'web/shop.html', context)
 
-def productdetails(request):
-  context = {} # can send dictionary values (results of api calls) to the template
-  return render(request, 'web/product-details.html', context)
 
 def blog(request):
   context = {} # can send dictionary values (results of api calls) to the template
@@ -51,15 +48,24 @@ def hi(request):
   print(resp)
   return render(request, 'web/hi.html', resp)
 
-###
-#    url(r'^checkout/$', views.checkout, name='checkout'),
-#    url(r'^cart/$', views.cart, name='cart'),
-#    url(r'^shop/$', views.shop, name='shop'),
-#    url(r'^product-details/$', views.product-details, name='product-details'),
-#    url(r'^blog/$', views.blog, name='blog'),
-#    url(r'^blog-single/$', views.blog-single, name='blog-single'),
-#    url(r'^404/$', views.404, name='404'),
-#    url(r'^contact-us/$', views.contact-us, name='contact-us'),
-# 404.html*	   cart.html*	     index.html		    sendemail.php
-# blog.html*	   checkout.html*    login.html*	    shop.html*
-# blog-single.html*  contact-us.html*  product-details.html*
+
+def letsgrade(request):
+  context = {} # can send dictionary values (results of api calls) to the template
+  return render(request, 'web/lets-grade.html', context)
+
+
+
+
+def productdetails(request, drone_id=None): # allow conditional params
+
+  resp = {}
+  if drone_id:
+    req = urllib.request.Request('http://exp-api:8000/product-details/'+drone_id)
+    resp_json = urllib.request.urlopen(req).read().decode('utf-8')
+    resp = json.loads(resp_json)
+
+    if resp['resp']['ok'] == False:
+      return render(request, 'web/t404.html', resp)
+  
+  return render(request, 'web/product-details.html', resp)
+

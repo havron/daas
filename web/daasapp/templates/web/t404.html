@@ -7,13 +7,26 @@
 
 	<div class="container text-center">
 		<div class="logo-404">
-			<a href="{% url 'index' %}"><img src="{% static "images/home/logo.png" %}" alt="" /></a>
+			<a href="{% url 'index' %}"><img height="30%" width="30%" src="{% static "images/home/logo.svg" %}" alt="" /></a>
 		</div>
 		<div class="content-404">
 			<img src="{% static "images/404/404.png" %}" class="img-responsive" alt="" />
 			<h1><b>OPPS!</b> We Couldn’t Find this Page</h1>
 			<p>Uh... So it looks like you brock something. The page you are looking for has up and Vanished.</p>
+      <ul class="list-group"> 
+      {% for key,value in resp.items %} 
+      <li class="list-group-item list-group-item-danger">
+       <h3 class="list-group-item-heading">Error Details</h3>
+        <p class="list-group-item-text">
+             
+          {{ value  }}
+
+      </li>
+           {% endfor %}
+        </p>
 			<h2><a href="{% url 'index' %}">Bring me back Home</a></h2>
+    <br>
+    <br>
 		</div>
 	</div>
 

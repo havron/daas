@@ -20,6 +20,7 @@ from django.conf.urls import include, url
 from . import home
 from daasapp import views
 
+handler404 = 'views.t404'
 urlpatterns = [
     #url(r'^admin/', include(admin.site.urls)),
     #url(r'^$', home.index, name='index'),
@@ -28,11 +29,13 @@ urlpatterns = [
     url(r'^checkout/$', views.checkout, name='checkout'),
     url(r'^cart/$', views.cart, name='cart'),
     url(r'^shop/$', views.shop, name='shop'),
+    url(r'^product-details/(?P<drone_id>\d+)/$', views.productdetails, name='product-details'),
     url(r'^product-details/$', views.productdetails, name='product-details'),
     url(r'^blog/$', views.blog, name='blog'),
     url(r'^blog-single/$', views.blogsingle, name='blog-single'),
     url(r'^t404/$', views.t404, name='t404'),
     url(r'^hi/$', views.hi, name='hi'),
+    url(r'^lets-grade/$', views.letsgrade, name='lets-grade'),
     url(r'^contact-us/$', views.contactus, name='contact-us'),
 ] # + staticfiles_urlpatterns()
 
