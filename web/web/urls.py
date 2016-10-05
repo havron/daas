@@ -20,6 +20,7 @@ from django.conf.urls import include, url
 from . import home
 from daasapp import views
 
+handler404 = 'views.t404'
 urlpatterns = [
     #url(r'^admin/', include(admin.site.urls)),
     #url(r'^$', home.index, name='index'),
