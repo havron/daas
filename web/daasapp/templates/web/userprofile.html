@@ -11,12 +11,14 @@
 <div class="container">
 
 <span style="font-size:25px"><i>we currently have 200 users on the site. find them by putting a monotically increasing user id number at the end of the url! e.g. /user/64</i></span>
-<!--
-User Profile Sidebar by @keenthemes
-A component of Metronic Theme - #1 Selling Bootstrap 3 Admin Theme in Themeforest: http://j.mp/metronictheme
-Licensed under MIT
--->
 
+    {% if not resp %}
+    <span>
+      <br><br>
+      <span style="font-size:25px">No User selected. <a href="{% url 'userprofile' 64 %}">Pick one!</a></span>
+    </span>
+
+    {% endif %}
 <div class="container">
     <div class="row profile">
     <div class="col-md-3">
@@ -31,11 +33,11 @@ Licensed under MIT
           <div class="profile-usertitle-name">
             <span style="font-size: 20px">{{ resp.f_name }} {{ resp.l_name }}</span>
           </div>
-            <span style="font-size:20px">Username: <i>{{ resp.username }}</i></span>
+            <span >Username: <i style="color:darkorange"><b>{{ resp.username }}</b></i></span>
           <br>
-     <span style="font-family: Ubuntu; font-size: 12px; color:blue" >{{ resp.email_address }} </span>
-          <br>
-          <i class="glyphicon glyphicon-time"></i> Active member of DAAS! <i>since</i> {{ resp.date_joined }}
+     <span style="font-family: Ubuntu; font-size: 11px; color:blue" ><b>{{ resp.email_address }}</b></span>
+          <br><br><br>
+          <i class="glyphicon glyphicon-time"></i> Active member of DAAS! <br><i>since</i> {{ resp.date_joined }}
         </div>
         <!-- END SIDEBAR USER TITLE -->
         <!-- SIDEBAR BUTTONS -->

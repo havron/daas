@@ -137,7 +137,7 @@
 						<div class="col-sm-5">
 							<div class="view-product">
                 <figure class="figure">
-								<img data-action="zoom" src="{% static "images/home/killerdrone.jpg" %}" alt="" />
+								<img data-action="zoom" src="{% static "images/home/amazon.jpg" %}" alt="" />
 							   <figcaption class="figure-caption text-xs-right"><h3>zoom</h3></figcaption>	
               
                 </figure>
@@ -176,16 +176,20 @@
 						</div>
 						<div class="col-sm-7">
 							<div class="product-information"><!--/product-information-->
+                  {% if not resp %}
+                  <span>
+                    <span>No drone selected. <a href="{% url 'product-details' 64 %}">Pick one!</a></span>
+                  </span>
+                  {% else %}
 								<img src="{% static "images/product-details/new.jpg" %}" class="newarrival" alt="" />
-								<h2>Drone NAME: </h2>
-								<p>Model Name: 
-               
-                {{ resp.model_name }} 
-
-                </p>
+                <span>
+								  <span>Drone model name:  </span>
+                  <br><b style="font-size:20px">{{ resp.model_name }}</b>
+                </span>
 								<img src="{% static "images/product-details/rating.png" %}" alt="" />
 								<span>
-									<span>Cost: </span>
+									<span>Cost: much dollar$$$ </span>
+                  <br><br><br>
 									<label>Quantity:</label>
 									<input type="text" value="3" />
 									<button type="button" class="btn btn-fefault cart">
@@ -193,17 +197,20 @@
 										Add to cart
 									</button>
 								</span>
-								<p><b>Demo Link: </b> {{ resp.demo_link }} </p>
-								<p><b>Permissions: </b> {{ resp.permissions }} </p>
-								<p><b>Owner Email: </b> {{ resp.owner_email }} </p>
-								<p><b>Battery Level: </b> {{ resp.battery_level }} </p>
-                  <p><b>Maintenance Status: </b> {{ resp.maintenance_status  }} </p>
-								<p><b>Available-for-hire: </b> {{ resp.available_for_hire }}</p>
-								<p><b>Owner Name: </b> {{ resp.owner.f_name  }} </p>
-								<p><b>Last checked out: </b> {{ resp.last_checked_out }} </p>
+								<span>
+                  <p><b>Demo Link: </b> {{ resp.demo_link }} </p>
+                  <p><b>Permissions: </b> {{ resp.permissions }} </p>
+                  <p><b>Owner Email: </b> {{ resp.owner_email }} </p>
+                  <p><b>Battery Level: </b> {{ resp.battery_level }} </p>
+                    <p><b>Maintenance Status: </b> {{ resp.maintenance_status  }} </p>
+                  <p><b>Available-for-hire: </b> {{ resp.available_for_hire }}</p>
+                  <p><b>Owner Name: </b> {{ resp.owner.f_name  }} {{ resp.owner.l_name }} (<a href="{% url 'userprofile' resp.owner.user_id %}">{{ resp.owner.username  }}</a>) </p>
+                  <p><b>Last checked out: </b> {{ resp.last_checked_out }} </p>
+                </span>
 								<a href=""><img src="{% static "images/product-details/share.png" %}" class="share img-responsive"  alt="" /></a>
 							</div><!--/product-information-->
 						</div>
+								  {% endif %}
 					</div><!--/product-details-->
 					
 					<div class="category-tab shop-details-tab"><!--category-tab-->
