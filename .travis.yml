@@ -30,12 +30,10 @@ install:
   - docker ps -a
 
 before_script:
-  - docker-compose up --build -d
+  - docker-compose up -d
 
 script:
-  - ls
-  - cd models
-  - python manage.py test
+  - docker exec -it app_models_1 python manage.py test
 
 after_script:
-  - docker-compose down
+  - docker-compose stop
