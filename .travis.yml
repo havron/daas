@@ -3,6 +3,14 @@ dist: trusty
 
 install:
   # Update docker-engine using Ubuntu 'trusty' apt repo
+  - pip install --upgrade pip
+  - pip install arrow
+  - pip install "django<1.9"
+  - pip install "kafka-python<=1.0"
+  - pip install --allow-external mysql-connector-python "mysql-connector-python-rf<2.2"
+  - pip install "elasticsearch<3.0"
+  - pip install "Pillow<3.1"
+  
   - >
     curl -sSL "https://get.docker.com/gpg" |
      sudo -E apt-key add -
@@ -26,7 +34,9 @@ before_script:
   - docker-compose up --build -d
 
 script:
-  - python models/manage.py test
+  - ls
+  - cd models
+  - python manage.py test
 
 after_script:
   - docker-compose down
