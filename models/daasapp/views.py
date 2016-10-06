@@ -58,6 +58,7 @@ def create_user(request): # /api/v1/user/create
     
     form = UserForm(request.POST)
     if not form.is_valid():
+      print(request.POST)
       return _error_response(request, "missing required fields")  
       
     new_user = form.save(commit='false')

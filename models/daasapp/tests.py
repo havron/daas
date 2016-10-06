@@ -5,41 +5,49 @@ from . import views
 import json
 
 #create new class
+#fields = ['username', 'password', 'email_address','date_joined','is_active','f_name','l_name', 'bio']
 
 class InspectUserTestCase(TestCase):
 
   def setUp(self):
     c = Client()
     response = c.post(reverse('create_user'), 
-      {'user_id': 100, 'f_name': 'Mark', 'date_joined': '2000-08-31T08:23:47.652Z', 'email_address': 'conjugally_Guadalcanal100@equatorially.com', 'username': 'abolishputamen100', 'bio': "a little about me: I'm pitter-patter, limiting, zoonal, ", 'l_name': 'White', 'is_active': True, 'password': 'Lettish_fundamentalism100',
+      {'f_name': 'Mark', 'date_joined': '2000-08-31T08:23:47.652Z', 'email_address': 'conjugally_Guadalcanal100@equatorially.com', 'username': 'abolishputamen100', 'bio': "a zoonal", 'l_name': 'White', 'is_active': True, 'password': 'Lettish_fundamentalism100'
       })
-
-
+    resp = json.loads(response.content.decode('utf8'))
+    print("setUp " + str(resp))
+      
   def test_user_attributes(self):
     #add users
-    
-    
+    c = Client()
+    #response = c.post(reverse('create_user'), 
+    #  {'user_id': 1, 'f_name': 'Mark', 'date_joined': '2000-08-31T08:23:47.652Z', 'email_address': 'conjugally_Guadalcanal100@equatorially.com', 'username': 'abolishputamen201', 'bio': "a little about me: I'm pitter-patter, limiting, zoonal, ", 'l_name': 'White', 'is_active': True, 'password': 'Lettish_fundamentalism100',
+    #  })
     
     #self.assertEquals(response.status_code, 200)
-    response = c.get(reverse('inspect_user', kwargs={'user_id':1}))
+    response = c.get(reverse('inspect_user', kwargs={'user_id':100}))
     resp = json.loads(response.content.decode('utf8'))
-    print(resp)
-    print('monica')
-    self.assertEquals(resp['payload']['f_name'], 'Mark')
+    print("test_user_attributes " + resp)
+    #print('monica')
+    self.assertEquals(resp["ok"],True)
+    self.assertEquals(resp['resp']['f_name'], 'Mark')
     
 
-  def success_response(self):
-    response = self.client.get(reverse('inspect_user', kwargs={'user_id':1}))
-    self.assertContains(response, 'ok')
+  def test_success_response(self):
+    response = self.client.get(reverse('inspect_user', kwargs={'user_id':100}))
+    resp = json.loads(response.content.decode('utf8'))
+    print("test_success_response " + resp)
+    self.assertEquals(resp["ok"],True)
 
-  def fails_invalid(self):\
+  def test_fails_invalid(self):
     response = self.client.get(reverse('inspect_user', kwargs=None))
     self.assertEquals(response.status_code, 200)
     #self.assertJSONEqual(
       #json.loads(str(dict({"ok": json.loads(str(response.content, encoding='utf8'))["ok"]}))),
     #resp = json.loads(str(response.content, encoding='utf8'))
     resp = json.loads(response.content.decode('utf8'))
-    self.assertEqual(resp["ok"],False)
+    print("test_fails_invalid " + resp)
+    self.assertEquals(resp["ok"],False)
 
   def tearDown(self): 
     pass   
