@@ -24,6 +24,7 @@ class FormTests(TestCase):
 
 
 class InspectUserTestCase(TestCase):
+  fixtures = ['db']  # load from DB
   def setUp(self):
     pass
       
@@ -44,7 +45,7 @@ class InspectUserTestCase(TestCase):
     resp = json.loads(response.content.decode('utf8'))
     self.assertEquals(response.status_code, 200)
 
-    response = c.get(reverse('inspect_user', kwargs={'user_id':1}))
+    response = c.get(reverse('inspect_user', kwargs={'user_id':201}))
     resp = json.loads(response.content.decode('utf8'))
 
     print("test_user_attributes GET " + str(resp))
