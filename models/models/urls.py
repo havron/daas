@@ -25,19 +25,19 @@ urlpatterns = [
     url(r'^$', home.index),
     url(r'^api/v1/populate$', apiposts.populate),
 
-    url(r'^api/v1/user/create$', views.create_user),
-    url(r'^api/v1/user/all$', views.all_users),
-    url(r'^api/v1/user/recent_givers$', views.recent_givers),
+    url(r'^api/v1/user/create$', views.create_user, name = 'create_user'), 
+    url(r'^api/v1/user/all$', views.all_users, name = 'view_user'),
+    url(r'^api/v1/user/recent_givers$', views.recent_givers, name = 'recent_givers'),
     url(r'^api/v1/user/(?P<user_id>\d+)/updater$', apiposts.updateUser),
-    url(r'^api/v1/user/(?P<user_id>\d+)/update$', views.update_user),
-    url(r'^api/v1/user/(?P<user_id>\d+)$', views.inspect_user),
+    url(r'^api/v1/user/(?P<user_id>\d+)/update$', views.update_user, name = 'update_user'),
+    url(r'^api/v1/user/(?P<user_id>\d+)$', views.inspect_user, name = 'inspect_user'),
 
-    url(r'^api/v1/drone/create$', views.create_drone, name='drone'),
-    url(r'^api/v1/drone/all$', views.all_drones, name='drone'),
-    url(r'^api/v1/drone/recent$', views.recent_drones),
+    url(r'^api/v1/drone/create$', views.create_drone, name='create_drone'),
+    url(r'^api/v1/drone/all$', views.all_drones, name='view_drone'),
+    url(r'^api/v1/drone/recent$', views.recent_drones, name = 'recent_drones'),
     url(r'^api/v1/drone/(?P<drone_id>\d+)/updater$', apiposts.updateDrone),
-    url(r'^api/v1/drone/(?P<drone_id>\d+)/update$', views.update_drone),
-    url(r'^api/v1/drone/(?P<drone_id>\d+)$', views.inspect_drone),
+    url(r'^api/v1/drone/(?P<drone_id>\d+)/update$', views.update_drone, name = 'update_drone'),
+    url(r'^api/v1/drone/(?P<drone_id>\d+)$', views.inspect_drone, name = 'inspect_drone'),
 ] #+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 from django.contrib.staticfiles import views
