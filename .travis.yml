@@ -19,7 +19,7 @@ install:
   - docker-compose version
   - docker pull mysql:5.7.14
   - mkdir db
-  - sudo docker run --name mysql -d -e MYSQL\_ROOT\_PASSWORD='$3cureUS' -e MYSQL\_USER='www'@'%' -e MYSQL\_PASSWORD='$3cureUS' -e MYSQL\_DATABASE=test_cs4501 -v db:/var/lib/mysql mysql:5.7.14
+  - sudo docker run --name mysql -d -e MYSQL\_ROOT\_PASSWORD='$3cureUS' -e MYSQL\_USER='www'@'%' -e MYSQL\_PASSWORD='$3cureUS' -e MYSQL\_DATABASE=cs4501 -e MYSQL\_DATABASE=test_cs4501 -v db:/var/lib/mysql mysql:5.7.14
   - docker ps -a
 
 before_script:
