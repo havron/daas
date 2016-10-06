@@ -1,15 +1,14 @@
 from django.test import TestCase, Client
 from django.forms import ModelForm
 from django.core.urlresolvers import reverse
-from . import models
-from . import views
+from .. import models
+from .. import views
 import json
 import datetime
 import random
 
 #create new class
 #fields = ['username', 'password', 'email_address','date_joined','is_active','f_name','l_name', 'bio']
-
 
 class FormTests(TestCase):
   def setUp(self):
@@ -25,7 +24,6 @@ class FormTests(TestCase):
 
 
 class InspectUserTestCase(TestCase):
-
   def setUp(self):
     pass
       
