@@ -30,7 +30,7 @@ urlpatterns = [
     url(r'^api/v1/user/recent_givers$', views.recent_givers, name = 'recent_givers'),
     url(r'^api/v1/user/(?P<user_id>\d+)/updater$', apiposts.updateUser),
     url(r'^api/v1/user/(?P<user_id>\d+)/update$', views.update_user, name = 'update_user'),
-    url(r'^api/v1/user/(?P<user_id>\d+)$', views.inspect_user, name = 'inspect_user'),
+    url(r'^api/v1/user/(?P<user_id>\d+)?$', views.inspect_user, name = 'inspect_user'),
 
     url(r'^api/v1/drone/create$', views.create_drone, name='create_drone'),
     url(r'^api/v1/drone/all$', views.all_drones, name='view_drone'),
