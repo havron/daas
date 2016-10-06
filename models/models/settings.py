@@ -72,7 +72,7 @@ WSGI_APPLICATION = 'models.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-
+#Use the following live settings to build on Travis CI
 DATABASES = {
   'default': {
   'ENGINE': 'mysql.connector.django',

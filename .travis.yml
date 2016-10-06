@@ -1,0 +1,32 @@
+sudo: required
+dist: trusty
+
+install:
+  # Update docker-engine using Ubuntu 'trusty' apt repo
+  - >
+    curl -sSL "https://get.docker.com/gpg" |
+     sudo -E apt-key add -
+  - >
+    echo "deb https://apt.dockerproject.org/repo ubuntu-trusty main" |
+     sudo tee -a /etc/apt/sources.list
+  - sudo apt-get update
+  - >
+    sudo apt-get -o Dpkg::Options::="--force-confdef" \
+     -o Dpkg::Options::="--force-confold" --assume-yes install docker-engine
+  - docker version
+  # Update docker-compose via pip
+  - sudo pip install docker-compose
+  - docker-compose version
+  - docker pull mysql:5.7.14
+  - mkdir db
+  - sudo docker run --name mysql -d -e MYSQL\_ROOT\_PASSWORD='cureUS' -e MYSQL\_USER='www'@'%' -e MYSQL\_PASSWORD='cureUS' -e MYSQL\_DATABASE=test_cs4501 -v ./db:/var/lib/mysql mysql:5.7.14
+  - docker ps -a
+
+before_script:
+  - docker-compose up --build -d
+
+script:
+  - python models/manage.py test
+
+after_script:
+  - docker-compose down
