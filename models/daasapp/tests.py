@@ -1,5 +1,6 @@
 from django.test import TestCase, Client
 from django.core.urlresolvers import reverse
+from daasapp.models import User, Drone
 from . import models
 from . import views
 import json
@@ -9,10 +10,13 @@ import json
 class InspectUserTestCase(TestCase):
 
   def setUp(self):
-    c = Client()
-    response = c.post(reverse('create_user'), 
+    User.objects.create(user_id= 100, f_name= 'Mark', date_joined= '2000-08-31T08:23:47.652Z', email_address= 'conjugally_Guadalcanal100@equatorially.com', username= 'abolishputamen100', bio= "a little about me: I'm pitter-patter, limiting, zoonal, ", l_name= 'White', is_active= True, password= 'Lettish_fundamentalism100')
+    '''response = c.post(reverse('create_user'), 
       {'user_id': 100, 'f_name': 'Mark', 'date_joined': '2000-08-31T08:23:47.652Z', 'email_address': 'conjugally_Guadalcanal100@equatorially.com', 'username': 'abolishputamen100', 'bio': "a little about me: I'm pitter-patter, limiting, zoonal, ", 'l_name': 'White', 'is_active': True, 'password': 'Lettish_fundamentalism100',
-      })
+      })'''
+
+  def test_user_f_name:
+    
 
 
   def test_user_attributes(self):
