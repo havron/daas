@@ -169,7 +169,7 @@ def create_drone(request): # /api/v1/drone/create
   except db.Error:
     return _error_response(request, "db error")
 
-  return _success_response(request, {'drone_id': new_drone.pk})
+  return _success_response(request, {'drone_id': d.pk})
 
 
 def inspect_drone(request, drone_id): # /api/v1/drone/<drone_id>
