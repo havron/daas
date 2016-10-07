@@ -10,11 +10,10 @@
 <li class="list-group-item list-group-item-success">
  <h3 class="list-group-item-heading">Navigating</h3>
   <p class="list-group-item-text">
-    Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
-    Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
-    Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
-    Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
-    Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
+    <p> User Page - Click on 'User Profiles' on the home page to access user page.  We currently have 200 users on the site.  Find them by putting a monotically increasing user id number at the end of the url. e.g /user/64.  If you request a user id above the number of fixtures we have installed, you will be redirected to a custom 404 error page. </p>
+    <a href = "{% url 'userprofile_noargs' %} " > Click here to take you to User Profiles. </a>
+    <p> Product Page - Click on 'woa, c00l dr0n35' on the home page to access product page. We currently have 200 drones on the site.  Find them by putting a monotically increasing user id number at the end of the url. e.g /product-details/64.  If you request a drone id above the number of fixtures we have installed, you will be redirected to a custom 404 error page.</p>
+    <a href = "{% url 'product-details_noargs' %} " > Click here to take you to Product Page. </a>
   </p>
 </li>
 
@@ -33,9 +32,10 @@
 <li class="list-group-item list-group-item-warning"> 
  <h3 class="list-group-item-heading">Unit Tests</h3>
   <p class="list-group-item-text">
+    <p> Each number for the unit tests corresponds to the respective user story above. </p>
     <p> 1. <a href = "https://github.com/samuelhavron/daas/blob/master/models/daasapp/tests/test_users.py#L14-L24"> See code that creates user profile using UserForm. </a> </p>
     <p> 2. <a href = "https://github.com/samuelhavron/daas/blob/master/models/daasapp/tests/test_users.py#L27-L68"> See code that inspects users and gets user attributes. </a> </p>
-    <p> 3. <a href = "https://github.com/samuelhavron/daas/blob/master/models/daasapp/tests/test_drones.py#L10-L52"> See code that creates drones, gets drone attributes and tests invalid drone ids. </a> </p>
+    <p> 3. <a href = "https://github.com/samuelhavron/daas/blob/master/models/daasapp/tests/test_drones.py#L10-L48"> See code that creates drones, gets drone attributes and tests invalid drone ids. </a> </p>
     <p> 4. <a href = "https://github.com/samuelhavron/daas/blob/master/models/daasapp/tests/test_users.py#L53-L54" > See code that inspects biography. </a> </p>
     <p> 5. <a href = "https://github.com/samuelhavron/daas/blob/master/models/daasapp/tests/test_users.py#L55-L57" > See code that inspects when the user signed up. </a> </p>
     <p> 6. <a href = "https://github.com/samuelhavron/daas/blob/master/models/daasapp/tests/test_drones.py#L50-L55" > See code that tests 3 most recent drones available. </a> </p>
