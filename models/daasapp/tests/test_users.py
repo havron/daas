@@ -6,6 +6,7 @@ from .. import views
 import json
 import datetime
 import random
+import arrow
 
 #create new class
 #fields = ['username', 'password', 'email_address','date_joined','is_active','f_name','l_name', 'bio']
@@ -49,7 +50,12 @@ class InspectUserTestCase(TestCase):
     print("test_user_attributes GET " + str(resp))
     self.assertEquals(resp["ok"],True)
     self.assertEquals(resp['resp']['f_name'], 'Mark')
-
+    # Unit Test for User Story 4
+    self.assertEquals(resp['resp']['bio'], "a zoonal")
+    # Unit Test for User Story 5
+    t = arrow.get(resp['resp']['date_joined'])
+    self.assertLess(t.naive, datetime.datetime.now())
+    
   def test2_fails_invalid_user(self):
     response = self.client.get(reverse('inspect_user', kwargs=None))
     self.assertEquals(response.status_code, 200)
