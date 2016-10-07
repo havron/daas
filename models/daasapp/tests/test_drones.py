@@ -9,10 +9,10 @@ import random
 
 class DroneFormTests(TestCase):
   fixtures = ['db']  # load from DB
-  def setUp(self):
-    pass
 
-  def test_DroneForm(self):
+  def setUp(self):
+    self.client = Client()
+
     form_data = {'_owner_key': 50, 'drone_desc': 'velutinous peg-top Mesopotamia rakees lecherously and 100.', 
     #'drone_id': 100, 
     'demo_link': 'http://demo_pacific100.com', 
@@ -25,26 +25,28 @@ class DroneFormTests(TestCase):
     'battery_level': 100.0, 
     'model_name': 'prehistorians_inexpugnably100' }
 
-    c = Client()
-    response = c.post(reverse('create_drone'), form_data)
+    response = self.client.post(reverse('create_drone'), form_data)
     print("test_create_drone POST " + str(response))
 
     resp = json.loads(response.content.decode('utf8'))
     self.assertEquals(response.status_code, 200)
     print("drone_atts" + str(resp))
 
-    response = c.get(reverse('inspect_drone', kwargs={'drone_id':201}))
+  # append number to test to get python to run defs in correct order
+  def test1_DroneForm(self):
+
+    response = self.client.get(reverse('inspect_drone', kwargs={'drone_id':201}))
     resp = json.loads(response.content.decode('utf8'))
 
     print("test_drone_attributes GET " + str(resp))
     self.assertEquals(resp["ok"],True)
     self.assertEquals(resp['resp']['model_name'], 'prehistorians_inexpugnably100')
 
-  def test_drone_invalid(self):
-    c = Client()
-    response = c.get(reverse('inspect_drone', kwargs={'drone_id':300}))
+  def test2_Drone_Invalid_id(self):
+    response = self.client.get(reverse('inspect_drone', kwargs={'drone_id':300}))
     resp = json.loads(response.content.decode('utf8'))
     self.assertEquals(resp["ok"], False)
 
+
   def tearDown(self): 
-    pass   
+    del self.client

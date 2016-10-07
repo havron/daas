@@ -25,34 +25,32 @@ class FormTests(TestCase):
 
 class InspectUserTestCase(TestCase):
   fixtures = ['db']  # load from DB
-  def setUp(self):
-    pass
-      
-  def test_user_attributes(self):
-    #add users
-    c = Client()
-    
-    user_name = random.randrange(0,200)
-    c = Client()
-    form_data = {'username': 'abolishputa'+str(user_name),'password': 'Lettish_fundamentalism100', 'email_address': 'conjugally_Guadalcanal100@equatorially.com','date_joined': datetime.datetime.now(),  'is_active': True, 'f_name': 'Mark', 'l_name': 'White','bio': "a zoonal" }
 
+  def setUp(self):
+    self.client = Client()
+    user_name = random.randrange(0,200)
+    form_data = {'username': 'abolishputa'+str(user_name),'password': 'Lettish_fundamentalism100', 'email_address': 'conjugally_Guadalcanal100@equatorially.com','date_joined': datetime.datetime.now(),  'is_active': True, 'f_name': 'Mark', 'l_name': 'White','bio': "a zoonal" }
     form = views.UserForm(data=form_data)
     self.assertTrue(form.is_valid())
-    response = c.post(reverse('create_user'), form_data)
+
+    response = self.client.post(reverse('create_user'), form_data)
     print("test_user_attributes POST " + str(response))
 
-
     resp = json.loads(response.content.decode('utf8'))
+    print("user atts " + str(resp))
     self.assertEquals(response.status_code, 200)
 
-    response = c.get(reverse('inspect_user', kwargs={'user_id':201}))
+  # append number to test to get python to run defs in correct order
+  def test1_user_attributes(self):
+    
+    response = self.client.get(reverse('inspect_user', kwargs={'user_id':201}))
     resp = json.loads(response.content.decode('utf8'))
 
     print("test_user_attributes GET " + str(resp))
     self.assertEquals(resp["ok"],True)
     self.assertEquals(resp['resp']['f_name'], 'Mark')
-    
-  def test_fails_invalid(self):
+
+  def test2_fails_invalid_user(self):
     response = self.client.get(reverse('inspect_user', kwargs=None))
     self.assertEquals(response.status_code, 200)
     
@@ -64,7 +62,7 @@ class InspectUserTestCase(TestCase):
     self.assertEquals(resp["ok"],False)
 
   def tearDown(self): 
-    pass   
+    del self.client
 
   #experience tests bonus
   #this project is read ony?
