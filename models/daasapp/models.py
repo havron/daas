@@ -1,17 +1,21 @@
 from django.db import models
 import json
 import datetime
+from django.contrib.auth import hashers
 
 # User superclass
 class User(models.Model):
     username = models.CharField(max_length=65, unique=True)
-    password = models.CharField(max_length=50) # will change to Django hash
+    password = models.CharField(max_length=200) # will change to Django hash
     email_address = models.EmailField()
     date_joined = models.DateTimeField()
     is_active = models.BooleanField()
     f_name = models.CharField(max_length=16)
     l_name = models.CharField(max_length=16)
     bio = models.TextField()
+
+    def set_password(self, raw_pw):
+      self.password = hashers.make_password(raw_pw)
 
     def to_json(self): 
       return dict(

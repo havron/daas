@@ -6,3 +6,4 @@ __pycache__
 .tox/
 web/staticfiles/*
 web/staticfiles/
+models/daasapp/migrations/

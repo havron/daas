@@ -10,8 +10,23 @@ from . import models
 ############### FORMS ###############
 class UserForm(ModelForm): 
     class Meta:
+#        password = forms.CharField(widget=forms.PasswordInput)
         model = models.User
+#        widgets = {
+#          'password': forms.PasswordInput(),
+#        }
+
+
         fields = ['username', 'password', 'email_address','date_joined','is_active','f_name','l_name', 'bio']
+
+    def save(self, commit=True):
+            user = super(UserForm, self).save(commit=False)
+            user.set_password(self.cleaned_data['password'])
+
+            if commit:
+                user.save()
+
+            return user
 
 class UpdateUserForm(ModelForm): 
     class Meta:
@@ -66,6 +81,7 @@ def create_user(request): # /api/v1/user/create
     try:
       new_user.save()
     except db.Error:
+        print("couldn't save user "+new_user.id + "with password "+new_user.password)
         return _error_response(request, "db error")
 
     return _success_response(request, {'user_id': new_user.pk})
