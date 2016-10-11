@@ -6,7 +6,7 @@ from django.contrib.auth import hashers
 # User superclass
 class User(models.Model):
     username = models.CharField(max_length=65, unique=True)
-    password = models.CharField(max_length=200) # will change to Django hash
+    password = models.CharField(max_length=200) # stored as hash
     email_address = models.EmailField()
     date_joined = models.DateTimeField()
     is_active = models.BooleanField()
@@ -14,6 +14,7 @@ class User(models.Model):
     l_name = models.CharField(max_length=16)
     bio = models.TextField()
 
+    # gets called in 'create_user' view if exp API did not already hash
     def set_password(self, raw_pw):
       self.password = hashers.make_password(raw_pw)
 
@@ -37,6 +38,13 @@ class User(models.Model):
       return "ID is %s, Username is %s, password is %s, email address is %s" % (self.id, self.username, self.password, self.email_address)
 	
     #TODO jobs #(list of all Job objects that belong to the user)
+
+class Authenticator(models.Model):
+  user_id = models.AutoField() # scales with user primary keys
+  authenticator = models.CharField(max_length=500)
+  date_created = models.DateTimeField(auto_now=True)
+
+
 
 ''' 
 our future plans.... :-) stay tuned!

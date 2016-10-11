@@ -14,8 +14,12 @@ def _success_response(request, resp=None):
    return JsonResponse({'ok': True})
 
 # _ denotes a helper function
-def _error_response(request, error_msg):
-    return JsonResponse({'ok': False, 'error': error_msg})
+# EXP ERROR CODES DOCUMENTED IN 'error_codes_exp.txt'
+def _error_response(request, error_msg, error_code=None):
+   if error_code:
+     return JsonResponse({'ok': False, 'error': error_msg, 'error_code': error_code})
+   else:
+     return JsonResponse({'ok': False, 'error': error_msg})
 
 
 def hi(request):

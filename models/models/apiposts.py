@@ -18,6 +18,7 @@ from daasapp import models
 from daasapp import views
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.conf import settings
+from django.contrib.auth import hashers
 ################ RESPONSE HELPER FUNCTIONS #############
 
 # _ denotes a helper function
@@ -98,7 +99,7 @@ def populate(request):
 
   try:
     for i in range(0,200):
-      _makeNewUser(choice(verbs)+choice(nouns)+str(i+1),choice(adjectives)+"_"+choice(nouns)+str(i+1),choice(adverbs)+"_"+choice(nouns)+str(i+1)+"@"+choice(adverbs)+".com", datetime.datetime.now() - datetime.timedelta(randrange(-3433,33305)), True, fake.first_name(), fake.last_name(), "a little about me: I'm "+choice(adverbs)+", "+choice(nouns)+", "+choice(adjectives)+", ANNNND I'm especially "+choice(adjectives)+". my drones are top quality. here's what you need to know about my drones: "+fake.text(350) + " and " + choice(verbs)+", too.")
+      _makeNewUser(choice(verbs)+choice(nouns)+str(i+1),hashers.make_password(choice(adjectives)+"_"+choice(nouns)+str(i+1)),choice(adverbs)+"_"+choice(nouns)+str(i+1)+"@"+choice(adverbs)+".com", datetime.datetime.now() - datetime.timedelta(randrange(-3433,33305)), True, fake.first_name(), fake.last_name(), "a little about me: I'm "+choice(adverbs)+", "+choice(nouns)+", "+choice(adjectives)+", ANNNND I'm especially "+choice(adjectives)+". my drones are top quality. here's what you need to know about my drones: "+fake.text(350) + " and " + choice(verbs)+", too.")
 
     for i in range(0,200):
       try:

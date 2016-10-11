@@ -1,0 +1,7 @@
+ERROR CODES FOR EXP
+
+1 -> request was not good (e.g. POST instead of GET) 
+2 -> form was invalid
+3 -> database error
+4 -> user authentication error (could also occur if password was not hashed before
+sent to models)
