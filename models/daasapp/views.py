@@ -6,6 +6,9 @@ from django.forms.models import model_to_dict
 from django.contrib.auth import hashers
 from django.http import JsonResponse
 from . import models
+from . import err_models
+from django.conf import settings # for getting HMAC key from project settings
+import hmac, os # for generating auth token
 
 ############### FORMS ###############
 class UserForm(ModelForm): 
@@ -29,11 +32,26 @@ class UserForm(ModelForm):
 
             return user
 
+class LoginForm(ModelForm): 
+  class Meta:
+    model = models.User
+    fields = ['username', 'password']
+    # this form is never saved, only used to properly get username and pw fields
+
 class UpdateUserForm(ModelForm): 
     class Meta:
         model = models.User
         fields = ['password', 'email_address','is_active','f_name','l_name', 'bio']
 
+class AuthForm(ModelForm): 
+  class Meta:
+    model = models.Authenticator
+    fields = ['user_id', 'authenticator', 'date_created']
+
+class CheckAuthForm(ModelForm): 
+  class Meta:
+    model = models.Authenticator
+    fields = ['user_id', 'authenticator'] # date checked in experience layer
 
 class DroneForm(ModelForm): # currently not using this form ... see create_drone()
     owner = forms.ModelChoiceField(queryset=models.User.objects.all())
@@ -63,10 +81,10 @@ def _success_response(request, resp=None):
    return JsonResponse({'ok': True})
 
 # _ denotes a helper function
-# MODEL ERROR CODES DOCUMENTED IN 'error_codes_models.txt'
-def _error_response(request, error_msg, error_code=None):
-   if error_code:
-     return JsonResponse({'ok': False, 'error': error_msg, 'error_code': error_code})
+# MODEL ERROR CODES DOCUMENTED IN 'err_models.py'
+def _error_response(request, error_msg, error_specific=None):
+   if error_specific:
+     return JsonResponse({'ok': False, 'error': error_msg, 'error_info': error_specific})
    else:
      return JsonResponse({'ok': False, 'error': error_msg})
 
@@ -74,49 +92,133 @@ def _error_response(request, error_msg, error_code=None):
 ############# USER APIs ###################
 def create_user(request): # /api/v1/user/create
     if request.method != 'POST':
-      return _error_response(request, "must make POST request", 1)
+      return _error_response(request, err_models.E_BAD_REQUEST, "must make POST request")
     
     form = UserForm(request.POST)
     if not form.is_valid():
-      return _error_response(request, "missing required fields", 2)  
+      return _error_response(request, err_models.E_FORM_INVALID, "missing required fields")  
 
     if not hashers.is_password_usable(form.cleaned_data['password']):
-      return _error_response(request, str("password "+form.cleaned_data['password']+" is not hashed"),4)
+      return _error_response(request, err_models.E_FORM_INVALID, "password is not hashed")
 
     new_user = form.save(commit='false')
 
     try:
       new_user.save()
     except db.Error:
-      return _error_response(request, "db error occurred while saving user's data", 3)
+      return _error_response(request, err_models.E_DATABASE, 'could not save user data')
 
     return _success_response(request, {'user_id': new_user.pk})
 
 
+def login_user(request): # /api/v1/user/login
+  if request.method != 'POST':
+    return _error_response(request, err_models.E_BAD_REQUEST, "must make POST request")
+
+  form = LoginForm(request.POST)
+  if not form.is_valid():
+    return _error_response(request, err_models.E_FORM_INVALID, "exp service did not supply login credentials")
+
+  try:
+    u = models.User.objects.get(username=form.cleaned_data['username'])
+  except models.User.DoesNotExist:
+    return _error_response(request, err_models.E_LOGIN_FAILED, "could not find user with supplied username")
+
+  if not hashers.check_password(form.cleaned_data['password'], u.password):
+    return _error_response(request, err_models.E_LOGIN_FAILED, "password not correct")
+
+  token = hmac.new(\
+    key = settings.SECRET_KEY.encode('utf-8'), \
+    msg = os.urandom(32), \
+    digestmod='sha256').hexdigest()
+
+  auth_payload = dict(user_id=u.pk, authenticator=token, date_created=datetime.datetime.now())
+  auth_form = AuthForm(auth_payload)
+
+  if not auth_form.is_valid():
+    return _error_response(request, err_models.E_FORM_INVALID, "authenticator failed to form")
+
+  new_auth = auth_form.save(commit=False)
+
+  try:
+    new_auth.save()
+  except db.Error:
+    return _error_response(request, err_models.E_DATABASE, "could not save new authenticator")
+
+  return _success_response(request, new_auth.to_json())
+
+
+def logout_user(request): # /api/v1/user/logout
+  if request.method != 'POST':
+    return _error_response(request, err_models.E_BAD_REQUEST, "must make POST request")
+
+  form = CheckAuthForm(request.POST)
+  if not form.is_valid():
+    return _error_response(request, err_models.E_FORM_INVALID, "auth token form not filled out correctly")
+
+  data = form.cleaned_data()
+  try:
+    auth = models.Authenticator.get(pk=data['authenticator'])
+  except models.Authenticator.DoesNotExist:
+    return _error_response(request, err_models.E_UNKNOWN_AUTH, "authenticator not found")
+
+  if data['user_id'] != auth.user_id: # prevent a user from logging out another user
+    return _error_response(request, err_models.E_UNKNOWN_AUTH, "invalid user")
+
+  try:
+    auth.delete()
+  except db.Error:
+    return _error_response(request, err_models.E_DATABASE, "could not delete auth token")
+
+  return _success_response(request, "logged out successfully")
+
+
+def check_auth_user(request): # /api/v1/user/auth
+  if request.method != 'POST':
+    return _error_response(request, err_models.E_BAD_REQUEST, "must make POST request")
+
+  form = CheckAuthForm(request.POST)
+  if not form.is_valid():
+    return _error_response(request, err_models.E_FORM_INVALID, "auth token form not filled out correctly")
+
+  data = form.cleaned_data()
+  try:
+    auth = models.Authenticator.get(pk=data['authenticator'])
+  except models.Authenticator.DoesNotExist:
+    return _error_response(request, err_models.E_UNKNOWN_AUTH, "authenticator not found")
+
+  if data['user_id'] != auth.user_id:
+    return _error_response(request, err_models.E_UNKNOWN_AUTH, "invalid user")
+
+  # date expiration check in experience layer
+  return _success_response(request, auth.to_json()) # gives exp layer the date_created
+
+
+
 def inspect_user(request, user_id): # /api/v1/user/<user_id>
   if request.method != 'GET':
-    return _error_response(request, "must make GET request", 1)
+    return _error_response(request, err_models.E_BAD_REQUEST, "must make GET request")
 
   try:
     u = models.User.objects.get(pk=user_id)
   except models.User.DoesNotExist:
-    return _error_response(request, "user not found", 3)
+    return _error_response(request, err_models.E_DATABASE, "user not found")
 
   return _success_response(request, u.to_json()) 
  
 
 def update_user(request, user_id): # /api/v1/user/<user_id>/update
   if request.method != 'POST':
-    return _error_response(request, "must make POST request", 1)
+    return _error_response(request, err_models.E_BAD_REQUEST, "must make POST request")
 
   try:
     u = models.User.objects.get(pk=user_id)
   except models.User.DoesNotExist:
-    return _error_response(request, "user not found", 3)
+    return _error_response(request, err_models.E_DATABASE, "user not found")
 
   form = UpdateUserForm(request.POST, instance=u) # magically updates the fields!
   if not form.is_valid():
-    return _error_response(request, "user fields not updated, form error", 2)
+    return _error_response(request, err_models.E_FORM_INVALID, "user fields not updated, form error")
 
   form.save()
   
@@ -125,7 +227,7 @@ def update_user(request, user_id): # /api/v1/user/<user_id>/update
 
 def all_users(request): # /api/v1/user/all
   if request.method != 'GET':
-    return _error_response(request, "must make GET request", 1)
+    return _error_response(request, err_models.E_BAD_REQUEST, "must make GET request")
 
   users = {}
   for u in models.User.objects.all():
@@ -135,7 +237,7 @@ def all_users(request): # /api/v1/user/all
 
 def recent_givers(request): # /api/v1/user/recent_givers
   if request.method != 'GET': 
-    return _error_response(request, "must make GET request", 1)
+    return _error_response(request, err_models.E_BAD_REQUEST, "must make GET request")
 
   givers = []
   try:
@@ -144,7 +246,7 @@ def recent_givers(request): # /api/v1/user/recent_givers
       u = models.User.objects.get(pk=t['owner'])
       givers.append(model_to_dict(u))
   except db.Error:
-    return _error_response(request, "db error while retrieving users", 3)
+    return _error_response(request, err_models.E_DATBASE, "db error while retrieving users")
 
   return _success_response(request, {'recent_givers': givers})
 
@@ -152,12 +254,12 @@ def recent_givers(request): # /api/v1/user/recent_givers
 ########## DRONE APIs ##############
 def create_drone(request): # /api/v1/drone/create
   if request.method != 'POST':
-    return _error_response(request, "must make POST request", 1)
+    return _error_response(request, err_models.E_BAD_REQUEST, "must make POST request")
   
   try:
     owner = models.User.objects.get(pk=request.POST['_owner_key']) # not efficient, assumes pk is passed in
   except models.User.DoesNotExist:
-    return _error_response(request, "owner not found", 3)
+    return _error_response(request, err_models.E_DATABASE, "owner not found")
  
 
   ######### attempt at using a form to populate. Foreignkey is tough to deal with.
@@ -189,37 +291,35 @@ def create_drone(request): # /api/v1/drone/create
   try:
     d.save()
   except db.Error:
-    return _error_response(request, "db error occurred while saving drone data", 3)
+    return _error_response(request, err_models.E_DATABASE, "db error occurred while saving drone data")
 
   return _success_response(request, {'drone_id': d.pk})
 
 
 def inspect_drone(request, drone_id): # /api/v1/drone/<drone_id>
   if request.method != 'GET':
-    return _error_response(request, "must make GET request", 1)
+    return _error_response(request, err_models.E_BAD_REQUEST, "must make GET request")
 
   try:
     d = models.Drone.objects.get(pk=drone_id)
   except models.Drone.DoesNotExist:
-    return _error_response(request, "drone not found", 3)
+    return _error_response(request, err_models.E_DATABASE, "drone not found")
 
   return _success_response(request, d.to_json()) 
 
 
 def update_drone(request, drone_id): # /api/v1/drone/<drone_id>/update
   if request.method != 'POST':
-    return _error_response(request, "must make POST request", 1)
+    return _error_response(request, err_models.E_BAD_REQUEST, "must make POST request")
 
   try:
     d = models.Drone.objects.get(pk=drone_id)
   except models.Drone.DoesNotExist:
-    return _error_response(request, "drone not found", 3)
+    return _error_response(request, err_models.E_DATABASE, "drone not found")
 
-  print(request.POST)
   form = UpdateDroneForm(request.POST, instance=d) # magically updates the fields!
   if not form.is_valid():
-    print(form.errors)
-    return _error_response(request, "drone fields not updated, form error", 2)
+    return _error_response(request, err_models.E_FORM_INVALID, "drone fields not updated, form error")
   form.save()
   
   return _success_response(request,d.to_json())
@@ -227,7 +327,7 @@ def update_drone(request, drone_id): # /api/v1/drone/<drone_id>/update
 
 def all_drones(request): # /api/v1/drone/all
   if request.method != 'GET':
-    return _error_response(request, "must make GET request", 1)
+    return _error_response(request, err_models.E_BAD_REQUEST, "must make GET request")
 
   drones = {}
   for d in models.Drone.objects.all():
@@ -244,11 +344,11 @@ def _recent_drones():
 
 def recent_drones(request): # /api/v1/drone/recent
   if request.method != 'GET':
-    return _error_response(request, "must make GET request", 1)
+    return _error_response(request, err_models.E_BAD_REQUEST, "must make GET request")
 
   try:
     ts = _recent_drones()
   except db.Error:
-    return _error_response(request, "db error", 3)
+    return _error_response(request, err_models.E_DATABASE, "recent drones not found")
 
   return _success_response(request, {'recent_things': ts})

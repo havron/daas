@@ -1,7 +1,9 @@
 from django.db import models
-import json
+import json, os
 import datetime
 from django.contrib.auth import hashers
+import hmac, uuid
+from django.conf import settings
 
 # User superclass
 class User(models.Model):
@@ -40,10 +42,24 @@ class User(models.Model):
     #TODO jobs #(list of all Job objects that belong to the user)
 
 class Authenticator(models.Model):
-  user_id = models.AutoField() # scales with user primary keys
-  authenticator = models.CharField(max_length=500)
-  date_created = models.DateTimeField(auto_now=True)
+  user_id = models.IntegerField() # user primary key
+  authenticator = models.CharField(primary_key=True, \
+    default=hmac.new(key = settings.SECRET_KEY.encode('utf-8'), \
+    msg = os.urandom(32), digestmod = 'sha256').hexdigest(), \
+    editable=False, max_length=255) # set by HMAC algorithm
 
+  date_created = models.DateTimeField() 
+  # should time be baked into the authenticator token? attacker could compromise time-validity of tokens if compromised database. ask prof
+
+  def to_json(self): 
+    return dict(
+      user_id = self.user_id,
+      date_created = self.date_created,
+      auth_id = self.authenticator
+    )
+  
+  def __unicode__(self):
+    return self.authenticator
 
 
 ''' 

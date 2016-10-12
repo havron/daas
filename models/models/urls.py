@@ -26,6 +26,9 @@ urlpatterns = [
     url(r'^api/v1/populate$', apiposts.populate),
 
     url(r'^api/v1/user/create$', views.create_user, name = 'create_user'), 
+    url(r'^api/v1/user/login$', views.login_user, name = 'login_user'), 
+    url(r'^api/v1/user/logout$', views.logout_user, name = 'logout_user'), 
+    url(r'^api/v1/user/auth$', views.check_auth_user, name = 'check_auth_user'), 
     url(r'^api/v1/user/all$', views.all_users, name = 'view_user'),
     url(r'^api/v1/user/recent_givers$', views.recent_givers, name = 'recent_givers'),
     url(r'^api/v1/user/(?P<user_id>\d+)/updater$', apiposts.updateUser),
@@ -40,9 +43,10 @@ urlpatterns = [
     url(r'^api/v1/drone/(?P<drone_id>\d+)$', views.inspect_drone, name = 'inspect_drone'),
 ] #+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
-from django.contrib.staticfiles import views
-urlpatterns += [
-  url(r'^/daasapp/static/(?P<path>.*)$', views.serve),
-]
+#from django.contrib.staticfiles import views
+#urlpatterns += [
+#  url(r'^/daasapp/static/(?P<path>.*)$', views.serve),
+#]
+
 # more on how ?P<> works:
 # https://www.webforefront.com/django/accessurlparamsviewmethods.html 
