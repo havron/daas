@@ -1,9 +1,31 @@
 from django.shortcuts import render
+from django import forms
 import urllib.request
 import urllib.parse
 import json
 from django.http import JsonResponse
 from . import err_models, err_exp
+from django.contrib.auth import hashers
+import datetime
+
+
+class LoginForm(forms.Form):
+  username = forms.CharField()
+  password = forms.CharField()
+
+class AuthForm(forms.Form):
+  authenticator = forms.CharField()
+  #user_id = forms.IntegerField() # not implemented at the moment (not stored in cookies)
+
+class RegisterForm(forms.Form):
+  f_name = forms.CharField(label="Your first name")
+  l_name = forms.CharField(label="Your last name")
+  username = forms.Charfield(label="Your daas! username")
+  email1 = forms.EmailField(label="Your daas! email address")
+  email2 = forms.EmailField(label="Your daas! email address (again)")
+  bio = forms.CharField(label="A short description of yourself!", widget=forms.Textarea)
+  password1 = forms.CharField(label="Your daas! password", widget=forms.PasswordInput)
+  password2 = forms.CharField(label="Your daas! password (again)", widget=forms.PasswordInput)
 
 ################ RESPONSE HELPER FUNCTIONS #############
 
@@ -23,20 +45,115 @@ def _error_response(request, error_msg, error_specific=None):
      return JsonResponse({'ok': False, 'error': error_msg})
 
 
+def check_auth(request): # /auth
+  if request.method != 'POST':  
+    return _error_response(request, err_exp.E_BAD_REQUEST, "must make POST request")
+
+  form = AuthForm(request.POST)
+  if not form.is_valid():
+    return _error_response(request, err_exp.E_FORM_INVALID, "user logout form not correctly filled out")
+
+  post_data = form.cleaned_data
+  post_encoded = urllib.parse.urlencode(post_data).encode('utf-8')
+  req = urllib.request.Request('http://models-api:8000/api/v1/user/auth', data=post_encoded, method='POST')
+  resp_json = urllib.request.urlopen(req).read().decode('utf-8')
+  resp = json.loads(resp_json)
+
+  if not resp:
+    return _error_response(request, err_exp.E_LOGIN_FAILED, "no response from models API")
+  if resp['ok'] == False: # could be much more nuanced. makes web view handle errors
+    return _error_response(request, err_exp.E_LOGIN_FAILED, resp)
+
+  # if datetime.datetime.now() - resp['resp']['date_created'] > : ... expiration of auth token not implemented.
+  return _success_response(request, resp['resp'])
 
 
-def hi(request):
+
+# Look into https://github.com/kencochrane/django-defender for blocking brute force login requests
+def login(request): # /login
+  if request.method != 'POST':  
+    return _error_response(request, err_exp.E_BAD_REQUEST, "must make POST request")
+
+  form = LoginForm(request.POST)
+  if not form.is_valid():
+    return _error_response(request, err_exp.E_FORM_INVALID, "user login form not correctly filled out")
+
+  post_data = form.cleaned_data
+  post_encoded = urllib.parse.urlencode(post_data).encode('utf-8')
+  req = urllib.request.Request('http://models-api:8000/api/v1/user/login', data=post_encoded, method='POST')
+  resp_json = urllib.request.urlopen(req).read().decode('utf-8')
+  resp = json.loads(resp_json)
+
+  if not resp:
+    return _error_response(request, err_exp.E_LOGIN_FAILED, "no response from models API")
+  if resp['ok'] == False: # could be much more nuanced. makes web view handle errors
+    return _error_response(request, err_exp.E_LOGIN_FAILED, resp)
+
+  return _success_response(request, resp['resp']['authenticator'])
+
+
+def logout(request): # /logout
+  if request.method != 'POST':  
+    return _error_response(request, err_exp.E_BAD_REQUEST, "must make POST request")
+
+  form = AuthForm(request.POST)
+  if not form.is_valid():
+    return _error_response(request, err_exp.E_FORM_INVALID, "user logout form not correctly filled out")
+
+  post_data = form.cleaned_data
+  post_encoded = urllib.parse.urlencode(post_data).encode('utf-8')
+  req = urllib.request.Request('http://models-api:8000/api/v1/user/logout', data=post_encoded, method='POST')
+  resp_json = urllib.request.urlopen(req).read().decode('utf-8')
+  resp = json.loads(resp_json)
+
+  if not resp:
+    return _error_response(request, err_exp.E_LOGIN_FAILED, "no response from models API")
+  if resp['ok'] == False: # could be much more nuanced. makes web view handle errors
+    return _error_response(request, err_exp.E_LOGIN_FAILED, resp)
+
+  return _success_response(request, resp['resp'])
+
+
+def register(request): # /register
+  if request.method != 'POST':  
+    return _error_response(request, err_exp.E_BAD_REQUEST, "must make POST request")
+
+  form = RegisterForm(request.POST)
+  if not form.is_valid():
+    return _error_response(request, err_exp.E_FORM_INVALID, "user registration form not correctly filled out")
+
+  post_data = form.cleaned_data
+  post_data['password'] = hashers.make_password(post_data['password1']) # get first validated password and hash it
+  post_data['date_joined'] = datetime.datetime.now()
+  post_data['is_active'] = True
+  post_data['email_address'] = post_data['email1'] 
+
+  post_encoded = urllib.parse.urlencode(post_data).encode('utf-8')
+  req = urllib.request.Request('http://models-api:8000/api/v1/user/create', data=post_encoded, method='POST')
+  resp_json = urllib.request.urlopen(req).read().decode('utf-8')
+  resp = json.loads(resp_json)
+
+  if not resp:
+    return _error_response(request, err_exp.E_REGISTER_FAILED, "no response from models API")
+  if resp['ok'] == False: # could be much more nuanced. makes web view handle errors
+    return _error_response(request, err_exp.E_REGISTER_FAILED, resp)
+
+  return _success_response(request, resp['resp'])
+
+
+# fields = ['username', 'password', 'email_address','date_joined','is_active','f_name','l_name', 'bio']
+
+
+def hi(request): # /hi
   context = {} # can send dictionary values (results of api calls) to the template
-  print ("About to do the GET...")
   req = urllib.request.Request('http://models-api:8000/api/v1/user/all')
   resp_json = urllib.request.urlopen(req).read().decode('utf-8')
   resp = json.loads(resp_json)
-  print(resp)
   return _success_response(request, resp)
 
 
 
-def productdetails(request, drone_id):
+def productdetails(request, drone_id): # /product-details/(?P<drone_id>\d+)
   if request.method != 'GET':
     return _error_response(request, err_exp.E_BAD_REQUEST, "must make GET request with drone_id")
 
@@ -47,7 +164,7 @@ def productdetails(request, drone_id):
 
 
 
-def userprofile(request, user_id):
+def userprofile(request, user_id): # /userprofile/(?P<user_id>\d+)
   if request.method != 'GET':
     return _error_response(request, err_exp.E_BAD_REQUEST, "must make GET request with user_id")
 

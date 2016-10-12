@@ -13,7 +13,6 @@ import hmac, os # for generating auth token
 ############### FORMS ###############
 class UserForm(ModelForm): 
     class Meta:
-#        password = forms.CharField(widget=forms.PasswordInput)
         model = models.User
 #        widgets = {
 #          'password': forms.PasswordInput(),
@@ -51,7 +50,7 @@ class AuthForm(ModelForm):
 class CheckAuthForm(ModelForm): 
   class Meta:
     model = models.Authenticator
-    fields = ['user_id', 'authenticator'] # date checked in experience layer
+    fields = ['authenticator'] # date checked in experience layer. add 'user_id' if needed.
 
 class DroneForm(ModelForm): # currently not using this form ... see create_drone()
     owner = forms.ModelChoiceField(queryset=models.User.objects.all())
@@ -156,14 +155,15 @@ def logout_user(request): # /api/v1/user/logout
   if not form.is_valid():
     return _error_response(request, err_models.E_FORM_INVALID, "auth token form not filled out correctly")
 
-  data = form.cleaned_data()
+  data = form.cleaned_data
   try:
     auth = models.Authenticator.get(pk=data['authenticator'])
   except models.Authenticator.DoesNotExist:
     return _error_response(request, err_models.E_UNKNOWN_AUTH, "authenticator not found")
 
-  if data['user_id'] != auth.user_id: # prevent a user from logging out another user
-    return _error_response(request, err_models.E_UNKNOWN_AUTH, "invalid user")
+  # currently not being checked due to cookies never remembering username...
+  #if data['user_id'] != auth.user_id: # prevent a user from logging out another user
+  #  return _error_response(request, err_models.E_UNKNOWN_AUTH, "invalid user")
 
   try:
     auth.delete()
@@ -181,14 +181,15 @@ def check_auth_user(request): # /api/v1/user/auth
   if not form.is_valid():
     return _error_response(request, err_models.E_FORM_INVALID, "auth token form not filled out correctly")
 
-  data = form.cleaned_data()
+  data = form.cleaned_data
   try:
     auth = models.Authenticator.get(pk=data['authenticator'])
   except models.Authenticator.DoesNotExist:
     return _error_response(request, err_models.E_UNKNOWN_AUTH, "authenticator not found")
 
-  if data['user_id'] != auth.user_id:
-    return _error_response(request, err_models.E_UNKNOWN_AUTH, "invalid user")
+  # currently not being checked due to cookies never remembering username...
+  #if data['user_id'] != auth.user_id:
+  #  return _error_response(request, err_models.E_UNKNOWN_AUTH, "invalid user")
 
   # date expiration check in experience layer
   return _success_response(request, auth.to_json()) # gives exp layer the date_created

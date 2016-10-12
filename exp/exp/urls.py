@@ -21,6 +21,10 @@ urlpatterns = [
     #url(r'^admin/', include(admin.site.urls)),
     url(r'^$', home.index, name='index'),
     url(r'^hi/$', views.hi, name='hi'),
+    url(r'^register/$', views.register, name='register'),
+    url(r'^login/$', views.login, name='login'),
+    url(r'^logout/$', views.logout, name='logout'),
+    url(r'^auth/$', views.check_auth, name='check_auth'),
     url(r'^product-details/(?P<drone_id>\d+)$', views.productdetails),
     url(r'^userprofile/(?P<user_id>\d+)$', views.userprofile),
 ]
