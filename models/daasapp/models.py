@@ -43,10 +43,8 @@ class User(models.Model):
 
 class Authenticator(models.Model):
   user_id = models.IntegerField() # user primary key
-  authenticator = models.CharField(primary_key=True, \
-    default=hmac.new(key = settings.SECRET_KEY.encode('utf-8'), \
-    msg = os.urandom(32), digestmod = 'sha256').hexdigest(), \
-    editable=False, max_length=255) # set by HMAC algorithm
+  #authenticator = models.CharField(primary_key=True, editable=False, max_length=255) # set by HMAC algorithm
+  authenticator = models.CharField(primary_key=True, default=hmac.new(key = settings.SECRET_KEY.encode('utf-8'), msg = os.urandom(32), digestmod = 'sha256').hexdigest(), max_length=255) # set by HMAC algorithm
 
   date_created = models.DateTimeField() 
   # should time be baked into the authenticator token? attacker could compromise time-validity of tokens if compromised database. ask prof
@@ -55,7 +53,7 @@ class Authenticator(models.Model):
     return dict(
       user_id = self.user_id,
       date_created = self.date_created,
-      auth_id = self.authenticator
+      authenticator = self.authenticator
     )
   
   def __unicode__(self):

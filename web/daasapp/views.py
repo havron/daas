@@ -6,10 +6,11 @@ import datetime
 import time
 from datetime import datetime
 import arrow
-from . import err_exp, err_web
+from daasapp import err_exp, err_web
 from django import forms
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.contrib import messages
 
 class LoginForm(forms.Form):
   username = forms.CharField(label="Your daas! username")
@@ -28,9 +29,6 @@ class RegisterForm(forms.Form):
   bio = forms.CharField(label="A short description of yourself!", widget=forms.Textarea)
   password1 = forms.CharField(label="Your daas! password", widget=forms.PasswordInput)
   password2 = forms.CharField(label="Your daas! password (again)", widget=forms.PasswordInput)
-
-# fields = ['username', 'password', 'email_address','date_joined','is_active','f_name','l_name', 'bio']
-
   def clean_email2(self):
       email1 = self.cleaned_data.get('email1')
       email2 = self.cleaned_data.get('email2')
@@ -51,6 +49,9 @@ class RegisterForm(forms.Form):
           raise forms.ValidationError("Your passwords do not match")
       return password2
 
+# fields = ['username', 'password', 'email_address','date_joined','is_active','f_name','l_name', 'bio']
+
+
 ########################################################
 
 
@@ -61,9 +62,9 @@ def index(request):
 
 # Look into https://github.com/kencochrane/django-defender for blocking brute force login requests
 def login(request): # /login
+  login_form = LoginForm()
+  register_form = RegisterForm()
   if request.method == 'GET':
-    login_form = LoginForm()
-    register_form = RegisterForm()
     next = request.GET.get('next') or reverse('index')
     return render(request, 'web/login.html', {'login_form':login_form, 'register_form': register_form })
 
@@ -80,21 +81,24 @@ def login(request): # /login
 
   post_data = form.cleaned_data
   post_encoded = urllib.parse.urlencode(post_data).encode('utf-8')
-  req = urllib.request.Request('http://exp-api:8000/login', data=post_encoded, method='POST')
+  req = urllib.request.Request('http://exp-api:8000/login/', data=post_encoded, method='POST')
+
   resp_json = urllib.request.urlopen(req).read().decode('utf-8')
   resp = json.loads(resp_json)
 
   if not resp:
-    resp = err_web.E_TECH_DIFFICULTIES
+    resp = {'resp':err_web.E_TECH_DIFFICULTIES}
     return render(request, 'web/t404.html', resp)
 
   if resp['ok'] == False: # could be much more nuanced. 
-    resp = err_web.E_LOGIN_FAILED
-    return render(request, 'web/login.html', resp)
+    #resp = err_web.E_LOGIN_FAILED
+    #resp = err_web.E_LOGIN_FAILED
+    return render(request, 'web/login.html', {'login_form':login_form, 'register_form': register_form, 'resp': resp})
 
 
   authenticator = resp['resp']['authenticator']
   response = HttpResponseRedirect(next)
+  messages.success(request, 'Successfully logged in!')
   response.set_cookie("auth", authenticator)
   return response
 
@@ -104,43 +108,45 @@ def logout(request): # /logout
   auth = request.COOKIES.get('auth')
   if not auth:
     # handle user not logged in while trying to create a listing
+    messages.success(request, 'You are not logged in.')
     return HttpResponseRedirect(reverse("login"))
 
   if request.method != 'GET':
     resp = err_web.E_BAD_REQUEST
     return render(request, 'web/t404.html', resp)
   
-  form = AuthForm(dict(auth))
+  form = AuthForm(dict(authenticator=auth))
   if not form.is_valid():
     resp = err_web.E_TECH_DIFFICULTIES
-    return render(request, 'web/login.html', resp)
+    return render(request, 'web/login.html', {'resp':resp})
   
   next = form.cleaned_data.get('next') or reverse('index')
 
   post_data = form.cleaned_data
   post_encoded = urllib.parse.urlencode(post_data).encode('utf-8')
-  req = urllib.request.Request('http://exp-api:8000/logout', data=post_encoded, method='POST')
+  req = urllib.request.Request('http://exp-api:8000/logout/', data=post_encoded, method='POST')
   resp_json = urllib.request.urlopen(req).read().decode('utf-8')
   resp = json.loads(resp_json)
 
   if not resp:
-    resp = err_web.E_TECH_DIFFICULTIES
+    resp = {'resp':err_web.E_TECH_DIFFICULTIES}
     return render(request, 'web/t404.html', resp)
 
   if resp['ok'] == False: # could be much more nuanced. 
-    resp = err_web.E_LOGOUT_FAILED
-    return render(request, 'web/login.html', resp)
+    #resp = {'resp':err_web.E_LOGOUT_FAILED}
+    return render(request, 'web/login.html', {'resp':resp})
 
   response = HttpResponseRedirect(next)
-  response.set_cookie("auth", '') # deletes from client cookies. already deleted in db.
+  response.delete_cookie('auth') # deletes from client cookies. already deleted in db.
+  messages.success(request, 'Successfully logged out!')
   return response
 
 
 
 def register(request): # /login
+  login_form = LoginForm()
+  register_form = RegisterForm()
   if request.method == 'GET':
-    login_form = LoginForm()
-    register_form = RegisterForm()
     return render(request, 'web/login.html', {'login_form':login_form, 'register_form': register_form })
 
   if request.method != 'POST': # user did not make GET or POST request (unlikely).
@@ -149,26 +155,27 @@ def register(request): # /login
   
   form = RegisterForm(request.POST)
   if not form.is_valid():
-    invalid_form = {'invalid_form': err_web.E_FORM_INVALID} #TODO for rest
-    return render(request, 'web/login.html', invalid_form)
+    #resp = {'resp': err_web.E_FORM_INVALID} #TODO for rest
+    resp = {'resp': form.errors} #TODO for rest
+    return render(request, 'web/login.html', resp)
   
   post_data = form.cleaned_data
   post_encoded = urllib.parse.urlencode(post_data).encode('utf-8')
-  req = urllib.request.Request('http://exp-api:8000/register', data=post_encoded, method='POST')
+  req = urllib.request.Request('http://exp-api:8000/register/', data=post_encoded, method='POST')
   resp_json = urllib.request.urlopen(req).read().decode('utf-8')
   resp = json.loads(resp_json)
 
   if not resp:
-    resp = err_web.E_TECH_DIFFICULTIES
+    resp = {'resp':err_web.E_TECH_DIFFICULTIES}
     return render(request, 'web/t404.html', resp)
 
   if resp['ok'] == False: # could be much more nuanced. 
-    resp = err_web.E_REGISTER_FAILED
-    return render(request, 'web/login.html', resp)
+    resp = {'resp':err_web.E_REGISTER_FAILED}
+    return render(request, 'web/login.html', {'login_form':login_form, 'register_form': register_form, 'resp':resp })
 
 
-  registration_success = "congrats, you've registered an account successfully! login to get started :)"
-  return render(request, 'web/login.html', registration_success)
+  resp = '<span style="font-size:30px; color=orange">congrats, you registered an account successfully! login to get started :)</span>'
+  return render(request, 'web/login.html', {'resp':resp})
 
 
 
@@ -203,11 +210,11 @@ def contactus(request):
 
 def hi(request):
   context = {} # can send dictionary values (results of api calls) to the template
-  req = urllib.request.Request('http://exp-api:8000/hi')
+  req = urllib.request.Request('http://exp-api:8000/hi/')
   resp_json = urllib.request.urlopen(req).read().decode('utf-8')
   resp = json.loads(resp_json)
   if not resp:
-    resp = err_web.E_TECH_DIFFICULTIES
+    resp = {'resp':err_web.E_TECH_DIFFICULTIES}
     return render(request, 'web/t404.html', resp)
 
   return render(request, 'web/hi.html', resp)
@@ -229,11 +236,11 @@ def productdetails(request, drone_id=None): # allow conditional params
     resp = json.loads(resp_json)
 
     if not resp:
-      resp = err_web.E_TECH_DIFFICULTIES
+      resp = {'resp':err_web.E_TECH_DIFFICULTIES}
       return render(request, 'web/t404.html', resp)
 
     if resp['resp']['ok'] == False:
-      resp = err_web.E_DRONE_NOT_FOUND
+      resp = {'resp':err_web.E_DRONE_NOT_FOUND}
       return render(request, 'web/t404.html', resp)
     
     resp2 = resp['resp']
@@ -253,11 +260,11 @@ def userprofile(request, user_id=None): # allow conditional params
     resp = json.loads(resp_json)
 
     if not resp:
-      resp = err_web.E_TECH_DIFFICULTIES
+      resp = {'resp':err_web.E_TECH_DIFFICULTIES}
       return render(request, 'web/t404.html', resp)
 
     if resp['resp']['ok'] == False:
-      resp = err_web.E_USER_NOT_FOUND
+      resp = {'resp':err_web.E_USER_NOT_FOUND}
       return render(request, 'web/t404.html', resp)
     
     resp2 = resp['resp']

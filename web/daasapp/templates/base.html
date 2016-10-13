@@ -39,6 +39,7 @@
 							<ul class="nav nav-pills">
 								<li><a href="#"><i class="fa fa-phone"></i> +1 434-999-DAAS</a></li>
 								<li><a href="#"><i class="fa fa-envelope"></i> {mdk6jd, jat9kf, sgh7cc} @ virginia.edu</a></li>
+
 							</ul>
 						</div>
 					</div>
@@ -88,6 +89,10 @@
 								</ul>
 							</div>
 						</div>
+
+
+
+
 					</div>
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
@@ -147,6 +152,8 @@
 				</div>
 			</div>
 		</div><!--/header-middle-->
+
+
 	
 		<div class="header-bottom"><!--header-bottom-->
 			<div class="container">
@@ -196,8 +203,23 @@
 		</div><!--/header-bottom-->
 	</header><!--/header-->
 	{% endblock %}
+ <div class="row">
+        <div class="col-sm-4"><!--Column left--></div>
+        <div class="col-sm-3">
+        {% if messages %}
+            {% for message in messages %}
+         <div style="font-size:15px" class="alert alert-info">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <b>{{ message }}</b>
+          </div>
 
-<div> {% block body_block %} {% endblock %} </div>
+            {% endfor %}
+        {% endif %}
+        </div>
+        <div class="col-sm-5"><!--Column right--></div>
+<div>
+
+{% block body_block %} {% endblock %} </div>
 
 
 {% block footer_block %}

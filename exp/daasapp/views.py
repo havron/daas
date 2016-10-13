@@ -4,7 +4,7 @@ import urllib.request
 import urllib.parse
 import json
 from django.http import JsonResponse
-from . import err_models, err_exp
+from daasapp import err_models, err_exp
 from django.contrib.auth import hashers
 import datetime
 
@@ -20,7 +20,7 @@ class AuthForm(forms.Form):
 class RegisterForm(forms.Form):
   f_name = forms.CharField(label="Your first name")
   l_name = forms.CharField(label="Your last name")
-  username = forms.Charfield(label="Your daas! username")
+  username = forms.CharField(label="Your daas! username")
   email1 = forms.EmailField(label="Your daas! email address")
   email2 = forms.EmailField(label="Your daas! email address (again)")
   bio = forms.CharField(label="A short description of yourself!", widget=forms.Textarea)
@@ -55,7 +55,7 @@ def check_auth(request): # /auth
 
   post_data = form.cleaned_data
   post_encoded = urllib.parse.urlencode(post_data).encode('utf-8')
-  req = urllib.request.Request('http://models-api:8000/api/v1/user/auth', data=post_encoded, method='POST')
+  req = urllib.request.Request('http://models-api:8000/api/v1/user/auth/', data=post_encoded, method='POST')
   resp_json = urllib.request.urlopen(req).read().decode('utf-8')
   resp = json.loads(resp_json)
 
@@ -80,7 +80,7 @@ def login(request): # /login
 
   post_data = form.cleaned_data
   post_encoded = urllib.parse.urlencode(post_data).encode('utf-8')
-  req = urllib.request.Request('http://models-api:8000/api/v1/user/login', data=post_encoded, method='POST')
+  req = urllib.request.Request('http://models-api:8000/api/v1/user/login/', data=post_encoded, method='POST')
   resp_json = urllib.request.urlopen(req).read().decode('utf-8')
   resp = json.loads(resp_json)
 
@@ -89,7 +89,7 @@ def login(request): # /login
   if resp['ok'] == False: # could be much more nuanced. makes web view handle errors
     return _error_response(request, err_exp.E_LOGIN_FAILED, resp)
 
-  return _success_response(request, resp['resp']['authenticator'])
+  return _success_response(request, resp['resp'])
 
 
 def logout(request): # /logout
@@ -102,7 +102,7 @@ def logout(request): # /logout
 
   post_data = form.cleaned_data
   post_encoded = urllib.parse.urlencode(post_data).encode('utf-8')
-  req = urllib.request.Request('http://models-api:8000/api/v1/user/logout', data=post_encoded, method='POST')
+  req = urllib.request.Request('http://models-api:8000/api/v1/user/logout/', data=post_encoded, method='POST')
   resp_json = urllib.request.urlopen(req).read().decode('utf-8')
   resp = json.loads(resp_json)
 
@@ -111,7 +111,8 @@ def logout(request): # /logout
   if resp['ok'] == False: # could be much more nuanced. makes web view handle errors
     return _error_response(request, err_exp.E_LOGIN_FAILED, resp)
 
-  return _success_response(request, resp['resp'])
+  #return _success_response(request, resp['resp'])
+  return _success_response(request, "logged out successfully")
 
 
 def register(request): # /register
@@ -129,7 +130,7 @@ def register(request): # /register
   post_data['email_address'] = post_data['email1'] 
 
   post_encoded = urllib.parse.urlencode(post_data).encode('utf-8')
-  req = urllib.request.Request('http://models-api:8000/api/v1/user/create', data=post_encoded, method='POST')
+  req = urllib.request.Request('http://models-api:8000/api/v1/user/create/', data=post_encoded, method='POST')
   resp_json = urllib.request.urlopen(req).read().decode('utf-8')
   resp = json.loads(resp_json)
 
@@ -146,7 +147,7 @@ def register(request): # /register
 
 def hi(request): # /hi
   context = {} # can send dictionary values (results of api calls) to the template
-  req = urllib.request.Request('http://models-api:8000/api/v1/user/all')
+  req = urllib.request.Request('http://models-api:8000/api/v1/user/all/')
   resp_json = urllib.request.urlopen(req).read().decode('utf-8')
   resp = json.loads(resp_json)
   return _success_response(request, resp)

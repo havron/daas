@@ -5,8 +5,8 @@ from django import db
 from django.forms.models import model_to_dict
 from django.contrib.auth import hashers
 from django.http import JsonResponse
-from . import models
-from . import err_models
+from daasapp import models
+from daasapp import err_models
 from django.conf import settings # for getting HMAC key from project settings
 import hmac, os # for generating auth token
 
@@ -31,10 +31,9 @@ class UserForm(ModelForm):
 
             return user
 
-class LoginForm(ModelForm): 
-  class Meta:
-    model = models.User
-    fields = ['username', 'password']
+class LoginForm(forms.Form): 
+  username = forms.CharField()
+  password = forms.CharField()
     # this form is never saved, only used to properly get username and pw fields
 
 class UpdateUserForm(ModelForm): 
@@ -47,10 +46,8 @@ class AuthForm(ModelForm):
     model = models.Authenticator
     fields = ['user_id', 'authenticator', 'date_created']
 
-class CheckAuthForm(ModelForm): 
-  class Meta:
-    model = models.Authenticator
-    fields = ['authenticator'] # date checked in experience layer. add 'user_id' if needed.
+class CheckAuthForm(forms.Form): 
+  authenticator = forms.CharField()
 
 class DroneForm(ModelForm): # currently not using this form ... see create_drone()
     owner = forms.ModelChoiceField(queryset=models.User.objects.all())
@@ -116,12 +113,13 @@ def login_user(request): # /api/v1/user/login
 
   form = LoginForm(request.POST)
   if not form.is_valid():
-    return _error_response(request, err_models.E_FORM_INVALID, "exp service did not supply login credentials")
+    #return _error_response(request, err_models.E_FORM_INVALID, "exp service did not supply valid login credentials")
+    return _error_response(request, form.errors, "exp service did not supply valid login credentials")
 
   try:
     u = models.User.objects.get(username=form.cleaned_data['username'])
   except models.User.DoesNotExist:
-    return _error_response(request, err_models.E_LOGIN_FAILED, "could not find user with supplied username")
+    return _error_response(request, err_models.E_LOGIN_FAILED, "could not find user with supplied username...")
 
   if not hashers.check_password(form.cleaned_data['password'], u.password):
     return _error_response(request, err_models.E_LOGIN_FAILED, "password not correct")
@@ -153,11 +151,12 @@ def logout_user(request): # /api/v1/user/logout
 
   form = CheckAuthForm(request.POST)
   if not form.is_valid():
-    return _error_response(request, err_models.E_FORM_INVALID, "auth token form not filled out correctly")
+    return _error_response(request, form.errors, "auth token form not filled out correctly")
+    #return _error_response(request, err_models.E_FORM_INVALID, "auth token form not filled out correctly")
 
   data = form.cleaned_data
   try:
-    auth = models.Authenticator.get(pk=data['authenticator'])
+    auth = models.Authenticator.objects.get(pk=data['authenticator'])
   except models.Authenticator.DoesNotExist:
     return _error_response(request, err_models.E_UNKNOWN_AUTH, "authenticator not found")
 

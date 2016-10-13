@@ -23,7 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'ue3l0*7p%n523d0g_4e75&d_dg)%+)_y*&ipv8lq^n!d!$mwwe'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+
 DEBUG = True
+#DEBUG_PROPAGATE_EXCEPTIONS = True
 
 ALLOWED_HOSTS = []
 
@@ -34,9 +36,10 @@ PREPEND_WWW = False
 
 INSTALLED_APPS = (
     #'django.contrib.admin',
-    #'django.contrib.auth',
-    #'django.contrib.contenttypes',
-    #'django.contrib.messages',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.messages',
+    'django.contrib.sessions',
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'daasapp',
@@ -53,6 +56,23 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
 )
+
+#LOGGING = {
+#    'version': 1,
+#    'handlers': {
+#        'console':{
+#            'level':'DEBUG',
+#            'class':'logging.StreamHandler',
+#        },
+#    },
+#    'loggers': {
+#        'django.request': {
+#            'handlers':['console'],
+#            'propagate': True,
+#            'level':'DEBUG',
+#        }
+#    },
+#}
 
 ROOT_URLCONF = 'web.urls'
 

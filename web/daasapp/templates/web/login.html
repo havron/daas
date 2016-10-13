@@ -2,23 +2,27 @@
 {% load staticfiles %}
 {% block title_block %} daas login {% endblock %}
 {% block body_block %}
-	<section id="form"><!--form-->
+
+
+<section id="form"><!--form-->
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-4 col-sm-offset-1">
-        {{ form_invalid }}
-        {{ registration_success }}
+            {% if resp %}
+            <b>{{ resp }}</b>
+            {% endif %}
+            <br>
+            <br>
 									<img src="{% static "images/home/pug.jpg" %}" class="girl img-responsive" alt="" />
 					<div class="login-form"><!--login form-->
 						<h2>Login to your account</h2>
-            {% if resp %}
-            {{ resp }}
-            {% endif %}
+            {% if login_form %}
             <form action="/login/" method="post">
+                <button type="submit" class="btn btn-primary" value="Submit">Login</button>
                 {% csrf_token %}
                 {{ login_form }}
-                <button type="submit" class="btn btn-success" value="Submit">Login</button>
             </form>
+            {% endif %}
 					</div><!--/login form-->
 				</div>
 				<div class="col-sm-1">
@@ -27,11 +31,13 @@
 				<div class="col-sm-4">
 					<div class="signup-form"><!--sign up form-->
 						<h2>New User Signup!</h2>
+            {% if register_form %}
             <form action="/register/" method="post">
+                <button type="submit" class="btn btn-success" value="Submit">Sign up!</button>
                 {% csrf_token %}
                 {{ register_form }}
-                <button type="submit" class="btn btn-success" value="Submit">Sign up!</button>
             </form>
+            {% endif %}
 					</div><!--/sign up form-->
 				</div>
 			</div>
