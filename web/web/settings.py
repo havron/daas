@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 
 APPEND_SLASH = True
 PREPEND_WWW = False
+CSRF_COOKIE_HTTPONLY=True
+SESSION_COOKIE_PATH = '/;HttpOnly'
 
 # Application definition
 
