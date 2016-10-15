@@ -142,7 +142,11 @@
 								<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
 								<li><a href="{% url 'checkout' %}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
 								<li><a href="{% url 'cart' %}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-								<li><a href="{% url 'login' %}"><i class="fa fa-lock"></i> Login</a></li>
+								{% if not request.COOKIES.auth %}
+                <li><a href="{% url 'login' %}"><i class="fa fa-lock"></i><b> Login!</b></a></li>
+                {% else %}
+								<li><a href="{% url 'logout' %}"><i class="fa fa-lock"></i><b> Logout :)</b></a></li>
+                {% endif %}
 							</ul>
 
 
@@ -212,7 +216,6 @@
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <b>{{ message }}</b>
           </div>
-
             {% endfor %}
         {% endif %}
         </div>
@@ -244,7 +247,7 @@
                   <i class="fa fa-play-circle-o"></i>
                 </div>
               </a>
-              <p>Circle of Hands</p>
+              <p>best drones evar!</p>
               <h2>24 DEC 2014</h2>
             </div>
           </div>
@@ -259,7 +262,7 @@
                   <i class="fa fa-play-circle-o"></i>
                 </div>
               </a>
-              <p>Circle of Hands</p>
+              <p>best drones evar!</p>
               <h2>24 DEC 2014</h2>
             </div>
           </div>
@@ -274,7 +277,7 @@
                   <i class="fa fa-play-circle-o"></i>
                 </div>
               </a>
-              <p>Circle of Hands</p>
+              <p>best drones evar!</p>
               <h2>24 DEC 2014</h2>
             </div>
           </div>
@@ -289,7 +292,7 @@
                   <i class="fa fa-play-circle-o"></i>
                 </div>
               </a>
-              <p>Circle of Hands</p>
+              <p>best drones evar!</p>
               <h2>24 DEC 2014</h2>
             </div>
           </div>
@@ -297,7 +300,7 @@
         <div class="col-sm-3">
           <div class="address">
             <img src="{% static "images/home/map.png" %}" alt="" />
-            <p>505 S Atlantic Ave Virginia Beach, VA(Virginia)</p>
+            <p>120 Olsson Hall, Charlottesville, VA 22904</p>
           </div>
         </div>
       </div>

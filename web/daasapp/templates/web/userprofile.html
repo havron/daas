@@ -5,40 +5,81 @@
     <link href="{% static "css/starrr.css" %}" rel="stylesheet">
     <link href="{% static "css/rating.css" %}" rel="stylesheet">
     <link href="{% static "css/profile.css" %}" rel="stylesheet">
+    <link href="{% static "css/people.css" %}" rel="stylesheet">
 {% endblock %}
 
 {% block body_block %}
 <div class="container">
 
-<span style="font-size:25px"><i>we currently have 200 users on the site. find them by putting a monotically increasing user id number at the end of the url! e.g. /user/64</i></span>
-
+<span style="font-size:25px">we currently have 200 users on the site. find them by putting a monotically increasing user id number at the end of the url! e.g. /user/64</span>
+<br>
     {% if not resp %}
     <span>
-      <br><br>
-      <span style="font-size:25px">No User selected. <a href="{% url 'userprofile' 64 %}">Pick one!</a></span>
+      <span style="font-size:35px;color:red">No User selected. <a href="{% url 'userprofile' 64 %}">Pick one!</a></span>
     </span>
 
     {% endif %}
+<br>
+
+
+<div class="col-lg-6 col-sm-6">
+    <div class="card hovercard">
+        <div class="card-background">
+            <img class="card-bkimg" alt="" src="{% static "images/home/bk.jpg" %}">
+            <!-- http://lorempixel.com/850/280/people/9/ -->
+        </div>
+        <div class="useravatar">
+            <img alt="" src="{% static "images/home/girl2.jpg" %}">
+        </div>
+        <div class="card-info"> <span class="card-title" style="color:navy">{{ resp.f_name }} {{ resp.l_name }} ({{ resp.username }})</span>
+
+        </div>
+    </div>
+    <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
+        <div class="btn-group" role="group">
+            <button type="button" id="stars" class="btn btn-primary" href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                <div class="hidden-xs">About Me</div>
+            </button>
+        </div>
+        <div class="btn-group" role="group">
+            <button type="button" id="favorites" class="btn btn-default" href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+                <div class="hidden-xs">Favorites</div>
+            </button>
+        </div>
+        <div class="btn-group" role="group">
+            <button type="button" id="following" class="btn btn-default" href="#tab3" data-toggle="tab"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                <div class="hidden-xs">Following</div>
+            </button>
+        </div>
+    </div>
+
+        <div class="well">
+      <div class="tab-content">
+        <div class="tab-pane fade in active" id="tab1">
+          <h3>Hi there!</h3>
+     <b>Email: <i>{{ resp.email_address }}</i></b>
+          <br><br>
+          <i class="glyphicon glyphicon-time"></i> Active member of DAAS! <br><i>since</i> {{ resp.date_joined }}
+          <br><br>
+         <span style="font-size:15px"><b>My bio:</b><br>{{ resp.bio }}</span>
+          
+        </div>
+        <div class="tab-pane fade in" id="tab2">
+          <h3>This is tab 2</h3>
+        </div>
+        <div class="tab-pane fade in" id="tab3">
+          <h3>This is tab 3</h3>
+        </div>
+      </div>
+    </div>
+    
+    </div>
+
+
 <div class="container">
     <div class="row profile">
     <div class="col-md-3">
       <div class="profile-sidebar">
-        <!-- SIDEBAR USERPIC -->
-        <div class="profile-userpic">
-          <img src="{% static "images/home/pug.jpg" %}" class="img-responsive" alt="">
-        </div>
-        <!-- END SIDEBAR USERPIC -->
-        <!-- SIDEBAR USER TITLE -->
-        <div class="profile-usertitle">
-          <div class="profile-usertitle-name">
-            <span style="font-size: 20px">{{ resp.f_name }} {{ resp.l_name }}</span>
-          </div>
-            <span >Username: <i style="color:darkorange"><b>{{ resp.username }}</b></i></span>
-          <br>
-     <span style="font-family: Ubuntu; font-size: 11px; color:blue" ><b>{{ resp.email_address }}</b></span>
-          <br><br><br>
-          <i class="glyphicon glyphicon-time"></i> Active member of DAAS! <br><i>since</i> {{ resp.date_joined }}
-        </div>
         <!-- END SIDEBAR USER TITLE -->
         <!-- SIDEBAR BUTTONS -->
         <div class="profile-userbuttons">
@@ -75,10 +116,6 @@
       </div>
     </div>
     <div class="col-md-9">
-            <div class="profile-content">
-
-         <span style="font-size:25px"><b>My bio:</b><br>{{ resp.bio }}</span>
-            </div>
     </div>
   </div>
 </div>
@@ -89,6 +126,7 @@
 <div class="container">
         <h2>Evaluation<small> Description </small></h2>
 </div>
+
 <div class="container">
     
     <h3>My Awesome Meter</h3>
@@ -250,4 +288,5 @@
 {% endblock %}
 {% block js_block %}
 <script type="text/javascript" src="{% static "js/starrr.js" %}"></script>
+<script type="text/javascript" src="{% static "js/people.js" %}"></script>
 {% endblock %}
