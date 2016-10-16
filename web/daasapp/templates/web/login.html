@@ -12,16 +12,15 @@
 			<div class="row">
 				<div class="col-sm-4 col-sm-offset-1">
             {% if resp %}
-            <b>{{ resp }}</b>
-            <br>
+            <b style="font-size:28px">{{ resp }}</b>
             <br>
             {% endif %}
 					<div class="login-form"><!--login form-->
 						<h2>Login to your account</h2>
             {% if login_form %}
-            <form class="form-signin" action="/login/" method="post">
-            <h2 class="form-signin-heading">Please login</h2>
-                <button type="submit" class="btn btn-lg btn-primary btn-block" value="Submit">Login</button>
+            <form class="form-signin" action="/login/?next={{next}}" method="post">
+            <h2 class="form-signin-heading" style="color:orange"><b>Login here :)</b></h2>
+                <button type="submit" class="btn btn-lg btn-primary btn-block" value="Submit">Login</button><br>
                 {% csrf_token %}
                 {{ login_form }}
             </form>
@@ -32,16 +31,18 @@
 					<h2 class="or">OR</h2>
 				</div>
 					<div class="signup-form"><!--sign up form-->
-				<div class="col-sm-4">
+				<div class="col-sm-6">
         <img src="{% static "images/home/dog2.jpg" %}" class="girl img-responsive" alt="" />
 						<h2>New User Signup!</h2>
             {% if register_form %}
+            <div class="col-lg-12">
             <form class="form-signin" action="/register/" method="post">
-            <h2 class="form-signin-heading">Please login</h2>
-                <button type="submit" class="btn btn-lg btn-primary btn-block" value="Submit">Sign up!</button>
+            <h2 class="form-signin-heading" style="color:orange"><b>Want to join DAAS!?</b></h2>
+                <button type="submit" class="btn btn-lg btn-primary btn-block" value="Submit">Sign up!</button><br>
                 {% csrf_token %}
                 {{ register_form }}
             </form>
+            </div>
             {% endif %}
 					</div><!--/sign up form-->
 				</div>

@@ -22,7 +22,7 @@ install:
   - docker run --name mysql -d -e MYSQL\_ROOT\_PASSWORD='$3cureUS' -e MYSQL\_USER='www'@'%' -e MYSQL\_PASSWORD='$3cureUS' -e MYSQL\_DATABASE=test_cs4501 -v db:/var/lib/mysql mysql:5.7.14
 #  - docker exec -it mysql chmod 777 /var/run/mysqld/mysqld.sock
 #  - docker exec -it mysql mysql -uroot -p'$3cureUS' -e "create database test_cs4501 character set utf8;grant all on test_cs4501.* to 'www'@'%';"
-  - docker run -it --name mysql-cmdline --link mysql:db mysql:5.7.14 bash -c "service mysql start && echo 'create database test_cs4501 character set utf8;grant all on test_cs4501.* to '\''www'\''@'\''%'\'';' | mysql -u'www -h'%' -p'$3cureUS'"
+  - docker run -d --name mysql-cmdline --link mysql:db mysql:5.7.14 bash -c "service mysql start && echo 'create database test_cs4501 character set utf8;grant all on test_cs4501.* to '\''www'\''@'\''%'\'';' | mysql -u'www' -h'%' -p'$3cureUS'"
   - docker ps -a
 
 before_script:

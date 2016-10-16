@@ -182,7 +182,7 @@ def check_auth_user(request): # /api/v1/user/auth
 
   data = form.cleaned_data
   try:
-    auth = models.Authenticator.get(pk=data['authenticator'])
+    auth = models.Authenticator.objects.get(pk=data['authenticator'])
   except models.Authenticator.DoesNotExist:
     return _error_response(request, err_models.E_UNKNOWN_AUTH, "authenticator not found")
 

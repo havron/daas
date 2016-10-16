@@ -98,54 +98,30 @@
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
 							 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <span class="fa fa-user"></span> 
-                        <strong>Account</strong>
-                        <span class="glyphicon glyphicon-chevron-down"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <div class="navbar-login">
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <p class="text-center">
-                                            <img height="100%" width="100%" src="{% static "images/home/cooldude.png" %}">
-                                        </p>
-                                    </div>
-                                    <div class="col-lg-8">
-                                        <p class="text-left"><strong>4W350m3 duD3</strong></p>
-                                        <p class="text-left small" style="color:green"><i>2SLY4u@yahoogle.com</i></p>
-                                        <p class="text-left">
-                                            <a href="#" class="btn btn-primary btn-block btn-sm">View my profile</a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <div class="navbar-login navbar-login-session">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <p>
-                                            <a href="#" class="btn btn-success btn-block">My account settings</a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-            
-
 								<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
 								<li><a href="{% url 'checkout' %}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
 								<li><a href="{% url 'cart' %}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
 								{% if not request.COOKIES.auth %}
-                <li><a href="{% url 'login' %}"><i class="fa fa-lock"></i><b> Login!</b></a></li>
+                <br>
+                <li><a href="{% url 'login' %}"><span style="font-size:27px"><i class="fa fa-sign-in"></i><b> Login!</span></b></a></li>
                 {% else %}
-								<li><a href="{% url 'logout' %}"><i class="fa fa-lock"></i><b> Logout :)</b></a></li>
+
+                <br>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+
+{% comment %} <a href="{% url 'userprofile' request.COOKIES.pk %}"> {% endcomment %}
+
+								<span style="font-size:20px"><i class="fa fa-user"></i> <b>Welcome, <span style="color:darkorange">{{ request.COOKIES.user }}!</b></span> &nbsp;<span class="glyphicon glyphicon-chevron-down"></span></a></span>
+                    </a>
+                     <ul class="dropdown-menu">
+                     <li><a style="font-size:30px" href="#"> Account Settings
+                       </a></li>
+                     <li><b><a style="font-size:30px" href="{% url 'userprofile' request.COOKIES.pk %}"> My Profile</a></b></li>
+                 </ul>
+              </li>
+
+              <li><a href="{% url 'logout' %}"><span style="font-size:20px"><i class="fa fa-sign-out"></i><b>Logout :)</b></a></span></li>
                 {% endif %}
 							</ul>
 

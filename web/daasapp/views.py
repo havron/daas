@@ -49,13 +49,43 @@ class RegisterForm(forms.Form):
           raise forms.ValidationError("Your passwords do not match")
       return password2
 
-# fields = ['username', 'password', 'email_address','date_joined','is_active','f_name','l_name', 'bio']
-
-
 ########################################################
 
+# use the decorator @login_required in other views that need it! :-)
+def login_required(f):
+  def wrap(request, *args, **kwargs):
+    response = HttpResponseRedirect(reverse("login")+"?next="+request.path)
+    auth = request.COOKIES.get('auth')
+    if not auth:
+      messages.success(request, 'You are not logged in.')
+      return response
 
-def index(request):
+    form = AuthForm(dict(authenticator=auth))
+    if not form.is_valid():
+      messages.success(request, 'You are not logged in.')
+      response.delete_cookie('auth') # deletes from client cookies. already deleted in db.
+      return response
+
+    post_data = form.cleaned_data
+    post_encoded = urllib.parse.urlencode(post_data).encode('utf-8')
+    req = urllib.request.Request('http://exp-api:8000/auth/', data=post_encoded, method='POST')
+    resp_json = urllib.request.urlopen(req).read().decode('utf-8')
+    resp = json.loads(resp_json)
+
+    if not resp:
+      resp = {'resp':err_web.E_TECH_DIFFICULTIES}
+      return render(request, 'web/t404.html', resp)
+
+    if resp['ok'] == False:
+      messages.success(request, 'You are not logged in.')
+      response.delete_cookie('auth') # deletes from client cookies. already deleted in db.
+      return response
+
+    return f(request, *args, **kwargs)
+  return wrap
+
+
+def index(request): # home page! 
   context = {} # can send dictionary values (results of api calls) to the template
   return render(request, 'web/index.html', context)
 
@@ -66,7 +96,7 @@ def login(request): # /login
   register_form = RegisterForm()
   if request.method == 'GET':
     next = request.GET.get('next') or reverse('index')
-    return render(request, 'web/login.html', {'login_form':login_form, 'register_form': register_form })
+    return render(request, 'web/login.html', {'login_form':login_form, 'register_form': register_form , 'next':next})
 
   if request.method != 'POST': # user did not make GET or POST request (unlikely).
     resp = err_web.E_BAD_REQUEST
@@ -77,7 +107,7 @@ def login(request): # /login
     invalid_form = err_web.E_FORM_INVALID
     return render(request, 'web/login.html', invalid_form)
   
-  next = form.cleaned_data.get('next') or reverse('index')
+  next = request.GET.get('next') or reverse('index')
 
   post_data = form.cleaned_data
   post_encoded = urllib.parse.urlencode(post_data).encode('utf-8')
@@ -91,23 +121,24 @@ def login(request): # /login
     return render(request, 'web/t404.html', resp)
 
   if resp['ok'] == False: # could be much more nuanced. 
-    #resp = err_web.E_LOGIN_FAILED
-    #resp = err_web.E_LOGIN_FAILED
-    return render(request, 'web/login.html', {'login_form':login_form, 'register_form': register_form, 'resp': resp})
+    resp = err_web.E_LOGIN_FAILED
+    return render(request, 'web/login.html', {'login_form':login_form, 'register_form': register_form, 'resp': resp, 'next':next})
 
 
   authenticator = resp['resp']['authenticator']
   response = HttpResponseRedirect(next)
   messages.success(request, 'Successfully logged in!')
   response.set_cookie("auth", authenticator)
+  response.set_cookie("user", form.cleaned_data['username'])
+  response.set_cookie("pk", resp['resp']['user_id'])
   return response
 
 
 
+@login_required
 def logout(request): # /logout
   auth = request.COOKIES.get('auth')
-  if not auth:
-    # handle user not logged in while trying to create a listing
+  if not auth: # should never happen with our decorator, but just in case.
     messages.success(request, 'You are not logged in.')
     return HttpResponseRedirect(reverse("login"))
 
@@ -120,7 +151,7 @@ def logout(request): # /logout
     resp = err_web.E_TECH_DIFFICULTIES
     return render(request, 'web/login.html', {'resp':resp})
   
-  next = form.cleaned_data.get('next') or reverse('index')
+  next = request.GET.get('next') or reverse('index')
 
   post_data = form.cleaned_data
   post_encoded = urllib.parse.urlencode(post_data).encode('utf-8')
@@ -138,6 +169,8 @@ def logout(request): # /logout
 
   response = HttpResponseRedirect(next)
   response.delete_cookie('auth') # deletes from client cookies. already deleted in db.
+  response.delete_cookie('pk') # deletes from client cookies. already deleted in db.
+  response.delete_cookie('user') # deletes from client cookies. already deleted in db.
   messages.success(request, 'Successfully logged out!')
   return response
 
@@ -179,10 +212,12 @@ def register(request): # /login
 
 
 
+@login_required
 def checkout(request):
   context = {} # can send dictionary values (results of api calls) to the template
   return render(request, 'web/checkout.html', context)
 
+@login_required
 def cart(request):
   context = {} # can send dictionary values (results of api calls) to the template
   return render(request, 'web/cart.html', context)
@@ -223,7 +258,6 @@ def hi(request):
 def letsgrade(request):
   context = {} # can send dictionary values (results of api calls) to the template
   return render(request, 'web/lets-grade.html', context)
-
 
 
 
