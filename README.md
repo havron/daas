@@ -1,4 +1,3 @@
-# AUTHENTICATION BRANCH
 ## drones as a service (daas)
 Welcome! This repository is home to a daas marketplace, with a catch: user
 reputations are stored in a block-chain. The marketplace is built on 4
