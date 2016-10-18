@@ -7,6 +7,7 @@ import json
 import datetime
 import random
 import arrow
+from django.contrib.auth import hashers
 
 #create new class
 #fields = ['username', 'password', 'email_address','date_joined','is_active','f_name','l_name', 'bio']
@@ -30,7 +31,8 @@ class InspectUserTestCase(TestCase):
   def setUp(self):
     self.client = Client()
     user_name = random.randrange(0,200)
-    form_data = {'username': 'abolishputa'+str(user_name),'password': 'Lettish_fundamentalism100', 'email_address': 'conjugally_Guadalcanal100@equatorially.com','date_joined': datetime.datetime.now(),  'is_active': True, 'f_name': 'Mark', 'l_name': 'White','bio': "a zoonal" }
+    pw = hashers.make_password('blahblah')
+    form_data = {'username': 'abolishputa'+str(user_name),'password': pw, 'email_address': 'conjugally_Guadalcanal100@equatorially.com','date_joined': datetime.datetime.now(),  'is_active': True, 'f_name': 'Mark', 'l_name': 'White','bio': "a zoonal" }
     form = views.UserForm(data=form_data)
     self.assertTrue(form.is_valid())
 
