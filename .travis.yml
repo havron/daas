@@ -37,7 +37,7 @@ before_script:
   - docker-compose up -d
 
 script:
-  - echo yes | docker exec -it daas_models_1 python manage.py test
+  - docker exec -it daas_models_1 python manage.py test --noinput
 
 after_script:
   - docker-compose stop
