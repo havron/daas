@@ -59,7 +59,10 @@ class Authenticator(models.Model):
   def __unicode__(self):
     return self.authenticator
 
-class Listings(models.Model):
+
+
+# Listings Class
+class Listing(models.Model):
     owner = models.ForeignKey('User') #@sam what additional steps do we need
     drone = models.ForeignKey('Drone') #is this set up for done??
     price_per_day = models.FloatField() # [ask TAs how to do price, also just look at project descriptions to see what we need to do for this]
@@ -68,7 +71,22 @@ class Listings(models.Model):
     listing_status_choices = ['available', 'unavailable']
     listing_status = models.CharField(choices = job_status_choices)
 
+    def to_json(self):
+      return dict(
+        owner = self.owner.to_json(), # need to serialize the foreignkey object
+        drone = self.drone.to_json(),
+        price_per_day=self.price_per_day,
+        time_posted = self.time_posted,
+        description = self.description,
+        listing_status = self.listing_status,
+        listing_id = self.id
+      )
 
+    def __str__(self):
+      return "Listing is %s, description is %s, id number is %s" % (self.model_name, self.description, self.id)
+
+    def __unicode__(self):
+      return self.id
 ''' 
 our future plans.... :-) stay tuned!
 # Host subclass extends from User class

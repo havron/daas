@@ -352,3 +352,33 @@ def recent_drones(request): # /api/v1/drone/recent
     return _error_response(request, err_models.E_DATABASE, "recent drones not found")
 
   return _success_response(request, {'recent_things': ts})
+
+
+
+#############listings api ####################
+def create_listing(request): # /api/v1/lisitng/create
+  if request.method != 'POST':
+    return _error_response(request, err_models.E_BAD_REQUEST, "must make POST request")
+  
+  try:
+    owner = models.User.objects.get(pk=request.POST['_owner_key']) # not efficient, assumes pk is passed in
+  except models.User.DoesNotExist:
+    return _error_response(request, err_models.E_DATABASE, "owner not found")
+ try:
+    drone = models.Drone.objects.get(pk=request.POST['_drone_key']) # not efficient, assumes pk is passed in
+  except models.Drone.DoesNotExist:
+    return _error_response(request, err_models.E_DATABASE, "drone not found")
+
+  l = models.Listings(owner=owner, \
+                      drone = drone, \
+                      price_per_day=request.POST['price_per_day'], \
+                      time_posted=request.POST['time_posted'], \
+                      description=request.POST['description'], \
+                      listing_status=request.POST['listing_status'], \
+                  )
+  try:
+    l.save()
+  except db.Error:
+    return _error_response(request, err_models.E_DATABASE, "db error occurred while saving listing data")
+
+  return _success_response(request, {'listing_id': l.pk})
