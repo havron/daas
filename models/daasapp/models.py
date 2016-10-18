@@ -59,6 +59,15 @@ class Authenticator(models.Model):
   def __unicode__(self):
     return self.authenticator
 
+class Listings(models.Model):
+    owner = models.ForeignKey('User') #@sam what additional steps do we need
+    drone = models.ForeignKey('Drone') #is this set up for done??
+    price_per_day = models.FloatField() # [ask TAs how to do price, also just look at project descriptions to see what we need to do for this]
+    time_posted = models.DateTimeField()
+    description = models.TextField()
+    listing_status_choices = ['available', 'unavailable']
+    listing_status = models.CharField(choices = job_status_choices)
+
 
 ''' 
 our future plans.... :-) stay tuned!
