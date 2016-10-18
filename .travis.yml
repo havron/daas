@@ -27,7 +27,7 @@ install:
 
 
   - docker run --name mysql -d -e MYSQL_ROOT_PASSWORD='$3cureUS' -v ~/db:/var/lib/mysql mysql:5.7.14
-  - sleep 5
+  - sleep 30
   - docker run -it --name mysql-command --rm --link mysql:db mysql:5.7.14 mysql -uroot -p'$3cureUS' -h db -v -e "CREATE USER 'www'@'%' IDENTIFIED BY '\$$3cureUS';CREATE DATABASE cs4501 CHARACTER SET utf8;CREATE DATABASE test_cs4501 CHARACTER SET utf8;GRANT ALL PRIVILEGES ON *.* TO 'www'@'%';"
 
 before_script:
