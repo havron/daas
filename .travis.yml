@@ -8,7 +8,7 @@ install:
      sudo -E apt-key add -
   - >
     echo "deb https://apt.dockerproject.org/repo ubuntu-trusty main" |
-     tee -a /etc/apt/sources.list
+     sudo tee -a /etc/apt/sources.list
   - apt-get update
   - >
     apt-get -o Dpkg::Options::="--force-confdef" \
