@@ -7,6 +7,7 @@ models: # PORT 8002
     ports:
       - "8002:8000"
     command: bash -c "pip install faker --upgrade && python manage.py makemigrations && python manage.py migrate && pip install --upgrade requests && pip install --upgrade urllib3 && pip install arrow --upgrade && python manage.py loaddata db.json && mod_wsgi-express start-server --reload-on-changes ./models/wsgi.py"
+    container_name: models
 
 exp: # PORT 8001
     image: tp33/django
@@ -17,6 +18,8 @@ exp: # PORT 8001
     ports:
       - "8001:8000"
     command: bash -c "mod_wsgi-express start-server --reload-on-changes ./exp/wsgi.py"
+    container_name: exp
+
 web: # PORT 8000
     image: tp33/django
     links:
@@ -26,3 +29,4 @@ web: # PORT 8000
     ports:
       - "8000:8000"
     command: bash -c "pip install whitenoise --upgrade && pip install arrow --upgrade && python manage.py collectstatic --noinput && mod_wsgi-express start-server --reload-on-changes ./web/wsgi.py"
+    container_name: web

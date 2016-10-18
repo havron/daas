@@ -17,7 +17,7 @@ run: touch
 	sudo docker-compose up
 
 hardrun: 
-	sudo docker rm app_web_1
-	sudo docker rm app_models_1
-	sudo docker rm app_exp_1
+	sudo docker rm web
+	sudo docker rm models
+	sudo docker rm exp
 	make run
