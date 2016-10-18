@@ -369,7 +369,7 @@ def create_listing(request): # /api/v1/listing/create
   except models.Drone.DoesNotExist:
     return _error_response(request, err_models.E_DATABASE, "drone not found")
 
-  l = models.Listings(owner=owner, \
+  l = models.Listing(owner=owner, \
                       drone = drone, \
                       price_per_day=request.POST['price_per_day'], \
                       time_posted=request.POST['time_posted'], \
