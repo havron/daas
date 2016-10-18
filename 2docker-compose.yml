@@ -6,7 +6,7 @@ models: # PORT 8002
       - ./models/:/app
     ports:
       - "8002:8000"
-    command: bash -c "pip install faker --upgrade && python manage.py makemigrations && python manage.py migrate && pip install --upgrade requests && pip install --upgrade urllib3 && pip install arrow --upgrade && python manage.py loaddata db.json && python manage.py runserver 0.0.0.0:8000"
+    command: bash -c "pip install faker --upgrade && python manage.py makemigrations && python manage.py migrate && pip install --upgrade requests && pip install --upgrade urllib3 && pip install arrow --upgrade && python manage.py loaddata db.json && mod_wsgi-express start-server --reload-on-changes ./models/wsgi.py"
 
 exp: # PORT 8001
     image: tp33/django
@@ -16,7 +16,7 @@ exp: # PORT 8001
       - ./exp/:/app
     ports:
       - "8001:8000"
-    command: bash -c "python manage.py runserver 0.0.0.0:8000"
+    command: bash -c "mod_wsgi-express start-server --reload-on-changes ./exp/wsgi.py"
 web: # PORT 8000
     image: tp33/django
     links:

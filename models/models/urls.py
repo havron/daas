@@ -23,7 +23,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     #url(r'^admin/', include(admin.site.urls)),
     url(r'^$', home.index),
-    url(r'^api/v1/populate$', apiposts.populate),
+    url(r'^api/v1/populate/$', apiposts.populate),
 
     url(r'^api/v1/user/create/$', views.create_user, name = 'create_user'), 
     url(r'^api/v1/user/login/$', views.login_user, name = 'login_user'), 

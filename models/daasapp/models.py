@@ -68,8 +68,7 @@ class Listing(models.Model):
     price_per_day = models.FloatField() # [ask TAs how to do price, also just look at project descriptions to see what we need to do for this]
     time_posted = models.DateTimeField()
     description = models.TextField()
-    listing_status_choices = ['available', 'unavailable']
-    listing_status = models.CharField(choices = job_status_choices)
+    #listing_status = models.CharField(choices = [(str(i),['available','unavailable'][i-1]) for i in range(1,3)], max_length=50, default='1') # take out for now (unsure of how to integrate)
 
     def to_json(self):
       return dict(
@@ -78,12 +77,9 @@ class Listing(models.Model):
         price_per_day=self.price_per_day,
         time_posted = self.time_posted,
         description = self.description,
-        listing_status = self.listing_status,
+        #listing_status = self.listing_status,
         listing_id = self.id
       )
-
-    def __str__(self):
-      return "Listing is %s, description is %s, id number is %s" % (self.model_name, self.description, self.id)
 
     def __unicode__(self):
       return self.id

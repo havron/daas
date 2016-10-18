@@ -39,7 +39,7 @@ def _makeNewUser(username, password, email_address, date_joined, is_active, f_na
   payload = {'username': username, 'password' : password, 'email_address' : email_address, 
   'date_joined': date_joined, 'is_active': is_active, 'f_name': f_name, 'l_name': l_name, 'bio':bio}
   
-  r = requests.post(url+"api/v1/user/create", data=payload)
+  r = requests.post(url+"api/v1/user/create/", data=payload)
 
 def _updateUser(user_id, password, email_address, is_active, f_name, l_name, bio):
   payload = {'password' : password, 'email_address' : email_address, 
@@ -57,7 +57,7 @@ def _makeNewDrone(model_name, drone_desc, demo_link, permissions, owner_email, b
     'maintenance_status':maintenance_status, 'available_for_hire':available_for_hire, 'owner': owner, 
     'last_checked_out':last_checked_out,'_owner_key':_owner_key}
     
-    r = requests.post(url+"api/v1/drone/create", data=payload)
+    r = requests.post(url+"api/v1/drone/create/", data=payload)
 
 
 def _updateDrone(drone_id, drone_desc, demo_link, permissions, battery_level, 

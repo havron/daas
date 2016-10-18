@@ -19,7 +19,7 @@ class ListingFormTests(TestCase):
     			'price_per_day': 10.50,
     			'time_posted': datetime.datetime.now(),
     			'description': "lsjlerjl",
-    			'listing_status': 'available'
+#    			'listing_status': 'available'
     }
 
     response = self.client.post(reverse('create_listing'), form_data)
