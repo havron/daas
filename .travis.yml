@@ -8,26 +8,27 @@ install:
      sudo -E apt-key add -
   - >
     echo "deb https://apt.dockerproject.org/repo ubuntu-trusty main" |
-     sudo tee -a /etc/apt/sources.list
-  - sudo apt-get update
+     tee -a /etc/apt/sources.list
+  - apt-get update
   - >
-    sudo apt-get -o Dpkg::Options::="--force-confdef" \
+    apt-get -o Dpkg::Options::="--force-confdef" \
      -o Dpkg::Options::="--force-confold" --assume-yes install docker-engine
   - docker version
   # Update docker-compose via pip
-  - sudo pip install docker-compose
+  - pip install docker-compose
   - docker-compose version
   - docker pull mysql:5.7.14
   - mkdir db
   - rm -rf models/daasapp/migrations
   - docker run --name mysql -d -e MYSQL_ROOT_PASSWORD='$3cureUS' -v ~/db:/var/lib/mysql mysql:5.7.14
-  - sleep 30
-  - docker run -it --name mysql-command --rm --link mysql:db mysql:5.7.14 mysql -uroot -p'$3cureUS' -h db -v -e "CREATE DATABASE cs4501 CHARACTER SET utf8;CREATE DATABASE test_cs4501 CHARACTER SET utf8;CREATE USER 'www'@'%' IDENTIFIED BY '\$3cureUS';GRANT ALL PRIVILEGES ON *.* TO 'www'@'%' WITH GRANT OPTION;GRANT ALL ON *.* TO 'www'@'%';FLUSH PRIVILEGES;"
+  - sleep 20
+  - docker run -it --name mysql-command --rm --link mysql:db mysql:5.7.14 mysql -uroot -p'$3cureUS' -h db -v -e "CREATE DATABASE cs4501 CHARACTER SET utf8;CREATE DATABASE test_cs4501 CHARACTER SET utf8;CREATE USER 'www'@'%' IDENTIFIED BY '\$3cureUS';GRANT ALL PRIVILEGES ON *.* TO 'www'@'%';"
+  #- docker run -it --name mysql-command --rm --link mysql:db mysql:5.7.14 mysql -uroot -p'$3cureUS' -h db -v -e "CREATE DATABASE cs4501 CHARACTER SET utf8;CREATE DATABASE test_cs4501 CHARACTER SET utf8;CREATE USER 'www'@'%' IDENTIFIED BY '\$3cureUS';GRANT ALL PRIVILEGES ON *.* TO 'www'@'%' WITH GRANT OPTION;GRANT ALL ON *.* TO 'www'@'%';FLUSH PRIVILEGES;"
 
 before_script:
   - docker-compose up -d
 
-script: # need to keep pip installs up to date with docker compose for models
+script: # need to keep pip installs up to date with docker compose for models. keep pip requirements < or = to version that builds successfully.
   - docker exec -it daas_models_1 bash -c "pip install faker --upgrade && pip install --upgrade requests && pip install --upgrade urllib3 && pip install arrow --upgrade && python manage.py loaddata db.json && python manage.py test --noinput"
 
 after_script:
