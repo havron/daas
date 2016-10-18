@@ -23,9 +23,6 @@ install:
   - docker run --name mysql -d -e MYSQL_ROOT_PASSWORD='$3cureUS' -v ~/db:/var/lib/mysql mysql:5.7.14
   - sleep 30
   - docker run -it --name mysql-command --rm --link mysql:db mysql:5.7.14 mysql -uroot -p'$3cureUS' -h db -v -e "CREATE DATABASE cs4501 CHARACTER SET utf8;CREATE DATABASE test_cs4501 CHARACTER SET utf8;CREATE USER 'www'@'%' IDENTIFIED BY '\$3cureUS';GRANT ALL PRIVILEGES ON *.* TO 'www'@'%' WITH GRANT OPTION;GRANT ALL ON *.* TO 'www'@'%';FLUSH PRIVILEGES;"
-  - sleep 15
-  #- docker run -it --name mysql-command --rm --link mysql:db mysql:5.7.14 mysql -uroot -p'$3cureUS' -h db -v -e "SHOW DATABASES;SHOW VARIABLES LIKE 'skip_networking';"
-  #- docker run -it --name mysql-command --rm --link mysql:db mysql:5.7.14 mysql -uroot -p'$3cureUS' -h db -v -e "select user,host from mysql.user;show grants for 'www'@'%';SELECT USER(), CURRENT_USER();"
 
 before_script:
   - docker-compose up -d
