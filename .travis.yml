@@ -7,11 +7,15 @@ services:
 
 install:
   - docker pull mysql:5.7.14
+
   - mkdir db
+  
   - >
     docker run --name mysql -d -e MYSQL_ROOT_PASSWORD='$3cureUS' 
     -v ~/db:/var/lib/mysql mysql:5.7.14
+
   - sleep 15 # need to give time for mysql to start
+  
   - >
     docker run -it --name mysql-cmd --rm --link mysql:db mysql:5.7.14 
     mysql -uroot -p'$3cureUS' -h db -v -e "
@@ -23,9 +27,10 @@ install:
 before_script:
   - docker-compose up -d
 
-# while testing, need to keep pip installs up-to-date with docker compose for each container 
-# tested. keep pip requirements '<' or '=' to version that builds successfully. 
-# should probably load from 'models_requirements.txt', 'exp_', etc.
+# while testing, need to keep pip installs up-to-date with docker-compose 
+# for each container tested. keep pip requirements '<' or '=' 
+# to latest version that builds successfully. should probably 
+# load from 'models_requirements.txt', 'exp_', etc.
 script: 
   - > 
     docker exec -it models bash -c "
@@ -34,7 +39,7 @@ script:
     pip install --upgrade urllib3 && 
     pip install arrow --upgrade && 
     python manage.py loaddata db.json && 
-    python manage.py test --noinput"
+    python manage.py test --noinput" # run Django unit tests
 
 after_script:
   - docker-compose stop
