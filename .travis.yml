@@ -37,7 +37,7 @@ before_script:
   - docker-compose up -d
 
 script:
-  - docker exec -it daas_models_1 bash -c "pip install faker --upgrade && python manage.py makemigrations && python manage.py migrate && pip install --upgrade requests && pip install --upgrade urllib3 && pip install arrow --upgrade && python manage.py loaddata db.json && python manage.py test --noinput"
+  - docker exec -it daas_models_1 bash -c "pip install faker --upgrade && pip install --upgrade requests && pip install --upgrade urllib3 && pip install arrow --upgrade && python manage.py loaddata db.json && python manage.py test --noinput"
 
 after_script:
   - docker-compose stop
