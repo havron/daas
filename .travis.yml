@@ -14,7 +14,7 @@ install:
     docker run --name mysql -d -e MYSQL_ROOT_PASSWORD='$3cureUS' 
     -v ~/db:/var/lib/mysql mysql:5.7.14
 
-  - sleep 15 # need to give time for mysql to start
+  - sleep 10 # need to give time for mysql to start
   
   - >
     docker run -it --name mysql-cmd --rm --link mysql:db mysql:5.7.14 
@@ -39,7 +39,7 @@ script:
     pip install --upgrade urllib3 && 
     pip install arrow --upgrade && 
     python manage.py loaddata db.json && 
-    python manage.py test --noinput" # run Django unit tests
+    python manage.py test --noinput" # run Django unit tests on models
 
 after_script:
   - docker-compose stop
