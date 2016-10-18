@@ -1,6 +1,6 @@
 sudo: required
 dist: trusty
-#
+
 install:
   # Update docker-engine using Ubuntu 'trusty' apt repo
   - >
@@ -19,24 +19,16 @@ install:
   - docker-compose version
   - docker pull mysql:5.7.14
   - mkdir db
- # - docker run --name mysql -d -e MYSQL\_ROOT\_PASSWORD='$3cureUS' -e MYSQL\_USER='www'@'%' -e MYSQL\_PASSWORD='$3cureUS' -e MYSQL\_DATABASE=test_cs4501 -v db:/var/lib/mysql mysql:5.7.14
-#  - docker exec -it mysql chmod 777 /var/run/mysqld/mysqld.sock
-#  - docker exec -it mysql mysql -uroot -p'$3cureUS' -e "create database test_cs4501 character set utf8;grant all on test_cs4501.* to 'www'@'%';"
- # - docker run -d --name mysql-cmdline --link mysql:db mysql:5.7.14 bash -c "service mysql start && echo 'create database test_cs4501 character set utf8;grant all on test_cs4501.* to '\''www'\''@'\''%'\'';' | mysql -u'www' -h'%' -p'$3cureUS'"
- # - docker ps -a
-
-
   - docker run --name mysql -d -e MYSQL_ROOT_PASSWORD='$3cureUS' -v ~/db:/var/lib/mysql mysql:5.7.14
   - sleep 30
   - docker run -it --name mysql-command --rm --link mysql:db mysql:5.7.14 mysql -uroot -p'$3cureUS' -h db -v -e "CREATE DATABASE cs4501 CHARACTER SET utf8;CREATE DATABASE test_cs4501 CHARACTER SET utf8;CREATE USER 'www'@'%' IDENTIFIED BY '\$3cureUS';GRANT ALL PRIVILEGES ON *.* TO 'www'@'%' WITH GRANT OPTION;GRANT ALL ON *.* TO 'www'@'%';FLUSH PRIVILEGES;"
-  - docker run -it --name mysql-command --rm --link mysql:db mysql:5.7.14 mysql -uroot -p'$3cureUS' -h db -v -e "SHOW DATABASES;SHOW VARIABLES LIKE 'skip_networking';"
-  - docker run -it --name mysql-command --rm --link mysql:db mysql:5.7.14 mysql -uroot -p'$3cureUS' -h db -v -e "select user,host from mysql.user;show grants for 'www'@'%';SELECT USER(), CURRENT_USER();"
-#  - sleep 30
+  #- docker run -it --name mysql-command --rm --link mysql:db mysql:5.7.14 mysql -uroot -p'$3cureUS' -h db -v -e "SHOW DATABASES;SHOW VARIABLES LIKE 'skip_networking';"
+  #- docker run -it --name mysql-command --rm --link mysql:db mysql:5.7.14 mysql -uroot -p'$3cureUS' -h db -v -e "select user,host from mysql.user;show grants for 'www'@'%';SELECT USER(), CURRENT_USER();"
 
 before_script:
   - docker-compose up -d
 
-script:
+script: # need to keep pip installs up to date with docker compose for models
   - docker exec -it daas_models_1 bash -c "pip install faker --upgrade && pip install --upgrade requests && pip install --upgrade urllib3 && pip install arrow --upgrade && python manage.py loaddata db.json && python manage.py test --noinput"
 
 after_script:
