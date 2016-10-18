@@ -9,17 +9,17 @@ install:
   - docker pull mysql:5.7.14
 
   - mkdir db
-  
+
   - >
-    docker run --name mysql -d -e MYSQL_ROOT_PASSWORD='$3cureUS' 
+    docker run --name mysql -d -e MYSQL_ROOT_PASSWORD='$3cureUS'
     -v ~/db:/var/lib/mysql mysql:5.7.14
 
   - sleep 10 # need to give time for mysql to start
-  
+
   - >
-    docker run -it --name mysql-cmd --rm --link mysql:db mysql:5.7.14 
-    mysql -uroot -p'$3cureUS' -h db -v -e "
-    CREATE DATABASE cs4501 CHARACTER SET utf8;
+    docker run -it --name mysql-cmd --rm --link mysql:db mysql:5.7.14
+    mysql -uroot -p'$3cureUS' -h db -v -e
+    "CREATE DATABASE cs4501 CHARACTER SET utf8;
     CREATE DATABASE test_cs4501 CHARACTER SET utf8;
     CREATE USER 'www'@'%' IDENTIFIED BY '\$3cureUS';
     GRANT ALL PRIVILEGES ON *.* TO 'www'@'%';"
@@ -27,18 +27,18 @@ install:
 before_script:
   - docker-compose up -d
 
-# while testing, need to keep pip installs up-to-date with docker-compose 
-# for each container tested. keep pip requirements '<' or '=' 
-# to latest version that builds successfully. should probably 
+# while testing, need to keep pip installs up-to-date with docker-compose
+# for each container tested. keep pip requirements '<' or '='
+# to latest version that builds successfully. should probably
 # load from 'models_requirements.txt', 'exp_', etc.
 script: 
-  - > 
+  - >
     docker exec -it models bash -c "
-    pip install faker --upgrade && 
-    pip install --upgrade requests && 
-    pip install --upgrade urllib3 && 
-    pip install arrow --upgrade && 
-    python manage.py loaddata db.json && 
+    pip install faker --upgrade &&
+    pip install --upgrade requests &&
+    pip install --upgrade urllib3 &&
+    pip install arrow --upgrade &&
+    python manage.py loaddata db.json &&
     python manage.py test --noinput" # run Django unit tests on models
 
 after_script:
