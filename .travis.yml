@@ -9,9 +9,9 @@ install:
   - >
     echo "deb https://apt.dockerproject.org/repo ubuntu-trusty main" |
      sudo tee -a /etc/apt/sources.list
-  - apt-get update
+  - sudo apt-get update
   - >
-    apt-get -o Dpkg::Options::="--force-confdef" \
+    sudo apt-get -o Dpkg::Options::="--force-confdef" \
      -o Dpkg::Options::="--force-confold" --assume-yes install docker-engine
   - docker version
   # Update docker-compose via pip
