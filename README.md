@@ -1,4 +1,4 @@
-## drones as a service (daas) 
+# drones as a service (daas) 
 [![Build Status](https://travis-ci.org/samuelhavron/daas.svg?branch=master)](https://travis-ci.org/samuelhavron/daas)
 
 Welcome! This repository is home to a daas marketplace, with a catch: user
@@ -34,7 +34,7 @@ APIs are at [http://localhost:8001](http://localhost:8001) and
 the entity/model APIs are at [http://localhost:8002](http://localhost:8002) 
 (however, they only communicate with JSON responses).
 
-7. questions? contact us: `{mdk6jd, jat9kf, sgh7cc} @ virginia.edu`
+7. have questions? contact us: `{mdk6jd, jat9kf, sgh7cc} @ virginia.edu`
 
 ### usage notes
 * if any of the `django` containers exit unexpectedly when you stand them up, run `touch 

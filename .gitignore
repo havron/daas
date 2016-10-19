@@ -7,3 +7,4 @@ __pycache__
 web/staticfiles/*
 web/staticfiles/
 models/daasapp/migrations/
+db/
