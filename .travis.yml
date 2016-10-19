@@ -1,5 +1,6 @@
 sudo: required
 dist: trusty # ubuntu 14.04.5 LTS
+language: python
 
 # if specific version(s) of docker or docker-compose needed, see travis-CI docs online
 services:
@@ -7,15 +8,11 @@ services:
 
 install:
   - docker pull mysql:5.7.14
-
   - mkdir db
-
   - >
     docker run --name mysql -d -e MYSQL_ROOT_PASSWORD='$3cureUS'
     -v ~/db:/var/lib/mysql mysql:5.7.14
-
   - sleep 10 # need to give time for mysql to start
-
   - >
     docker run -it --name mysql-cmd --rm --link mysql:db mysql:5.7.14
     mysql -uroot -p'$3cureUS' -h db -v -e
@@ -27,19 +24,15 @@ install:
 before_script:
   - docker-compose up -d
 
-# while testing, need to keep pip installs up-to-date with docker-compose
-# for each container tested. keep pip requirements '<' or '='
-# to latest version that builds successfully. should probably
-# load from 'models_requirements.txt', 'exp_', etc.
 script: 
   - >
-    docker exec -it models bash -c "
-    pip install faker --upgrade &&
-    pip install --upgrade requests &&
-    pip install --upgrade urllib3 &&
-    pip install arrow --upgrade &&
+    docker exec -it models bash -c
+    "pip install -r requirements.txt &&
     python manage.py loaddata db.json &&
     python manage.py test --noinput" # run Django unit tests on models
 
 after_script:
   - docker-compose stop
+  - docker stop mysql
+  - docker rm `docker ps -a -q`
+  - docker rmi `docker images -q`
