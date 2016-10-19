@@ -14,7 +14,7 @@ install: # prepare mySQL database
   - sleep 10 # need to give time for mysql to start
   - >
     docker run -it --name mysql-cmd --rm --link mysql:db mysql:5.7.14
-    mysql -uroot -p'$3cureUS' -h db -e
+    mysql -uroot -p'$3cureUS' -h db -v -e
     "CREATE DATABASE cs4501 CHARACTER SET utf8;
     CREATE DATABASE test_cs4501 CHARACTER SET utf8;
     CREATE USER 'www'@'%' IDENTIFIED BY '\$3cureUS';

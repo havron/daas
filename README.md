@@ -1,5 +1,5 @@
-## drones as a service (daas) [![Build
-Status](https://travis-ci.org/samuelhavron/daas.svg?branch=master)](https://travis-ci.org/samuelhavron/daas)
+## drones as a service (daas) 
+[![Build Status](https://travis-ci.org/samuelhavron/daas.svg?branch=master)](https://travis-ci.org/samuelhavron/daas)
 
 Welcome! This repository is home to a daas marketplace, with a catch: user
 reputations are (will be) stored in a cryptopgraphic block-chain. The marketplace is built on 4
