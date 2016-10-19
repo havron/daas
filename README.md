@@ -20,7 +20,7 @@ To check out our project locally (on your desktop/laptop):
 3. clone our repository: `git clone https://github.com/samuelhavron/daas.git`
 
 4. create a `mySQL` database using `docker`: run `make database`
-((see our Makefile for creation details)[https://github.com/samuelhavron/daas/blob/master/Makefile]).
+([see our Makefile for creation details](https://github.com/samuelhavron/daas/blob/master/Makefile)).
 using that setup will hard-code in a database user and password to match our [models db
 connection](https://github.com/samuelhavron/daas/blob/master/models/models/settings.py#L97-L105).
 the database will be loaded with fixtures (test/dummy data) when you stand the
