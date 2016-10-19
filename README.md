@@ -53,4 +53,4 @@ to change the `mysql` alias, edit `external_links` in
 appropriately as well as renaming the container in the 
 targets of the
 [Makefile](https://github.com/samuelhavron/daas/blob/master/Makefile). a simple
-`sed` expression 
+`sed` expression can be used to automate the process.
