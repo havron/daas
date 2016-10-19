@@ -41,6 +41,10 @@ clean:
 	@sudo docker stop mysql > /dev/null 2>&1 && \
 	 sudo docker rm mysql > /dev/null 2>&1 ||:
 	@sudo rm -rf db > /dev/null 2>&1 ||:
+	@rm daas.* > /dev/null 2>&1 ||:
 
 daas.zip:
-	zip -9r daas.zip *
+	git archive --format=zip HEAD -o daas.zip -9v
+
+daas.tar.gz:
+	git archive --format=tar.gz HEAD -o daas.tar.gz -9v
