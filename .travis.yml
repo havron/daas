@@ -27,6 +27,8 @@ script:
   - >
     docker exec -it models bash -c
     "pip install -r requirements.txt &&
+    python manage.py makemigrations &&
+    python manage.py migrate &&
     python manage.py loaddata db.json &&
     python manage.py test --noinput" # run Django unit tests on models
 
