@@ -26,7 +26,8 @@ before_script:
 script: 
   - >
     docker exec -it models bash -c
-    "python manage.py test --noinput" # run Django unit tests on models
+    "pip install -r requirements.txt &&
+    python manage.py test --noinput" # run Django unit tests on models
 
 after_script:
   - docker-compose stop
