@@ -1,5 +1,8 @@
 # drones as a service (daas)!:octocat:
 [![Build Status](https://travis-ci.org/samuelhavron/daas.svg?branch=master)](https://travis-ci.org/samuelhavron/daas)
+<p align="left">
+<img src="https://cdn.rawgit.com/samuelhavron/daas/master/web/daasapp/static/images/home/logo.svg" width="350">
+</p>
 
 Welcome! This repository is home to a daas marketplace, with a catch: user
 reputations are (will be) stored in a cryptopgraphic block-chain. The marketplace is built on 4
@@ -11,7 +14,7 @@ can talk to the models, etc); we intentionally implement this marketplace as a s
 of isolated microservices. Static content for the HTML front-end is currently
 served with Django's `whitenoise` wrapper for the Python `wsgi` interface.
 
-To check out our project locally (on your desktop/laptop):
+To check out our project locally (on your desktop/laptop; `docker` requires root access):
 
 1. install `docker`: [https://www.docker.com/](https://www.docker.com/)
 
@@ -40,3 +43,4 @@ the entity/model APIs are at [http://localhost:8002](http://localhost:8002)
 * if any of the `django` containers exit unexpectedly when you stand them up, run 
 `touch <container_name>/<container_name>/wsgi.py` to modify their timestamp and force
 `docker` to reload them.
+* if you are already using `docker` and have one or more containers running with an alias matching `{web, exp, models, mysql}`, you may need to rename your container(s) or those affected in this repository (to do that, simply change the `container_name` appropriately in [docker-compose.yml](https://github.com/samuelhavron/daas/blob/master/docker-compose.yml). to change the `mysql` alias, edit `external_links` in [docker-compose.yml](https://github.com/samuelhavron/daas/blob/master/docker-compose.yml) appropriately as well as in the [Makefile](https://github.com/samuelhavron/daas/blob/master/Makefile).
