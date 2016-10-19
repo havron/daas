@@ -1,6 +1,5 @@
 sudo: required
 dist: trusty # ubuntu 14.04.5 LTS
-language: python
 
 # if specific version(s) of docker or docker-compose needed, see travis-CI docs online
 services:
