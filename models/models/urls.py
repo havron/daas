@@ -43,6 +43,7 @@ urlpatterns = [
     url(r'^api/v1/drone/(?P<drone_id>\d+)/$', views.inspect_drone, name = 'inspect_drone'),
 
     url(r'^api/v1/listing/create/$', views.create_listing, name='create_listing'),
+    url(r'^api/v1/drone/(?P<listing_id>\d+)/$', views.inspect_listing, name = 'inspect_listing'),    
     url(r'^api/v1/listing/all/$', views.all_listing, name='view_listing'),
     # url(r'^api/v1/drone/recent/$', views.recent_drones, name = 'recent_drones'),
     #url(r'^api/v1/drone/(?P<drone_id>\d+)/updater/$', apiposts.updateDrone),
