@@ -306,21 +306,3 @@ def userprofile(request, user_id=None): # allow conditional params
     resp2['resp']['date_joined'] = str(t.format('D MMMM, YYYY') + " at " + t.format('h:mma'))
 
   return render(request, 'web/userprofile.html', resp2)
-
-def listing(request, listing_id=None):
-  resp = {}
-  resp2 = {}
-  if listing_id:
-      req = urllib.request.REQUEST('http://exp-api:8000/listing/'+listing_id)
-      resp_json = urllib.request.urlopen(req).read().decode('utf-8')
-      resp = json.loads(resp_json)
-    
-      if not resp:
-        resp = {'resp':err_web.E_TECH_DIFFICULTIES}
-        return render(request, 'web/t404.html', resp)
-
-      if resp['resp']['ok'] == False:
-        resp = {'resp':err_web.E_LISTING_NOT_FOUND}
-        return render(request, 'web/t404.html', resp)
-
-  return render(request, 'web/listing.html', resp2)      

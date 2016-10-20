@@ -20,13 +20,13 @@ exp: # PORT 8001
     command: bash -c "pip install -r requirements.txt && mod_wsgi-express start-server --reload-on-changes ./exp/wsgi.py"
     container_name: exp
 
-webb: # PORT 8000
+web: # PORT 8000
     image: tp33/django
     links:
       -  exp:exp-api
     volumes:
-      - ./webb/:/app
+      - ./web/:/app
     ports:
       - "8000:8000"
     command: bash -c "pip install -r requirements.txt && python manage.py collectstatic --noinput && mod_wsgi-express start-server --reload-on-changes ./web/wsgi.py"
-    container_name: webb
+    container_name: web

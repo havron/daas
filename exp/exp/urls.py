@@ -27,6 +27,5 @@ urlpatterns = [
     url(r'^auth/$', views.check_auth, name='check_auth'),
     url(r'^product-details/(?P<drone_id>\d+)$', views.productdetails),
     url(r'^userprofile/(?P<user_id>\d+)$', views.userprofile),
-    url(r'^listing/(?P<listing_id>\d+)$', views.listing),
 ]
 

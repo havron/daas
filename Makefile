@@ -39,7 +39,7 @@ clean:
 	@sudo docker rm exp > /dev/null 2>&1 ||:
 	@sudo docker rm models > /dev/null 2>&1 ||:
 	@sudo docker stop mysql > /dev/null 2>&1 && \
-	@sudo docker rm mysql > /dev/null 2>&1 ||:
+	 sudo docker rm mysql > /dev/null 2>&1 ||:
 	@sudo rm -rf db > /dev/null 2>&1 ||:
 	@rm daas.* > /dev/null 2>&1 ||:
 

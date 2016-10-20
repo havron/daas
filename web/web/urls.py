@@ -41,6 +41,5 @@ urlpatterns = [
     url(r'^hi/$', views.hi, name='hi'),
     url(r'^lets-grade/$', views.letsgrade, name='lets-grade'),
     url(r'^contact-us/$', views.contactus, name='contact-us'),
-    url(r'^listing/$', views.listing, name='listing'),
 ] # + staticfiles_urlpatterns()
 
