@@ -393,7 +393,7 @@ def inspect_listing(request, listing_id): # /api/v1/drone/<listing_id>
   except models.Listing.DoesNotExist:
     return _error_response(request, err_models.E_DATABASE, "listing not found")
 
-   return _success_response(request, d.to_json()) 
+  return _success_response(request, d.to_json()) 
 
 
 def all_listing(request): # /api/v1/listing/all
