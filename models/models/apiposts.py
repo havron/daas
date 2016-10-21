@@ -72,6 +72,19 @@ def _updateDrone(drone_id, drone_desc, demo_link, permissions, battery_level,
     r = requests.post(url+"api/v1/drone/"+drone_id+"/update", data=payload)
 
 
+def _makeNewListing(owner, drone, price_per_day, time_posted, description):
+    payload = {'owner':owner, 'drone':drone, 'price_per_day':price_per_day, 
+    'time_posted':time_posted, 'description':description}
+
+    r = requests.post(url+'api/v1/listing/create', data = payload)
+
+
+def _updateListing(price_per_day, description):
+    payload = {'price_per_day':price_per_day, 'description':description}
+
+    r = requests.post(url+"api/v1/listing/" + listing_id + "/update", data=payload)
+
+
 ###### MAKE POST REQUEST CALLS HERE ######################
 
 
@@ -108,6 +121,20 @@ def populate(request):
         return _error_response(request, "error finding user"+str(i))
         
       _makeNewDrone(choice(nouns)+"_"+choice(adverbs)+str(i+1),choice(adjectives)+" "+choice(adjectives)+" "+choice(adjectives)+" "+choice(verbs) +" "+choice(adverbs)+" and "+str(i+1) + ".","http://demo_"+choice(adjectives)+str(i+1)+".com", "you can "+ choice(adverbs)+" and "+choice(adjectives)+" with my drone, but NOT "+choice(adjectives) + ", or "+str(i+1)+ ".",choice(nouns)+str(i+1)+"@"+choice(adverbs)+".com", i+1, "my drone is in great condition: it's " +choice(nouns)+" plus "+choice(adjectives)+" and also "+choice(adjectives)+" and even "+choice(verbs)+"! "+str(i+1)+ ".",True, owner, timezone.now(), str(i+1) )
+
+    for i in range(0, 200):
+      try:
+        owner = models.User.objects.get(pk=i+1)
+      except models.User.DoesNotExist:
+        return _error_response(request, "error finding user" + str(i))
+      try:
+        drone = models.Drone.objects.get(pk=i+1)
+      except models.Drone.DoesNotExist:
+        return _error_response(request, "error finding drone" + str(i))
+
+      _makeNewListing(owner, drone, random.randrange(10, 20), datetime.datetime.now(), "please rent my" + choice(adjectives) + "drone!")
+
+
 
 #def _makeNewDrone(model_name, drone_desc, demo_link, permissions, owner_email, battery_level, 
 #   maintenance_status, available_for_hire, owner, last_checked_out, _owner_key):
@@ -148,6 +175,23 @@ def updateDrone(request, drone_id): # updates a drone
   except db.Error:
     return _error_response(request, "db error")
   return _success_response(request, "drone successfully updated")
+
+
+def updateListing(request, listing_id):
+    l_id = int(listing_id)
+    l_id -= 1
+    l_id = str(l_id)
+    try:
+      l = models.Listing.objects.get(pk=listing_id)
+    except models.Listing.DoesNotExist:
+      return _error_response(request, "listing not found")
+
+    try:
+      _updateListing(random.randrange(10, 20), "please rent my" + choice(adjectives) + "drone!")
+    except db.Error:
+      return _error_response(request, "db error")
+    return _success_response(request, "listing successfully updated")
+
 
 
 ### make calls to the other methods for simple POST request management : the fields are 
