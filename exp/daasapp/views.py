@@ -173,3 +173,13 @@ def userprofile(request, user_id): # /userprofile/(?P<user_id>\d+)
   resp_json = urllib.request.urlopen(req).read().decode('utf-8')
   resp = json.loads(resp_json)
   return _success_response(request, resp)
+
+
+
+def listing(request, listing_id):
+  if request.method != 'GET':
+    return _error_response(request, err_exp.E_BAD_REQUEST, "must make a GET request with listing_id")
+  req = urllib.request.Request('http://models-api:8000/api/v1/listing/'+listing_id)
+  resp_json = urllib.request.urlopen(req).read().decode('utf-8')
+  resp = json.loads(resp_json)
+  return _success_response(request, resp) 

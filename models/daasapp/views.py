@@ -384,6 +384,18 @@ def create_listing(request): # /api/v1/listing/create
   return _success_response(request, {'listing_id': l.pk})
 
 
+def inspect_listing(request, listing_id): # /api/v1/drone/<listing_id>
+  if request.method != 'GET':
+    return _error_response(request, err_models.E_BAD_REQUEST, "must make GET request")
+ 
+  try:
+    d = models.Listing.objects.get(pk=listing_id)
+  except models.Listing.DoesNotExist:
+    return _error_response(request, err_models.E_DATABASE, "listing not found")
+
+   return _success_response(request, d.to_json()) 
+
+
 def all_listing(request): # /api/v1/listing/all
   if request.method != 'GET':
     return _error_response(request, err_models.E_BAD_REQUEST, "must make GET request")
