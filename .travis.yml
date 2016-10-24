@@ -34,7 +34,7 @@ script:
     pip install -r requirements.txt &&
     pip install coveralls && 
     pip install django_coverage && 
-    coverage run --source=daasapp manage.py test --noinput && cat .coverage && coverage report" # run Django unit tests on models
+    python manage.py test_coverage --noinput && cat .coverage && coverage report" # run Django unit tests on models
   # can put other tests (e.g. integrations) here too with exp, web containers
 
 after_success: 

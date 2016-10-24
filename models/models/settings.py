@@ -26,7 +26,11 @@ SECRET_KEY = ')9m3!cnfph5vdouh(+3l8vp3vr8vjou$^*7=@(ne9%!$cv@35n'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 DEBUG_PROPAGATE_EXCEPTIONS = True
-
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+NOSE_ARGS = [
+    '--with-coverage',
+        '--cover-package=daasapp',
+]
 
 ALLOWED_HOSTS = []
 
