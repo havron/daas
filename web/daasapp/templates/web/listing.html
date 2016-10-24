@@ -1,6 +1,6 @@
 {% extends 'base.html' %}	
 {% load staticfiles %}
-{% block title_block %} daas product details {% endblock %}
+{% block title_block %} daas listing {% endblock %}
 {% block headtag_block %}
 
 
@@ -11,11 +11,11 @@
 
 	<section>
 		<div class="container">
-<span style="font-size:25px">listings are here. find them by putting a monotically increasing drone id number at the end of the url! e.g. /listing/64</span>
+<span style="font-size:25px">listings are here. find them by putting a monotically increasing listing id number at the end of the url! e.g. /listing/64</span>
 <br>
     {% if not resp %}
     <span>
-      <span style="font-size:35px;color:red">No Listing selected. <a href="{% url 'product-details' 64 %}">Pick one!</a></span>
+      <span style="font-size:35px;color:red">No Listing selected. <a href="{% url 'listing-details' 64 %}">Pick one!</a></span>
     </span>
 
     {% endif %}
@@ -185,35 +185,37 @@
 
 						</div>
 						<div class="col-sm-7">
-							<div class="product-information"><!--/product-information-->
+							<div class="listing-information"><!--/listing-information-->
                   {% if not resp %}
                   <span>
-                    <span>No listing selected. <a href="{% url 'product-details' 64 %}">Pick one!</a></span>
+                    <span>No listing selected. <a href="{% url 'listing-details' 64 %}">Pick one!</a></span>
                   </span>
                   {% else %}
 								<img src="{% static "images/product-details/new.jpg" %}" class="newarrival" alt="" />
                 <span>
 								  <span>Drone model name:  </span>
-                  <br><b style="font-size:20px">{{ resp.model_name }}</b>
+                  <br><b style="font-size:20px">{{ resp.drone.model_name }}</b>
                 </span>
 								<img src="{% static "images/product-details/rating.png" %}" alt="" />
 								<span>
-									<span>Cost: much dollar$$$ </span>
+									<span>Price per Day: {{ resp.price_per_day }}</span>
                   <br><br><br>
 									<label>Quantity:</label>
-									<input type="text" value="3" />
+									<input type="text" value="1" />
 									<button type="button" class="btn btn-fefault cart">
 										<i class="fa fa-shopping-cart"></i>
 										Add to cart
 									</button>
 								</span>
 								<span>
-                  <p><b>Demo Link: </b> {{ resp.demo_link }} </p>
-                  <p><b>Permissions: </b> {{ resp.permissions }} </p>
-                  <p><b>Owner Email: </b> {{ resp.owner_email }} </p>
-                  <p><b>Battery Level: </b> {{ resp.battery_level }} </p>
-                    <p><b>Maintenance Status: </b> {{ resp.maintenance_status  }} </p>
-                  <p><b>Available-for-hire: </b> {{ resp.available_for_hire }}</p>
+				  <!-- listing fields -->
+				  <p><b>Time Posted: </b> {{resp.time_posted }} </p>
+				  <!-- drone and owner fields -->
+                  <p><b>Demo Link: </b> {{ resp.drone.demo_link }} </p>
+                  <p><b>Permissions: </b> {{ resp.drone.permissions }} </p>
+                  <p><b>Owner Email: </b> {{ resp.owner.email_address }} </p>
+                  <p><b>Battery Level: </b> {{ resp.drone.battery_level }} </p>
+                    <p><b>Maintenance Status: </b> {{ resp.drone.maintenance_status  }} </p>
                   <p><b>Owner Name: </b> {{ resp.owner.f_name  }} {{ resp.owner.l_name }} (<a href="{% url 'userprofile' resp.owner.user_id %}">{{ resp.owner.username  }}</a>) </p>
                   <p><b>Last checked out: </b> {{ resp.last_checked_out }} </p>
                 </span>
@@ -393,7 +395,7 @@
 										<li><a href=""><i class="fa fa-clock-o"></i>12:41 PM</a></li>
 										<li><a href=""><i class="fa fa-calendar-o"></i>31 DEC 2014</a></li>
 									</ul>
-									<p>Drone Description: </p>
+									<p>Listing Description: {{resp.description}} </p>
 									<p><b>Write Your Review</b></p>
 									
 									<form action="#">
