@@ -1,5 +1,6 @@
 # compact access to post request for updating APIs!
 from random import randrange
+import random
 from random import choice
 from faker import Factory
 import requests
@@ -9,7 +10,7 @@ from django.utils import timezone
 from django.forms import ModelForm
 from django.forms import Form
 
-import json, datetime, os
+import json, datetime, os, sys
 from django import db
 from django.forms.models import model_to_dict
 from django.contrib.auth import hashers
@@ -72,11 +73,11 @@ def _updateDrone(drone_id, drone_desc, demo_link, permissions, battery_level,
     r = requests.post(url+"api/v1/drone/"+drone_id+"/update", data=payload)
 
 
-def _makeNewListing(owner, drone, price_per_day, time_posted, description):
+def _makeNewListing(owner, drone, price_per_day, time_posted, description,_owner_key,_drone_key):
     payload = {'owner':owner, 'drone':drone, 'price_per_day':price_per_day, 
-    'time_posted':time_posted, 'description':description}
+    'time_posted':time_posted, 'description':description,'_owner_key':_owner_key,'_drone_key':_drone_key}
 
-    r = requests.post(url+'api/v1/listing/create', data = payload)
+    r = requests.post(url+'api/v1/listing/create/', data = payload)
 
 
 def _updateListing(price_per_day, description):
@@ -132,7 +133,7 @@ def populate(request):
       except models.Drone.DoesNotExist:
         return _error_response(request, "error finding drone" + str(i))
 
-      _makeNewListing(owner, drone, random.randrange(10, 20), datetime.datetime.now(), "please rent my" + choice(adjectives) + "drone!")
+      _makeNewListing(owner, drone, random.randrange(10, 20), datetime.datetime.now(), "please rent my" + choice(adjectives) + "drone!",str(i+1),str(i+1))
 
 
 

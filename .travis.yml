@@ -37,7 +37,7 @@ script:
 after_success: 
   - mkdir app
   - docker cp models:/app/.coverage .
-  - docker cp models:/app app
+  - docker cp models:/app/* app
   - coveralls
 
 after_script:
