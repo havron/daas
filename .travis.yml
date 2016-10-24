@@ -39,9 +39,9 @@ script:
 after_success: 
   - cat models/.coverage
   - sed -i "s/\/app/models/g" models/.coverage 
-  - cat models/.coverage
   - mv models/.coverage .
-  - coveralls
+  - cat .coverage
+  - coveralls -v
 
 after_script:
   - docker-compose stop
