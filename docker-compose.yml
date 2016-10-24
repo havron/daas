@@ -4,10 +4,6 @@ models: # PORT 8002
       -  mysql:db
     volumes:
       - ./models/:/app
-    environment:
-      - TRAVIS
-      - TRAVIS_JOB_ID
-      - TRAVIS_BRANCH
     ports:
       - "8002:8000"
     command: bash -c "pip install -r requirements.txt && python manage.py makemigrations && python manage.py migrate && python manage.py loaddata db.json && mod_wsgi-express start-server --reload-on-changes ./models/wsgi.py"
