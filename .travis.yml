@@ -29,7 +29,9 @@ before_script:
 script:
   - >
     docker exec -it models bash -c
-    "pip install -r requirements.txt &&
+    "export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH &&
+    export PYTHONPATH=. &&
+    pip install -r requirements.txt &&
     pip install coveralls && 
     coverage run manage.py test --noinput && cat .coverage" # run Django unit tests on models
   # can put other tests (e.g. integrations) here too with exp, web containers
@@ -54,7 +56,7 @@ after_success:
   - docker cp models:/app/models/home.py app/models/
   - docker cp models:/app/models/settings.py app/models/
   - docker cp models:/app/models/urls.py app/models/
-  - coveralls -b app
+  - coveralls
 
 after_script:
   - docker-compose stop
