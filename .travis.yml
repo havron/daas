@@ -33,7 +33,8 @@ script:
     export PYTHONPATH=. &&
     pip install -r requirements.txt &&
     pip install coveralls && 
-    coverage run --source=daasapp manage.py test --noinput && cat .coverage" # run Django unit tests on models
+    pip install django_coverage && 
+    python --source=daasapp manage.py test_coverage --noinput && cat .coverage" # run Django unit tests on models
   # can put other tests (e.g. integrations) here too with exp, web containers
 
 after_success: 
@@ -42,7 +43,7 @@ after_success:
   - sed -i "s/\/app\///g" models/.coverage 
   - cat models/.coverage
   - cd models
-  - coveralls -v
+  - coveralls
   #- cp models/.coverage .
   #- mkdir app
   #- mkdir app/models

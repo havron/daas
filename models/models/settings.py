@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     #'django.contrib.messages',
     #'django.contrib.staticfiles',
     'daasapp',
+    'django_coverage',
 )
 
 MIDDLEWARE_CLASSES = (
