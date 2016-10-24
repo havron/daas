@@ -29,7 +29,7 @@ DEBUG_PROPAGATE_EXCEPTIONS = True
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 NOSE_ARGS = [
     '--with-coverage',
-        '--cover-package=daasapp',
+        '--cover-package=daasapp/tests',
 ]
 
 ALLOWED_HOSTS = []
