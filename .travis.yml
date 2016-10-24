@@ -56,7 +56,8 @@ after_success:
   - docker cp models:/app/models/home.py app/models/
   - docker cp models:/app/models/settings.py app/models/
   - docker cp models:/app/models/urls.py app/models/
-  - coveralls
+  - docker exec -it models bash -c "coveralls"
+  #- coveralls
 
 after_script:
   - docker-compose stop
