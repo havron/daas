@@ -32,7 +32,7 @@ script:
     coverage run manage.py test --noinput" # run Django unit tests on models
   # can put other tests (e.g. integrations) here too with exp, web containers
 
-after_success: docker exec -it models -e TRAVIS=$TRAVIS -e TRAVIS_JOB_ID=$TRAVIS_JOB_ID bash -c "coveralls"
+after_success: docker exec -it models bash -c "coveralls"
 
 after_script:
   - docker-compose stop

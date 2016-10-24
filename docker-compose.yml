@@ -6,6 +6,9 @@ models: # PORT 8002
       - ./models/:/app
     ports:
       - "8002:8000"
+    environment:
+      - TRAVIS
+      - TRAVIS_JOB_ID
     command: bash -c "pip install -r requirements.txt && python manage.py makemigrations && python manage.py migrate && python manage.py loaddata db.json && mod_wsgi-express start-server --reload-on-changes ./models/wsgi.py"
     container_name: models
 
