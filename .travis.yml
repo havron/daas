@@ -39,7 +39,7 @@ script:
 after_success: 
   - ls models/*
   - cat models/.coverage
-  - sed -i "s/\/app\///g" models/.coverage 
+  - sed -i "s/app/models/g" models/.coverage 
   - cat models/.coverage
   - cd models
   - coveralls
