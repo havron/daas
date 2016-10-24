@@ -39,6 +39,8 @@ script:
 after_success: 
   - ls models/*
   - cat models/.coverage
+  - sed -i "s/\/app\///" models/.coverage 
+  - sed -i "s/\/app\///" models/.coverage 
   - coveralls -b models/
   #- cp models/.coverage .
   #- mkdir app
