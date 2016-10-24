@@ -36,7 +36,8 @@ script:
   # can put other tests (e.g. integrations) here too with exp, web containers
 
 after_success: 
-  - docker cp models:.coverage .
+  - mkdir app
+  - docker cp models:/app/.coverage app
   - coveralls
 
 after_script:
