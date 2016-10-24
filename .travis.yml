@@ -27,8 +27,12 @@ script:
   - >
     docker exec -it models bash -c
     "pip install -r requirements.txt &&
-    python manage.py test --noinput" # run Django unit tests on models
+    pip install coveralls && 
+    python manage.py test --noinput && # run Django unit tests on models
+    coverage run manage.py test --noinput" 
   # can put other tests (e.g. integrations) here too with exp, web containers
+
+after_success: docker exec -it models bash -c "coveralls"
 
 after_script:
   - docker-compose stop
