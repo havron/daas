@@ -36,7 +36,7 @@ script:
   # can put other tests (e.g. integrations) here too with exp, web containers
 
 after_success: 
-  - docker cp models:~/.coverage .
+  - docker cp models:/tmp/daas/.coverage .
   - coveralls
 
 after_script:
