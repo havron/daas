@@ -32,11 +32,11 @@ script:
     "pip install -r requirements.txt &&
     pip install coveralls && 
     python manage.py test --noinput && 
-    coverage run manage.py test --noinput" # run Django unit tests on models
+    coverage run manage.py test --noinput && ls -la" # run Django unit tests on models
   # can put other tests (e.g. integrations) here too with exp, web containers
 
 after_success: 
-  - docker cp models:~/.coverage .
+  - docker cp models:~/.coverage ~
   - coveralls
 
 after_script:
