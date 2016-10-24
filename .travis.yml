@@ -31,13 +31,13 @@ script:
     docker exec -it models bash -c
     "pip install -r requirements.txt &&
     pip install coveralls && 
-    python manage.py test --noinput && 
-    coverage run manage.py test --noinput && pwd" # run Django unit tests on models
+    coverage run manage.py test --noinput && cat .coverage" # run Django unit tests on models
   # can put other tests (e.g. integrations) here too with exp, web containers
 
 after_success: 
   - mkdir app
-  - docker cp models:/app/.coverage app
+  - docker cp models:/app/.coverage .
+  - docker cp models:/app app
   - coveralls
 
 after_script:
