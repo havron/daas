@@ -48,6 +48,7 @@ INSTALLED_APPS = (
     #'django.contrib.staticfiles',
     'daasapp',
     'django_coverage',
+    'django_nose',
 )
 
 MIDDLEWARE_CLASSES = (
