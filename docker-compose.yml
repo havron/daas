@@ -9,6 +9,7 @@ models: # PORT 8002
     environment:
       - TRAVIS
       - TRAVIS_JOB_ID
+      - GIT_DISCOVERY_ACROSS_FILESYSTEM
     command: bash -c "pip install -r requirements.txt && python manage.py makemigrations && python manage.py migrate && python manage.py loaddata db.json && mod_wsgi-express start-server --reload-on-changes ./models/wsgi.py"
     container_name: models
 
