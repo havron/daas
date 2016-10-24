@@ -37,33 +37,11 @@ script:
   # can put other tests (e.g. integrations) here too with exp, web containers
 
 after_success: 
-  - ls models/*
   - cat models/.coverage
   - sed -i "s/\/app/models/g" models/.coverage 
+  - cat models/.coverage
   - mv models/.coverage .
   - coveralls
-  #- cp models/.coverage .
-  #- mkdir app
-  #- mkdir app/models
-  #- mkdir app/daasapp
-  #- mkdir app/daasapp/tests/
-  #- docker cp models:/app/.coverage .
-  #- docker cp models:/app/daasapp/__init__.py app/daasapp/
-  #- docker cp models:/app/daasapp/err_models.py app/daasapp/
-  #- docker cp models:/app/daasapp/models.py app/daasapp/
-  #- docker cp models:/app/daasapp/tests/__init__.py app/daasapp/tests/
-  #- docker cp models:/app/daasapp/tests/test_drones.py app/daasapp/tests/
-  #- docker cp models:/app/daasapp/tests/test_listing.py app/daasapp/tests/
-  #- docker cp models:/app/daasapp/tests/test_users.py app/daasapp/tests/
-  #- docker cp models:/app/daasapp/views.py app/daasapp/
-  #- docker cp models:/app/daasapp/manage.py app/daasapp/
-  #- docker cp models:/app/models/__init__.py app/models/
-  #- docker cp models:/app/models/apiposts.py app/models/
-  #- docker cp models:/app/models/home.py app/models/
-  #- docker cp models:/app/models/settings.py app/models/
-  #- docker cp models:/app/models/urls.py app/models/
-  #- docker exec -it models bash -c "coveralls"
-  #- coveralls
 
 after_script:
   - docker-compose stop
