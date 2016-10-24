@@ -41,6 +41,7 @@ after_success:
   - cat models/.coverage
   - sed -i "s/\/app\///" models/.coverage 
   - sed -i "s/\/app\///" models/.coverage 
+  - cat models/.coverage
   - coveralls -b models/
   #- cp models/.coverage .
   #- mkdir app
