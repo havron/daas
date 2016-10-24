@@ -1,5 +1,8 @@
 sudo: required
 dist: trusty # google-cloud-engine mod of ubuntu 14.04.3 LTS
+language: python
+python:
+  - "3.5"
 
 # if specific versions of docker or docker-compose are needed, see travis-CI docs
 services:
@@ -19,7 +22,7 @@ install: # prepare mySQL database
     CREATE DATABASE test_cs4501 CHARACTER SET utf8;
     CREATE USER 'www'@'%' IDENTIFIED BY '\$3cureUS';
     GRANT ALL PRIVILEGES ON *.* TO 'www'@'%';"
-
+  - sudo pip install coveralls
 before_script:
   - docker-compose up -d
 
@@ -32,7 +35,9 @@ script:
     coverage run manage.py test --noinput" # run Django unit tests on models
   # can put other tests (e.g. integrations) here too with exp, web containers
 
-after_success: coveralls
+after_success: 
+  - docker cp models:~/.coverage .
+  - coveralls
 
 after_script:
   - docker-compose stop
