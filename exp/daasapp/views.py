@@ -27,6 +27,18 @@ class RegisterForm(forms.Form):
   password1 = forms.CharField(label="Your daas! password", widget=forms.PasswordInput)
   password2 = forms.CharField(label="Your daas! password (again)", widget=forms.PasswordInput)
 
+class ListingForm(forms.Form):
+  # my_drones = forms.ChoiceField(label="Choose your drone", choices = "no drones")
+  price_per_day = forms.FloatField( label = "Price of Drone per day")
+  description = forms.CharField(label = "Write something about your lease.", widget=forms.Textarea )    
+  model_name = forms.CharField(label = "model name of your drone")
+  drone_desc = forms.CharField(label = "Write something about this particular drone", widget = forms.Textarea)
+  demo_link = forms.URLField(label = "link to demo", required=False) # (link to photo gallery or videos)
+  permissions = forms.CharField(label = "legals", widget = forms.Textarea)
+  battery_level = forms.FloatField(label = "battery level")
+  maintenance_status = forms.CharField(label = "maintenance status", widget = forms.Textarea)
+  available_for_hire = forms.BooleanField(label = "ready for hire?")
+
 ################ RESPONSE HELPER FUNCTIONS #############
 
 # _ denotes a helper function
@@ -183,3 +195,65 @@ def listing(request, listing_id):
   resp_json = urllib.request.urlopen(req).read().decode('utf-8')
   resp = json.loads(resp_json)
   return _success_response(request, resp) 
+
+
+def create_listing(request): # /create-listing
+  if request.method != 'POST':  
+    return _error_response(request, err_exp.E_BAD_REQUEST, "must make POST request")
+
+  form = ListingForm(request.POST)
+  if not form.is_valid():
+    return _error_response(request, err_exp.E_FORM_INVALID, "listing form not correctly filled out")
+
+  post_data = form.cleaned_data
+  post_data['auth'] = request.POST['auth']
+  post_data['last_checked_out'] = datetime.datetime.now()
+
+  post_encoded = urllib.parse.urlencode(post_data).encode('utf-8')
+  req = urllib.request.Request('http://models-api:8000/api/v1/drone/create/', data=post_encoded, method='POST')
+  resp_json = urllib.request.urlopen(req).read().decode('utf-8')
+  resp = json.loads(resp_json)
+
+  if not resp:
+    return _error_response(request, err_exp.E_REGISTER_FAILED, "no response from models API")
+  if resp['ok'] == False: # could be much more nuanced. makes web view handle errors
+    return _error_response(request, err_exp.E_REGISTER_FAILED, resp)
+
+  post_data['_drone_key'] = resp['resp']['drone_id']
+  post_data['time_posted'] = datetime.datetime.now()
+
+  post_encoded = urllib.parse.urlencode(post_data).encode('utf-8')
+  req = urllib.request.Request('http://models-api:8000/api/v1/listing/create/', data=post_encoded, method='POST')
+  resp_json = urllib.request.urlopen(req).read().decode('utf-8')
+  resp = json.loads(resp_json)
+
+  if not resp:
+    return _error_response(request, err_exp.E_REGISTER_FAILED, "no response from models API")
+  if resp['ok'] == False: # could be much more nuanced. makes web view handle errors
+    return _error_response(request, err_exp.E_REGISTER_FAILED, {'resp':resp})
+
+
+  return _success_response(request, resp['resp'])
+
+
+def my_drones(request): # /my-drones
+  if request.method != 'POST':  
+    return _error_response(request, err_exp.E_BAD_REQUEST, "must make POST request")
+
+  form = AuthForm(request.POST)
+  if not form.is_valid():
+    return _error_response(request, err_exp.E_FORM_INVALID, "user logout form not correctly filled out")
+
+  post_data = form.cleaned_data
+  post_encoded = urllib.parse.urlencode(post_data).encode('utf-8')
+  req = urllib.request.Request('http://models-api:8000/api/v1/my-drones/', data=post_encoded, method='POST')
+  resp_json = urllib.request.urlopen(req).read().decode('utf-8')
+  resp = json.loads(resp_json)
+
+  if not resp:
+    return _error_response(request, err_exp.E_LOGIN_FAILED, "no response from models API")
+  if resp['ok'] == False: # could be much more nuanced. makes web view handle errors
+    return _error_response(request, err_exp.E_LOGIN_FAILED, resp)
+
+  # if datetime.datetime.now() - resp['resp']['date_created'] > : ... expiration of auth token not implemented.
+  return _success_response(request, resp['resp'])

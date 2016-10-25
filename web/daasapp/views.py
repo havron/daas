@@ -49,6 +49,21 @@ class RegisterForm(forms.Form):
           raise forms.ValidationError("Your passwords do not match")
       return password2
 
+
+class ListingForm(forms.Form):
+  # my_drones = forms.ChoiceField(label="Choose your drone", choices = "no drones")
+  price_per_day = forms.FloatField( label = "Price of Drone per day")
+  description = forms.CharField(label = "Write something about your lease.", widget=forms.Textarea )    
+  model_name = forms.CharField(label = "model name of your drone")
+  drone_desc = forms.CharField(label = "Write something about this particular drone", widget = forms.Textarea)
+  demo_link = forms.URLField(label = "link to demo", required=False) # (link to photo gallery or videos)
+  permissions = forms.CharField(label = "legals", widget = forms.Textarea)
+  battery_level = forms.FloatField(label = "battery level")
+  maintenance_status = forms.CharField(label = "maintenance status", widget = forms.Textarea)
+  available_for_hire = forms.BooleanField(label = "ready for hire?")
+
+
+
 ########################################################
 
 # use the decorator @login_required in other views that need it! :-)
@@ -106,7 +121,7 @@ def login(request): # /login
   if not form.is_valid():
     invalid_form = err_web.E_FORM_INVALID
     return render(request, 'web/login.html', invalid_form)
-  
+
   next = request.GET.get('next') or reverse('index')
 
   post_data = form.cleaned_data
@@ -323,4 +338,118 @@ def listing(request, listing_id=None):
       resp = {'resp':err_web.E_LISTING_NOT_FOUND}
       return render(request, 'web/t404.html', resp)
 
-  return render(request, 'web/listing.html', resp2)      
+    resp2 = resp['resp']
+    t = arrow.get(resp2['resp']['time_posted'])
+    resp['resp']['resp']['time_posted'] = str(t.format('D MMMM, YYYY') + " at " + t.format('h:mma'))
+
+    resp2 = resp['resp']
+    t = arrow.get(resp2['resp']['drone']['last_checked_out'])
+    resp['resp']['resp']['drone']['last_checked_out'] = str(t.format('D MMMM, YYYY') + " at " + t.format('h:mma'))
+
+  return render(request, 'web/listing.html', resp.get("resp"))      
+
+
+@login_required
+def create_listing(request):
+
+  if request.method == 'GET':   
+    listing_form = ListingForm()
+
+    next = request.GET.get('next') or reverse('index')
+    return render(request, 'web/create-listing.html', {'listing_form': listing_form, 'next':next})
+    
+    '''
+    # inspect all drones that owner ownes
+    drones_json = urllib.request.urlopen(req).read().decode('utf-8')
+    drones = json.loads(drones_json)
+
+    if not drones:
+      resp = {'resp':err_web.E_TECH_DIFFICULTIES}
+      return render(request, 'web/t404.html', resp)
+
+    if drones['ok'] == False:
+      resp = {'resp':err_web.E_DRONE_NOT_FOUND}
+      return render(request, 'web/t404.html', resp)
+    
+    listing_form = ListingForm( initial = { 'my_drones': drones.get("my_drones") })
+    '''
+
+
+  if request.method != 'POST': # user did not make GET or POST request (unlikely).
+    resp = err_web.E_BAD_REQUEST
+    return render(request, 'web/t404.html', resp)
+
+  form = ListingForm(request.POST)
+  if not form.is_valid():
+    #resp = {'resp': err_web.E_FORM_INVALID} #TODO for rest
+    resp = {'resp': form.errors} #TODO for rest
+    return render(request, 'web/create-listing.html', resp)
+  
+  post_data = form.cleaned_data
+  post_data['auth'] = request.COOKIES.get("auth")
+  post_encoded = urllib.parse.urlencode(post_data).encode('utf-8')
+  req = urllib.request.Request('http://exp-api:8000/listing/create/', data=post_encoded, method='POST')
+
+
+
+  resp_json = urllib.request.urlopen(req).read().decode('utf-8')
+  resp = json.loads(resp_json)
+
+  if not resp:
+    resp = {'resp':err_web.E_TECH_DIFFICULTIES}
+    return render(request, 'web/t404.html', resp)
+
+  if resp['ok'] == False: # could be much more nuanced. 
+    listing_form = ListingForm()
+    return render(request, 'web/create-listing.html', {'listing_form': listing_form, 'resp':resp })
+
+
+  next = '/listing/' + str(resp['resp']['listing_id'])
+  response = HttpResponseRedirect(next)
+  messages.success(request, 'Successfully created Listing!')
+  return response
+    
+  '''
+        auth = request.COOKIES.get('auth')
+    form = AuthForm(dict(authenticator=auth))
+    if not form.is_valid():
+      resp = {'resp':err_web.E_TECH_DIFFICULTIES}
+      return render(request, 'web/t404.html', resp)
+
+    post_data = form.cleaned_data
+    post_encoded = urllib.parse.urlencode(post_data).encode('utf-8')
+    req = urllib.request.Request('http://exp-api:8000/create-listing/', data=post_encoded, method='POST')
+    '''
+
+  '''
+  form = LoginForm(request.POST)
+  if not form.is_valid():
+    invalid_form = err_web.E_FORM_INVALID
+    return render(request, 'web/login.html', invalid_form)
+  
+  next = request.GET.get('next') or reverse('index')
+
+  post_data = form.cleaned_data
+  post_encoded = urllib.parse.urlencode(post_data).encode('utf-8')
+  req = urllib.request.Request('http://exp-api:8000/login/', data=post_encoded, method='POST')
+
+  resp_json = urllib.request.urlopen(req).read().decode('utf-8')
+  resp = json.loads(resp_json)
+
+  if not resp:
+    resp = {'resp':err_web.E_TECH_DIFFICULTIES}
+    return render(request, 'web/t404.html', resp)
+
+  if resp['ok'] == False: # could be much more nuanced. 
+    resp = err_web.E_LOGIN_FAILED
+    return render(request, 'web/login.html', {'login_form':login_form, 'register_form': register_form, 'resp': resp, 'next':next})
+
+
+  authenticator = resp['resp']['authenticator']
+  response = HttpResponseRedirect(next)
+  messages.success(request, 'Successfully logged in!')
+  response.set_cookie("auth", authenticator)
+  response.set_cookie("user", form.cleaned_data['username'])
+  response.set_cookie("pk", resp['resp']['user_id'])
+  return response
+  '''

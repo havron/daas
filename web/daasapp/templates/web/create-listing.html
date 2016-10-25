@@ -1,0 +1,38 @@
+{% extends 'base.html' %}	
+{% load staticfiles %}
+{% block title_block %} daas login {% endblock %}
+{% block headtag_block %} 
+  <link href="{% static "css/form-login.css" %}" rel="stylesheet">
+{% endblock %}
+{% block body_block %}
+
+
+<section id="form"><!--form-->
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-4 col-sm-offset-1">
+            {% if resp %}
+            <b style="font-size:28px">{{ resp }}</b>
+            <br>
+            {% endif %}
+					<div class="login-form"><!--login form-->
+						<h2>Make a new drone Listing</h2>
+            {% if listing_form %}
+            <form class="form-signin" action="/create-listing/?next={{next}}" method="post">
+            <h2 class="form-signin-heading" style="color:orange"><b></b></h2>
+                <button type="submit" class="btn btn-lg btn-primary btn-block" value="Submit">Make my drone!</button><br>
+                {% csrf_token %}
+                {{ listing_form }}
+            </form>
+            {% endif %}
+					</div><!--/login form-->
+				</div>
+				<div class="col-sm-1">
+					<h2 class="or">OR</h2>
+				</div>
+					<div class="col-sm-6">
+        <img src="{% static "images/home/dog2.jpg" %}" class="girl img-responsive" alt="" />
+			</div>
+		</div>
+	</section><!--/form-->
+{% endblock %}	

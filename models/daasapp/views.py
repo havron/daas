@@ -66,6 +66,18 @@ class UpdateDroneForm(ModelForm):
 # note: multiple form classes (with different names) for a model can be made, 
 # with different subsets of fields accepted or excluded
 
+class ListingForm(forms.Form):
+  # my_drones = forms.ChoiceField(label="Choose your drone", choices = "no drones")
+  price_per_day = forms.FloatField( label = "Price of Drone per day")
+  description = forms.CharField(label = "Write something about your lease.", widget=forms.Textarea )    
+  model_name = forms.CharField(label = "model name of your drone")
+  drone_desc = forms.CharField(label = "Write something about this particular drone", widget = forms.Textarea)
+  demo_link = forms.URLField(label = "link to demo", required=False) # (link to photo gallery or videos)
+  permissions = forms.CharField(label = "legals", widget = forms.Textarea)
+  battery_level = forms.FloatField(label = "battery level")
+  maintenance_status = forms.CharField(label = "maintenance status", widget = forms.Textarea)
+  available_for_hire = forms.BooleanField(label = "ready for hire?")
+
 
 ################ RESPONSE HELPER FUNCTIONS #############
 
@@ -256,11 +268,27 @@ def create_drone(request): # /api/v1/drone/create
   if request.method != 'POST':
     return _error_response(request, err_models.E_BAD_REQUEST, "must make POST request")
   
-  try:
-    owner = models.User.objects.get(pk=request.POST['_owner_key']) # not efficient, assumes pk is passed in
-  except models.User.DoesNotExist:
-    return _error_response(request, err_models.E_DATABASE, "owner not found")
- 
+  if( not request.POST['auth']):
+    try:
+      owner = models.User.objects.get(pk=request.POST['_owner_key']) # not efficient, assumes pk is passed in
+    except models.User.DoesNotExist:
+      return _error_response(request, err_models.E_DATABASE, "owner not found")
+  else:
+    form = CheckAuthForm(dict(authenticator=request.POST['auth']))
+    if not form.is_valid():
+      return _error_response(request, err_models.E_FORM_INVALID, "auth token form not filled out correctly")
+
+    data = form.cleaned_data
+    try:
+      auth = models.Authenticator.objects.get(pk=data['authenticator'])
+    except models.Authenticator.DoesNotExist:
+      return _error_response(request, err_models.E_UNKNOWN_AUTH, "authenticator not found")
+
+    try:
+      owner = models.User.objects.get(pk=auth.user_id) # not efficient, assumes pk is passed in
+    except models.User.DoesNotExist:
+      return _error_response(request, err_models.E_DATABASE, "owner not found")
+
 
   ######### attempt at using a form to populate. Foreignkey is tough to deal with.
   #  form = DroneForm(initial={'owner':owner.pk})
@@ -281,7 +309,7 @@ def create_drone(request): # /api/v1/drone/create
                    drone_desc=request.POST['drone_desc'], \
                    demo_link=request.POST['demo_link'], \
                    permissions=request.POST['permissions'], \
-                   owner_email=request.POST['owner_email'], \
+                   owner_email=owner.email_address, \
                    battery_level=request.POST['battery_level'], \
                    maintenance_status=request.POST['maintenance_status'], \
                    available_for_hire=request.POST['available_for_hire'], \
@@ -356,14 +384,34 @@ def recent_drones(request): # /api/v1/drone/recent
 
 
 #############listings api ####################
+
 def create_listing(request): # /api/v1/listing/create
   if request.method != 'POST':
     return _error_response(request, err_models.E_BAD_REQUEST, "must make POST request")
+  
+  if( not request.POST['auth']):
+    try:
+      owner = models.User.objects.get(pk=request.POST['_owner_key']) # not efficient, assumes pk is passed in
+    except models.User.DoesNotExist:
+      return _error_response(request, err_models.E_DATABASE, "owner not found")
+  else:
+    form = CheckAuthForm(dict(authenticator=request.POST['auth']))
+    if not form.is_valid():
+      return _error_response(request, err_models.E_FORM_INVALID, "auth token form not filled out correctly")
 
-  try:
-    owner = models.User.objects.get(pk=request.POST['_owner_key']) # not efficient, assumes pk is passed in
-  except models.User.DoesNotExist:
-    return _error_response(request, err_models.E_DATABASE, "owner not found")
+    data = form.cleaned_data
+    try:
+      auth = models.Authenticator.objects.get(pk=data['authenticator'])
+    except models.Authenticator.DoesNotExist:
+      return _error_response(request, err_models.E_UNKNOWN_AUTH, "authenticator not found")
+
+    try:
+      owner = models.User.objects.get(pk=auth.user_id) # not efficient, assumes pk is passed in
+    except models.User.DoesNotExist:
+      return _error_response(request, err_models.E_DATABASE, "owner not found")
+
+
+
   try:
     drone = models.Drone.objects.get(pk=request.POST['_drone_key']) # not efficient, assumes pk is passed in
   except models.Drone.DoesNotExist:
@@ -383,6 +431,8 @@ def create_listing(request): # /api/v1/listing/create
 
   return _success_response(request, {'listing_id': l.pk})
 
+
+
 #doesn't work?
 def inspect_listing(request, listing_id): # /api/v1/drone/<listing_id>
   if request.method != 'GET':
@@ -394,6 +444,41 @@ def inspect_listing(request, listing_id): # /api/v1/drone/<listing_id>
     return _error_response(request, err_models.E_DATABASE, "listing not found")
 
   return _success_response(request, d.to_json()) 
+
+
+
+def my_drones(request): # /api/v1/my_drones
+  if request.method != 'POST':
+    return _error_response(request, err_models.E_BAD_REQUEST, "must make POST request")
+
+  form = CheckAuthForm(request.POST)
+  if not form.is_valid():
+    return _error_response(request, err_models.E_FORM_INVALID, "auth token form not filled out correctly")
+
+  data = form.cleaned_data
+  try:
+    auth = models.Authenticator.objects.get(pk=data['authenticator'])
+  except models.Authenticator.DoesNotExist:
+    return _error_response(request, err_models.E_UNKNOWN_AUTH, "authenticator not found")
+
+  try:
+    owner = models.User.objects.get(pk=auth.user_id)  
+  except models.User.DoesNotExist:
+    return _error_response(request, err_models.E_UNKNOWN_AUTH, "User not found")
+
+  try:
+    my_drones = models.Drone.objects.filter(owner=owner)
+  except models.Drone.DoesNotExist:
+    return _error_response(request, err_models.E_UNKNOWN_AUTH, "drones not found")
+
+  # currently not being checked due to cookies never remembering username...
+  #if data['user_id'] != auth.user_id:
+  #  return _error_response(request, err_models.E_UNKNOWN_AUTH, "invalid user")
+
+  # date expiration check in experience layer
+  drone_dict = [ drone.to_json() for drone in my_drones ]
+  return _success_response(request, {'resp': { 'my_drones': drone_dict }}) # gives exp layer the date_created
+
 
 #doesn't work
 def all_listing(request): # /api/v1/listing/all
