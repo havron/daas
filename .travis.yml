@@ -14,7 +14,7 @@ install: # prepare mySQL database
   - >
     docker run --name mysql -d -e MYSQL_ROOT_PASSWORD='$3cureUS'
     -v `pwd`/db:/var/lib/mysql mysql:5.7.14
-  - sleep 10 # need to give time for mysql to start
+  - sleep 15 # need to give time for mysql to start
   - >
     docker run -it --name mysql-cmd --rm --link mysql:db mysql:5.7.14
     mysql -uroot -p'$3cureUS' -h db -v -e
