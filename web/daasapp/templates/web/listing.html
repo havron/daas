@@ -196,6 +196,7 @@
                 <span>
 								  <span>Drone model name:  </span>
                   <br><b style="font-size:20px">{{ resp.drone.model_name }}</b>
+                  <br><b style="font-size:20px"><a href="{% url 'product-details' resp.drone.drone_id|stringformat:"i" %}">view drone details</a></b>
                 </span>
 								<br> <img src="{% static "images/product-details/rating.png" %}" alt="" />
 								<span>

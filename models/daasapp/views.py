@@ -268,7 +268,7 @@ def create_drone(request): # /api/v1/drone/create
   if request.method != 'POST':
     return _error_response(request, err_models.E_BAD_REQUEST, "must make POST request")
   
-  if( not request.POST['auth']):
+  if( not request.POST.get('auth')):
     try:
       owner = models.User.objects.get(pk=request.POST['_owner_key']) # not efficient, assumes pk is passed in
     except models.User.DoesNotExist:
@@ -389,7 +389,7 @@ def create_listing(request): # /api/v1/listing/create
   if request.method != 'POST':
     return _error_response(request, err_models.E_BAD_REQUEST, "must make POST request")
   
-  if( not request.POST['auth']):
+  if( not request.POST.get('auth')):
     try:
       owner = models.User.objects.get(pk=request.POST['_owner_key']) # not efficient, assumes pk is passed in
     except models.User.DoesNotExist:
