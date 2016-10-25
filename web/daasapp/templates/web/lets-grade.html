@@ -10,14 +10,27 @@
 <li class="list-group-item list-group-item-success">
  <h3 class="list-group-item-heading">Navigating</h3>
   <p class="list-group-item-text">
-    <p> User Page - Click on 'User Profiles' on the home page to access user page.  We currently have 200 users on the site.  Find them by putting a monotically increasing user id number at the end of the url. e.g /user/64.  If you request a user id above the number of fixtures we have installed, you will be redirected to a custom 404 error page. </p>
+    <b><p>Users </b> </p>
+    <p> Click on 'User Profiles' on the home page to access user page.  We currently have 200 users on the site.  Find them by putting a monotically increasing user id number at the end of the url. e.g /user/64.  If you request a user id above the number of fixtures we have installed, you will be redirected to a custom 404 error page. </p>
     <a href = "{% url 'userprofile_noargs' %} " > Click here to take you to User Profiles. </a>
-    <p> Product Page - Click on 'woa, c00l dr0n35' on the home page to access product page. We currently have 200 drones on the site.  Find them by putting a monotically increasing user id number at the end of the url. e.g /product-details/64.  If you request a drone id above the number of fixtures we have installed, you will be redirected to a custom 404 error page.</p>
+    <p> Create a new user - You are able to create a new user through the login page! Registering creates a new user in the db. </p>
+    <a href = "{% url 'login' %} " > Click here to create your account. </a>
+
+    <b><p> Products </b></p>
+    <p> Click on 'woa, c00l dr0n35' on the home page to access product page. We currently have 200 drones on the site.  Find them by putting a monotically increasing user id number at the end of the url. e.g /product-details/64.  If you request a drone id above the number of fixtures we have installed, you will be redirected to a custom 404 error page.</p>
     <a href = "{% url 'product-details_noargs' %} " > Click here to take you to Product Page. </a>
-    <p> Listing Page - Click on 'Shop', then 'Products' on the home page to access the listings.  Once there, click on any of the 'Featured Items' to vie a listing. We currently have 200 listings on the site. You may add a listing by creating an account and logging in. </p>
+
+    <b><p> Listings </p></b>
+    <p> To create a listing, you must first log in. Then navigate to create-listing where you can enter information about your listing. This creates a new listing as well as a new drone under the product-details page.</p>
+    <a href = "{% url 'shop' %} " > Click here to create a new listing. </a>
+    <p> Viewing a listing - We currently have 200 listings in our db. Find them by putting a listing id number at the end of the url. ex. ../listing/64. If you request a listing id above the number of fixtures we have installed, you will be redirected to a custon 404 error page. If you created a new listing, you will be able to see both that listing and the new drone. </p>
     <a href = "{% url 'shop' %} " > Click here to take you to the Listings Page. </a>
+
+    {% comment %} Click on 'Shop', then 'Products' on the home page to access the listings.  Once there, click on any of the 'Featured Items' to vie a listing. We currently have 200 listings on the site. You may add a listing by creating an account and logging in. {% endcomment %}
+
   </p>
 </li>
+
 
 <li class="list-group-item list-group-item-info"> 
  <h3 class="list-group-item-heading">User Stories</h3>
