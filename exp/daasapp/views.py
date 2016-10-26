@@ -259,12 +259,10 @@ def my_drones(request): # /my-drones
   return _success_response(request, resp['resp'])
 
 
-
-  def featured_items(request): # /shop/
-    if request.method != 'GET':
-      return _error_response(request, err_exp.E_BAD_REQUEST, "must make GET request")
-
-    req  = urllib.request.Request('http://models-api:8000/api/v1/shop/')
-    resp_json = urllib.request.urlopen(req).read().decode('utf-8')
-    resp = json.loads(resp_json)
-    return _success_response(request, resp)
+def featured_items(request): # /shop/
+  if request.method != 'GET':
+    return _error_response(request, err_exp.E_BAD_REQUEST, "must make GET request")
+  req  = urllib.request.Request('http://models-api:8000/api/v1/shop/')
+  resp_json = urllib.request.urlopen(req).read().decode('utf-8')
+  resp = json.loads(resp_json)
+  return _success_response(request, resp)

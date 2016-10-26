@@ -237,10 +237,11 @@ def cart(request):
   context = {} # can send dictionary values (results of api calls) to the template
   return render(request, 'web/cart.html', context)
 
+'''
 def shop(request):
   context = {} # can send dictionary values (results of api calls) to the template
   return render(request, 'web/shop.html', context)
-
+'''
 
 def blog(request):
   context = {} # can send dictionary values (results of api calls) to the template
@@ -459,9 +460,6 @@ def featured_items(request):
   resp = {}
   resp2 = {}
   req = urllib.request.Request('http://exp-api:8000/shop/')
-
-  return render(request, 'web/shop.html', {})
-
   resp_json = urllib.request.urlopen(req).read().decode('utf-8')
   resp = json.loads(resp_json)
     
@@ -469,7 +467,7 @@ def featured_items(request):
     resp = {'resp':err_web.E_TECH_DIFFICULTIES}
     return render(request, 'web/t404.html', resp)
 
-  if resp['resp']['ok'] == False:
+  if resp['ok'] == False:
     resp = {'resp':err_web.E_LISTING_NOT_FOUND}
     return render(request, 'web/t404.html', resp)
 
