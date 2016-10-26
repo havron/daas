@@ -374,7 +374,6 @@ def create_listing(request):
     listing_form = ListingForm( initial = { 'my_drones': drones.get("my_drones") })
     '''
 
-
   if request.method != 'POST': # user did not make GET or POST request (unlikely).
     resp = err_web.E_BAD_REQUEST
     return render(request, 'web/t404.html', resp)
@@ -453,3 +452,25 @@ def create_listing(request):
   response.set_cookie("pk", resp['resp']['user_id'])
   return response
   '''
+
+
+# featured items in shop.html
+def featured_items(request):
+  resp = {}
+  resp2 = {}
+  req = urllib.request.Request('http://exp-api:8000/shop/')
+
+  return render(request, 'web/shop.html', {})
+
+  resp_json = urllib.request.urlopen(req).read().decode('utf-8')
+  resp = json.loads(resp_json)
+    
+  if not resp:
+    resp = {'resp':err_web.E_TECH_DIFFICULTIES}
+    return render(request, 'web/t404.html', resp)
+
+  if resp['resp']['ok'] == False:
+    resp = {'resp':err_web.E_LISTING_NOT_FOUND}
+    return render(request, 'web/t404.html', resp)
+
+  return render(request, 'web/shop.html', resp.get("resp"))      

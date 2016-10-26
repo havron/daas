@@ -9,6 +9,7 @@ from daasapp import models
 from daasapp import err_models
 from django.conf import settings # for getting HMAC key from project settings
 import hmac, os # for generating auth token
+from random import randrange 
 
 ############### FORMS ###############
 class UserForm(ModelForm): 
@@ -433,7 +434,7 @@ def create_listing(request): # /api/v1/listing/create
 
 
 
-#doesn't work?
+
 def inspect_listing(request, listing_id): # /api/v1/drone/<listing_id>
   if request.method != 'GET':
     return _error_response(request, err_models.E_BAD_REQUEST, "must make GET request")
@@ -485,3 +486,17 @@ def all_listing(request): # /api/v1/listing/all
   if request.method != 'GET':
     return _error_response(request, err_models.E_BAD_REQUEST, "must make GET request")
   return _success_response(request, {'resp': 'good'})
+
+
+
+def featured_items(request): # /api/v1/shop/
+  if request.method != 'GET':
+    return _error_response(request, err_models.E_BAD_REQUEST, "must make GET request")
+
+  listing1 = random.randrange(1, 201)
+  try:
+    l1 = models.Listing.objects.get(pk=listing1)
+  except models.Listing.DoesNotExist:
+    return _error_response(request, err_models.E_DATABASE, "listing not found")
+  # dict(l1=l1.to_json(), L2=
+  return _success_response(request, l1.to_json()) 
