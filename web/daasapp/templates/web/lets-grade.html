@@ -22,9 +22,9 @@
 
     <b><p> Listings </p></b>
     <p> To create a listing, you must first log in. Then navigate to create-listing where you can enter information about your listing. This creates a new listing as well as a new drone under the product-details page.</p>
-    <a href = "{% url 'shop' %} " > Click here to create a new listing. </a>
+    <a href = "{% url 'create-listing' %} " > Click here to create a new listing. </a>
     <p> Viewing a listing - We currently have 200 listings in our db. Find them by putting a listing id number at the end of the url. ex. ../listing/64. If you request a listing id above the number of fixtures we have installed, you will be redirected to a custon 404 error page. If you created a new listing, you will be able to see both that listing and the new drone. </p>
-    <a href = "{% url 'shop' %} " > Click here to take you to the Listings Page. </a>
+    <a href = "{% url 'listing_noargs' %} " > Click here to take you to the Listings Page. </a>
 
     {% comment %} Click on 'Shop', then 'Products' on the home page to access the listings.  Once there, click on any of the 'Featured Items' to vie a listing. We currently have 200 listings on the site. You may add a listing by creating an account and logging in. {% endcomment %}
 
@@ -35,15 +35,19 @@
 <li class="list-group-item list-group-item-info"> 
  <h3 class="list-group-item-heading">User Stories</h3>
   <p class="list-group-item-text">
+    <p> Project 3
     <p> 1. As a user, I would like to be able to create a user profile. </p>
     <p> 2. As a user, I would like to be able to retrieve my own information and see other user's profiles. </p>
     <p> 3. As a user, I would like to get information on a drone. </p>
     <p> 4. As a user, I would like to have a biography section to express myself. </p>
     <p> 5. As a user, I would like to show people how long I've been on the site. </p>
     <p> 6. As a user, I would like to see the three most recent drones available. </p>
+    <p> Project 4
     <p> 7. As a user new to this site, I would like to create my own account so I can begin leasing and renting drones. </p>
     <p> 8. As a drone owner, I would like to lease out my drones so I can make money. </p>
-    <p> 9. As a user, I would like to view drones that are currently available for lease. </p>
+    <p> 9. As a user, I would like to browse drones that are currently available for lease. </p>
+    <p> 10. As a user, I would like to log out securely so that I don't get hacked. </p>
+    <p> 11. As a pre-existing user, I would like to log in to access my account information. </p>
   </p>
 </li>
 
@@ -51,12 +55,12 @@
  <h3 class="list-group-item-heading">Unit Tests</h3>
   <p class="list-group-item-text">
     <p> Each number for the unit tests corresponds to the respective user story above. </p>
-    <p> 1. <a href = "https://github.com/samuelhavron/daas/blob/master/models/daasapp/tests/test_users.py#L14-L24"> See code that creates user profile using UserForm. </a> </p>
-    <p> 2. <a href = "https://github.com/samuelhavron/daas/blob/master/models/daasapp/tests/test_users.py#L27-L68"> See code that inspects users and gets user attributes. </a> </p>
-    <p> 3. <a href = "https://github.com/samuelhavron/daas/blob/master/models/daasapp/tests/test_drones.py#L10-L48"> See code that creates drones, gets drone attributes and tests invalid drone ids. </a> </p>
-    <p> 4. <a href = "https://github.com/samuelhavron/daas/blob/master/models/daasapp/tests/test_users.py#L53-L54" > See code that inspects biography. </a> </p>
-    <p> 5. <a href = "https://github.com/samuelhavron/daas/blob/master/models/daasapp/tests/test_users.py#L55-L57" > See code that inspects when the user signed up. </a> </p>
-    <p> 6. <a href = "https://github.com/samuelhavron/daas/blob/master/models/daasapp/tests/test_drones.py#L50-L55" > See code that tests 3 most recent drones available. </a> </p>
+    <p> 1. <a href = "https://github.com/samuelhavron/daas/blob/master/models/daasapp/tests/test_users.py"> See code that creates user profile using UserForm. </a> </p>
+    <p> 2. <a href = "https://github.com/samuelhavron/daas/blob/master/models/daasapp/tests/test_users.py"> See code that inspects users and gets user attributes. </a> </p>
+    <p> 3. <a href = "https://github.com/samuelhavron/daas/blob/master/models/daasapp/tests/test_drones.py"> See code that creates drones, gets drone attributes and tests invalid drone ids. </a> </p>
+    <p> 4. <a href = "https://github.com/samuelhavron/daas/blob/master/models/daasapp/tests/test_users.py" > See code that inspects biography. </a> </p>
+    <p> 5. <a href = "https://github.com/samuelhavron/daas/blob/master/models/daasapp/tests/test_users.py" > See code that inspects when the user signed up. </a> </p>
+    <p> 6. <a href = "https://github.com/samuelhavron/daas/blob/master/models/daasapp/tests/test_drones.py" > See code that tests 3 most recent drones available. </a> </p>
   </p>
 </li>
 

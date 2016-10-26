@@ -45,7 +45,7 @@ urlpatterns = [
     url(r'^api/v1/listing/create/$', views.create_listing, name='create_listing'),
     url(r'^api/v1/listing/(?P<listing_id>\d+)/$', views.inspect_listing, name = 'inspect_listing'),  
     url(r'^api/v1/listing/all/$', views.all_listing, name='view_listing'),
-    url(r'^api/v1/shop/$', views.featured_items, name='featured_items'),
+    #url(r'^api/v1/shop/$', views.featured_items, name='featured_items'),
     url(r'^api/v1/my-drones/$', views.my_drones),
     #url(r'^api/v1/drone/(?P<drone_id>\d+)/updater/$', apiposts.updateDrone),
     #url(r'^api/v1/drone/(?P<drone_id>\d+)/update/$', views.update_drone, name = 'update_drone'),

@@ -237,11 +237,9 @@ def cart(request):
   context = {} # can send dictionary values (results of api calls) to the template
   return render(request, 'web/cart.html', context)
 
-'''
 def shop(request):
   context = {} # can send dictionary values (results of api calls) to the template
   return render(request, 'web/shop.html', context)
-'''
 
 def blog(request):
   context = {} # can send dictionary values (results of api calls) to the template
