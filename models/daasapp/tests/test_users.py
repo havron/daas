@@ -46,7 +46,7 @@ class InspectUserTestCase(TestCase):
   # append number to test to get python to run defs in correct order
   def test1_user_attributes(self):
     
-    response = self.client.get(reverse('inspect_user', kwargs={'user_id':201}))
+    response = self.client.get(reverse('inspect_user', kwargs={'user_id':202}))
     resp = json.loads(response.content.decode('utf8'))
 
     print("test_user_attributes GET " + str(resp))

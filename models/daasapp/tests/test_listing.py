@@ -44,12 +44,10 @@ class ListingFormTests(TestCase):
     resp = json.loads(response.content.decode('utf8'))
     self.assertEquals(resp["ok"], False)
 
-  # Unit Test for User Story 6
-  def test3_Most_Recent_Drones(self):
-    response = self.client.get(reverse('recent_drones'))
-    resp = json.loads(response.content.decode('utf8'))
-    print(str(resp) + "----------------------------")
-    self.assertEquals(len(list(resp['resp']['recent_things'])), 3)
+  def test4_Drones_Available_For_hire(self):
+    available_drones = models.Drone.objects.filter(available_for_hire = True)
+    self.assertGreater(len(available_drones),0)
+
 
   def tearDown(self): 
     del self.client
