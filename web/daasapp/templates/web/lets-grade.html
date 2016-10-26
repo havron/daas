@@ -4,7 +4,7 @@
 {% block body_block %}
 
 <div class="container">
-<h1>ISA Project 3 Let's Grade</h1>
+<h1>ISA Project 4 Let's Grade</h1>
 
 <ul class="list-group"> 
 <li class="list-group-item list-group-item-success">
@@ -22,7 +22,7 @@
 
     <b><p> Listings </p></b>
     <p> To create a listing, you must first log in. Then navigate to create-listing where you can enter information about your listing. This creates a new listing as well as a new drone under the product-details page.</p>
-    <a href = "{% url 'create-listing' %} " > Click here to create a new listing. </a>
+    <a href = "{% url 'create-listing' %} " > Click here to create a new listing (make sure you're logged in!). </a>
     <p> Viewing a listing - We currently have 200 listings in our db. Find them by putting a listing id number at the end of the url. ex. ../listing/64. If you request a listing id above the number of fixtures we have installed, you will be redirected to a custon 404 error page. If you created a new listing, you will be able to see both that listing and the new drone. </p>
     <a href = "{% url 'listing_noargs' %} " > Click here to take you to the Listings Page. </a>
 
@@ -60,6 +60,7 @@
 
 <li class="list-group-item list-group-item-warning"> 
  <h3 class="list-group-item-heading">Unit Tests</h3>
+  <a href = "https://travis-ci.org/samuelhavron/daas"><img src="https://travis-ci.org/samuelhavron/daas.svg?branch=authentication"> </a>
   <p class="list-group-item-text">
     <p> Each number for the unit tests corresponds to the respective user story above. </p>
     <p> 1. <a href = "https://github.com/samuelhavron/daas/blob/master/models/daasapp/tests/test_users.py"> See code that creates user profile using UserForm. </a> </p>
@@ -68,6 +69,7 @@
     <p> 4. <a href = "https://github.com/samuelhavron/daas/blob/master/models/daasapp/tests/test_users.py" > See code that inspects biography. </a> </p>
     <p> 5. <a href = "https://github.com/samuelhavron/daas/blob/master/models/daasapp/tests/test_users.py" > See code that inspects when the user signed up. </a> </p>
     <p> 6. <a href = "https://github.com/samuelhavron/daas/blob/master/models/daasapp/tests/test_drones.py" > See code that tests 3 most recent drones available. </a> </p>
+    <p> 7-10. The rest of the user stories are implemented as unit tests within our testing folder as demonstrated. </p>
   </p>
 </li>
 
