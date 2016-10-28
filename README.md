@@ -1,11 +1,11 @@
 # drones as a service (daas)!:octocat:
 [![Build Status](https://travis-ci.org/samuelhavron/daas.svg?branch=master)](https://travis-ci.org/samuelhavron/daas)
+[![GitHub release](https://img.shields.io/github/release/samuelhavron/daas.svg)](https://github.com/samuelhavron/daas/releases/latest)
 <p align="left">
 <img src="https://cdn.rawgit.com/samuelhavron/daas/master/web/daasapp/static/images/home/logo.svg" width="350">
 </p>
 
-Welcome! This repository is home to a daas marketplace, with a catch: user
-reputations are (will be) stored in a cryptographic block-chain. The marketplace is built on 4
+Welcome! This repository is home to a daas marketplace, built on 4
 [dockerized](https://www.docker.com/what-docker) tiers: a `mySQL` database, a models/entity API,
 an experience service API, and a bootstrap-powered HTML front-end (the latter
 three built on separate `django` projects). The tiers interact via `http/json`
