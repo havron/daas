@@ -8,6 +8,9 @@ python:
 services:
   - docker # default is docker 1.8.2 and docker-compose 1.4.2 (as of Oct. 2016)
 
+notifications:
+  slack: cs4501-isa:V5a4ZkpLY6CpfiQa26kNCgb4
+  
 install: # prepare mySQL database
   - docker pull mysql:5.7.14
   - mkdir db
