@@ -52,6 +52,6 @@ batch:
    links:
       - kafka:kafka
       - es:es
-   command: bash -c "sleep 30 && python search.py"
+   command: bash -c "sleep 30 && echo done &&  python search.py"
    volumes:
       - ./scripts/:/app
