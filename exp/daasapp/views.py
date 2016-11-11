@@ -7,6 +7,8 @@ from django.http import JsonResponse
 from daasapp import err_models, err_exp
 from django.contrib.auth import hashers
 import datetime
+#from kafka import KafkaProducer
+#import time
 
 
 class LoginForm(forms.Form):
@@ -231,9 +233,26 @@ def create_listing(request): # /create-listing
     return _error_response(request, err_exp.E_REGISTER_FAILED, "no response from models API")
   if resp['ok'] == False: # could be much more nuanced. makes web view handle errors
     return _error_response(request, err_exp.E_REGISTER_FAILED, {'resp':resp})
+  
 
-
+  '''
+  # add newly created listing to Kafka 
+  # get listing
+  req = urllib.request.Request('http://models-api:8000/api/v1/listing/'+resp['listing_id'])
+  resp_json = urllib.request.urlopen(req).read().decode('utf-8')
+  resp = json.loads(resp_json)
+  # add to kafka
+  producer = KafkaProducer(bootstrap_servers='kafka:9092')
+  # need to pass dictionary object
+  new_listing = resp['resp']
+  producer.send('new-listings-topic', json.dumps(new_listing).encode('utf-8'))
+  print(some_new_listing)
+  time.sleep(5)
+  '''
+  
   return _success_response(request, resp['resp'])
+
+
 
 
 def my_drones(request): # /my-drones

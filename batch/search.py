@@ -1,6 +1,10 @@
+#search
 from kafka import KafkaConsumer
 from elasticsearch import Elasticsearch
 import json
+import time
+
+
 consumer = KafkaConsumer('new-listings-topic', group_id='listing-indexer', bootstrap_servers=['kafka:9092'])
 es = Elasticsearch(['es'])
 for message in consumer:
