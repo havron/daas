@@ -4,7 +4,7 @@ import json
 consumer = KafkaConsumer('new-listings-topic', group_id='listing-indexer', bootstrap_servers=['kafka:9092'])
 es = Elasticsearch(['es'])
 for message in consumer:
-  m = json.loads((message.value).decode('utf-8')))
+  m = json.loads((message.value).decode('utf-8'))
   print(m)
   some_new_listing = {'title': m['title'], 'description': m['description'], 'id':m['id']}
   es.index(index='listing_index', doc_type='listing', id=some_new_listing['id'], body=some_new_listing)
