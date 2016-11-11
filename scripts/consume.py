@@ -10,5 +10,5 @@ for message in consumer:
   es.index(index='listing_index', doc_type='listing', id=some_new_listing['id'], body=some_new_listing)
   es.indices.refresh(index="listing_index")
   print("let's search")
-  es.search(index='listing_index', body={'query': {'query_string': {'query': 'macbook air'}}, 'size': 10})
+  print(es.search(index='listing_index', body={'query': {'query_string': {'query': 'macbook air'}}, 'size': 10}))
   print("search done")
