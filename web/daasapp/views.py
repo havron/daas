@@ -470,3 +470,8 @@ def featured_items(request):
     return render(request, 'web/t404.html', resp)
 
   return render(request, 'web/shop.html', resp.get("resp"))      
+
+
+# search results
+#def search_results(request):
+  ### TODO
