@@ -477,23 +477,33 @@ def featured_items(request):
 def search_results(request):
   print("nil")
 
-#def search(request):
-def search(request, q): # doesn't work for some reason?
-  if request.method != 'GET': 
-    resp = {'resp':err_web.E_TECH_DIFFICULTIES}
+#def search(request, q): # doesn't work for some reason?
+def search(request):
+  if request.method != 'POST': 
+    resp = {'resp':'bad request'}
     return render(request, 'web/t404.html', resp)
   
-  q = request.GET.get('q') # get from request instead
+  query = request.POST['q']
 
-  req = urllib.request.Request('http://exp-api:8000/search/'+q)
+  post_data = {'query':request.POST['q']}
+  post_encoded = urllib.parse.urlencode(post_data).encode('utf-8')
+  req = urllib.request.Request('http://exp-api:8000/search/', data=post_encoded, method='POST')
   resp_json = urllib.request.urlopen(req).read().decode('utf-8')
   resp = json.loads(resp_json)
   
   if not resp:
-    resp = {'resp':err_web.E_TECH_DIFFICULTIES}
+    resp = {'resp':resp}
+    resp['resp']['query'] = query
     return render(request, 'web/t404.html', resp)
 
   if resp['ok'] == False:
-    resp = {'resp':err_web.E_LISTING_NOT_FOUND}
-    return render(request, 'web/t404.html', resp)
-  return render(request, 'web/search-result.html', resp.get("resp"))      
+    #resp = {'resp':resp}
+    #resp['resp']['query'] = query
+    #return render(request, 'web/t404.html', resp)
+    resp['query'] = query
+    return render(request, 'web/search-result.html', resp)      
+
+  
+  resp['resp'].append(query)
+  resp['query'] = query
+  return render(request, 'web/search-result.html', resp)      

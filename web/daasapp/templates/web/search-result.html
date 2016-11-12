@@ -2,6 +2,8 @@
 {% load staticfiles %}
 {% block title_block %} daas shop {% endblock %}
 {% block body_block %}
+
+
 	<section id="advertisement">
 		<div class="container">
 			<img src="{% static "images/shop/advertisement.jpg" %}" alt="" />
@@ -10,7 +12,15 @@
 	
 	<section>
 		<div class="container">
-			<div class="row">
+      <span style="font-size:5em;color:red"><b>SEARCH RESULTS!!1! :D (in json)</b></span>
+      <br>
+      <span style="font-size:3em;color:darkorange"><b>you searched for '<i>{{ query }}</i>'...</b></span>
+      {% if resp %}
+      <h1 style="color:purple">{{ resp }}</h1>
+			{% else %}
+      <h1 style="color:purple">no results for '{{ query }}' :(</h1>
+      {% endif %}
+      <div class="row">
 				<div class="col-sm-3">
 					<div class="left-sidebar">
 						<h2>Category</h2>

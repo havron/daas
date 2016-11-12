@@ -31,6 +31,6 @@ urlpatterns = [
     url(r'^listing/create/$', views.create_listing),
     #url(r'^shop/$', views.featured_items, name='featured_items'),
     url(r'^my-drones/$', views.my_drones),
-    url(r'^search/(?P<q>\w{0,50})$', views.search),
+    url(r'^search/$', views.search),
 ]
 

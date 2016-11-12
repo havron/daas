@@ -12,6 +12,8 @@ from kafka import KafkaConsumer
 from elasticsearch import Elasticsearch
 import time
 
+# GLOBAL
+es = Elasticsearch(['es']) 
 
 class LoginForm(forms.Form):
   username = forms.CharField()
@@ -235,13 +237,13 @@ def create_listing(request): # /create-listing
     return _error_response(request, err_exp.E_REGISTER_FAILED, "no response from models API")
   if resp['ok'] == False: # could be much more nuanced. makes web view handle errors
     return _error_response(request, err_exp.E_REGISTER_FAILED, {'resp':resp})
-  
-
+ 
   # add newly created listing to Kafka 
   # get listing
-  req = urllib.request.Request('http://models-api:8000/api/v1/listing/209')
+  req = urllib.request.Request('http://models-api:8000/api/v1/listing/'+resp['listing_id'])
   resp_json = urllib.request.urlopen(req).read().decode('utf-8')
   resp1 = json.loads(resp_json)
+  resp1['listing_id'] = resp1['id']
 
   # add to kafka
   producer = KafkaProducer(bootstrap_servers='kafka:9092')
@@ -250,11 +252,8 @@ def create_listing(request): # /create-listing
   new_listing = resp1['resp']
   producer.send('new-listings-topic', json.dumps(new_listing).encode('utf-8'))
   print(new_listing)
-  time.sleep(5)
   
   return _success_response(request, resp['resp'])
-
-
 
 
 def my_drones(request): # /my-drones
@@ -289,6 +288,19 @@ def featured_items(request): # /shop/
   return _success_response(request, resp)
 
 
-def search(request, q): # /search
-  ### TODO
-  return _success_response(request, es.search(index='listing_index', body={'query': {'query_string': {'query': q}}, 'size': 10})))
+def search(request): # /search
+  if request.method != 'POST':  
+    return _error_response(request, err_exp.E_BAD_REQUEST, "must make POST request")
+  
+  if not es.indices.exists(index='listing_index'):
+    return _error_response(request, 'listings not found')
+
+  resp = []
+  res = es.search(index='listing_index', body={'query': {'query_string': {'query': request.POST['query']}}, 'size': 10})
+  hits = res['hits']['hits']
+  if not hits:
+    return _error_response(request, res)
+  for hit in hits:
+    resp.append(hit['_source']) # parse es source
+
+  return _success_response(request, resp)

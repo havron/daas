@@ -12,7 +12,7 @@ models: # PORT 8002
 exp: # PORT 8001
     image: tp33/django
     links:
-      -  models:models-api
+      - models:models-api
       - kafka:kafka
       - es:es
     volumes:
@@ -53,6 +53,6 @@ batch:
    links:
       - kafka:kafka
       - es:es
-   command: bash -c "sleep 30 && echo 'kafka queueing' && python search.py"
+   command: bash -c "sleep 30 && echo 'kafka queueing' && python es_index.py"
    volumes:
       - ./batch/:/app

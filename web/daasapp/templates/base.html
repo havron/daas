@@ -16,6 +16,7 @@
 	<link href="{% static "css/main.css" %}" rel="stylesheet">
 	<link href="{% static "css/responsive.css" %}" rel="stylesheet">
 	<link href="{% static "css/navdrop.css" %}" rel="stylesheet">
+	<link href="{% static "css/custom_search_input.css" %}" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="{% static "js/html5shiv.js" %}"></script>
     <script src="{% static "js/respond.min.js" %}"></script>
@@ -180,22 +181,26 @@
 					</div>
 					<div class="col-sm-3">
 						<div class="search_box pull-right">
-              <form name="qForm"action="/search/" method="get">
+             {% comment %}   <form name="qForm"action="/search/" method="get">
 							
               <input name="q" maxlength="50" type="text" placeholder="Search"/>
               <input class="btn fa fa-search" value="q" type="submit" aria-hidden="true"/>
               
               </form>
-             {% comment %}  <input type="submit" class="btn" value="Search" >
+             <input type="submit" class="btn" value="Search" >
               {% url 'search' q %}
               <input value="q" type="submit" class="btn"/>
-                {% endcomment %}
             <form method="get" action="{% url 'search' query %}" style="margin: 0">
                 <input  id="q" type="text" name="q"  placeholder="Search..." >
                 <button id="search_submit" type="submit" >Submit</button>
             </form>
+            <span class="input-group-btn"><button class="btn btn-default" type="submit"> Search </button></span>
+                {% endcomment %}
 
-
+            <form method="post" action="{% url 'search' %}">
+            {% csrf_token %}
+            <input type="text" class="input-lg" name="q" placeholder="Search daas!">
+            </form>
 						</div>
 					</div>
 				</div>

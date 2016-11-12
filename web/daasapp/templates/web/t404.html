@@ -13,6 +13,7 @@
 			<img src="{% static "images/404/404.png" %}" class="img-responsive" alt="" />
 			<h1><b>OPPS!</b> We Couldn’t Find this Page</h1>
 			<p>Uh... So it looks like you brock something. The page you are looking for has up and Vanished.</p>
+      <h1 style="color:red"><b>{{ resp }}</b></h1>
       <ul class="list-group"> 
       {% for key,value in resp.items %} 
       <li class="list-group-item list-group-item-danger">
