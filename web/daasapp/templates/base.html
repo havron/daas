@@ -180,7 +180,22 @@
 					</div>
 					<div class="col-sm-3">
 						<div class="search_box pull-right">
-							<input type="text" placeholder="Search"/>
+              <form name="qForm"action="/search/" method="get">
+							
+              <input name="q" maxlength="50" type="text" placeholder="Search"/>
+              <input class="btn fa fa-search" value="q" type="submit" aria-hidden="true"/>
+              
+              </form>
+             {% comment %}  <input type="submit" class="btn" value="Search" >
+              {% url 'search' q %}
+              <input value="q" type="submit" class="btn"/>
+                {% endcomment %}
+            <form method="get" action="{% url 'search' query %}" style="margin: 0">
+                <input  id="q" type="text" name="q"  placeholder="Search..." >
+                <button id="search_submit" type="submit" >Submit</button>
+            </form>
+
+
 						</div>
 					</div>
 				</div>

@@ -7,8 +7,10 @@ from django.http import JsonResponse
 from daasapp import err_models, err_exp
 from django.contrib.auth import hashers
 import datetime
-#from kafka import KafkaProducer
-#import time
+from kafka import KafkaProducer
+from kafka import KafkaConsumer
+from elasticsearch import Elasticsearch
+import time
 
 
 class LoginForm(forms.Form):
@@ -235,20 +237,20 @@ def create_listing(request): # /create-listing
     return _error_response(request, err_exp.E_REGISTER_FAILED, {'resp':resp})
   
 
-  '''
   # add newly created listing to Kafka 
   # get listing
-  req = urllib.request.Request('http://models-api:8000/api/v1/listing/'+resp['listing_id'])
+  req = urllib.request.Request('http://models-api:8000/api/v1/listing/209')
   resp_json = urllib.request.urlopen(req).read().decode('utf-8')
-  resp = json.loads(resp_json)
+  resp1 = json.loads(resp_json)
+
   # add to kafka
   producer = KafkaProducer(bootstrap_servers='kafka:9092')
+
   # need to pass dictionary object
-  new_listing = resp['resp']
+  new_listing = resp1['resp']
   producer.send('new-listings-topic', json.dumps(new_listing).encode('utf-8'))
-  print(some_new_listing)
+  print(new_listing)
   time.sleep(5)
-  '''
   
   return _success_response(request, resp['resp'])
 
@@ -287,5 +289,6 @@ def featured_items(request): # /shop/
   return _success_response(request, resp)
 
 
-#def search_results(request):
+def search(request, q): # /search
   ### TODO
+  return _success_response(request, es.search(index='listing_index', body={'query': {'query_string': {'query': q}}, 'size': 10})))

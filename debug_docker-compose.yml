@@ -13,6 +13,8 @@ exp: # PORT 8001
     image: tp33/django
     links:
       -  models:models-api
+      - kafka:kafka
+      - es:es
     volumes:
       - ./exp/:/app
     ports:
@@ -30,3 +32,27 @@ web: # PORT 8000
       - "8000:8000"
     command: bash -c "pip install -r requirements.txt && python manage.py collectstatic --noinput && mod_wsgi-express start-server --reload-on-changes ./web/wsgi.py"
     container_name: web
+
+kafka:
+   image: spotify/kafka
+   container_name: kafka
+   environment:
+      ADVERTISED_HOST: kafka
+      ADVERTISED_PORT: 9092
+   hostname: kafka
+
+es:
+   image: elasticsearch:2.0
+   container_name: es
+   ports:
+      - "9200:9200"
+
+batch:
+   image: tp33/django
+   container_name: batch
+   links:
+      - kafka:kafka
+      - es:es
+   command: bash -c "sleep 30 && echo 'kafka queueing' && python search.py"
+   volumes:
+      - ./batch/:/app

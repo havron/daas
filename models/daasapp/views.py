@@ -199,12 +199,13 @@ def check_auth_user(request): # /api/v1/user/auth
   except models.Authenticator.DoesNotExist:
     return _error_response(request, err_models.E_UNKNOWN_AUTH, "authenticator not found")
 
-  if datetime.datetime.now() - auth.date_created > datetime.timedelta(days=1):
-    try:
-      auth.delete()
-    except db.Error:
-      return _error_response(request, err_models.E_DATABASE, "could not delete expired authenticator")
-    return _error_response(request, err_models.E_UNKNOWN_AUTH, "authenticator expired")
+# causes error...cookie deletion not synchronized?
+#   if datetime.datetime.now() - auth.date_created > datetime.timedelta(days=1):
+#     try:
+#       auth.delete()
+#     except db.Error:
+#       return _error_response(request, err_models.E_DATABASE, "could not delete expired authenticator")
+#     return _error_response(request, err_models.E_UNKNOWN_AUTH, "authenticator expired")
 
   # currently not being checked due to cookies never remembering username...
   #if data['user_id'] != auth.user_id:

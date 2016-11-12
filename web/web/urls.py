@@ -44,6 +44,7 @@ urlpatterns = [
     url(r'^listing/(?P<listing_id>\d+)/$', views.listing, name='listing-details'),
     url(r'^listing/$', views.listing, name='listing_noargs'),
     url(r'^create-listing/$', views.create_listing, name='create-listing'),
-    ###url(r'^search-results/$', views.search_results, name='search-results'),
+    url(r'^search/(?P<q>\w{0,50})$', views.search, name='search'),
+    url(r'^search-results/$', views.search_results, name='search-results'),
 ] # + staticfiles_urlpatterns()
 

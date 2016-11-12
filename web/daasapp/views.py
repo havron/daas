@@ -404,7 +404,8 @@ def create_listing(request):
 
   next = '/listing/' + str(resp['resp']['listing_id'])
   response = HttpResponseRedirect(next)
-  messages.success(request, 'Successfully created Listing!')
+  #messages.success(request, 'Successfully created Listing!')
+  messages.success(request, resp['resp'])
   return response
     
   '''
@@ -473,5 +474,26 @@ def featured_items(request):
 
 
 # search results
-#def search_results(request):
-  ### TODO
+def search_results(request):
+  print("nil")
+
+#def search(request):
+def search(request, q): # doesn't work for some reason?
+  if request.method != 'GET': 
+    resp = {'resp':err_web.E_TECH_DIFFICULTIES}
+    return render(request, 'web/t404.html', resp)
+  
+  q = request.GET.get('q') # get from request instead
+
+  req = urllib.request.Request('http://exp-api:8000/search/'+q)
+  resp_json = urllib.request.urlopen(req).read().decode('utf-8')
+  resp = json.loads(resp_json)
+  
+  if not resp:
+    resp = {'resp':err_web.E_TECH_DIFFICULTIES}
+    return render(request, 'web/t404.html', resp)
+
+  if resp['ok'] == False:
+    resp = {'resp':err_web.E_LISTING_NOT_FOUND}
+    return render(request, 'web/t404.html', resp)
+  return render(request, 'web/search-result.html', resp.get("resp"))      
