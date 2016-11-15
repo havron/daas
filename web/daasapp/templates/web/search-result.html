@@ -12,14 +12,14 @@
 	
 	<section>
 		<div class="container">
-      <span style="font-size:5em;color:red"><b>SEARCH RESULTS!!1! :D (in json)</b></span>
       <br>
-      <span style="font-size:3em;color:darkorange"><b>you searched for '<i>{{ query }}</i>'...</b></span>
+      
+      {% comment %}
       {% if resp %}
       <h1 style="color:purple">{{ resp }}</h1>
-			{% else %}
-      <h1 style="color:purple">no results for '{{ query }}' :(</h1>
       {% endif %}
+      {% endcomment %}
+      
       <div class="row">
 				<div class="col-sm-3">
 					<div class="left-sidebar">
@@ -145,24 +145,30 @@
 
 				<div class="col-sm-9 padding-right">
 					<div class="Search Results"><!--Search Results-->
-						<h2 class="title text-center">Search Results</h2>
+						<h2 class="title text-center">Search Results for '<i>{{ query }}</i>'</h2>
+						{% if not resp %}
+							<h1>No results for '{{ query }}'</h1>
+						{% endif %}
+
+						{% if resp.0 and resp.0 != query %}
 						<div class="col-sm-4">
 							<div class="product-image-wrapper">
 								<div class="single-products">
 									<div class="productinfo text-center">
 										<img src="{% static "images/shop/drone-3DR.jpg" %}" alt="" />
-										<p><h2> {{ resp.price_per_day }} </h2></p>
-										<p> HEREEEEE </p>
-										<p>Easy Polo Black Edition</p>
+										<h2><a href="{% url 'listing-details' resp.0.listing_id %}">{{ resp.0.model_name }}</a></h2>
+										<p><h2> {{ resp.0.price_per_day }} </h2></p>
 										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 									</div>
+									{% comment %}
 									<div class="product-overlay">
 										<div class="overlay-content">
-											<h2>$56</h2>
-											<p>Easy Polo Black Edition</p>
+											<h2> {{ resp.0.price_per_day }} </h2>
+											<p> {{ resp.0.model_name }} </p>
 											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 										</div>
 									</div>
+									{% endcomment %}
 								</div>
 								<div class="choose">
 									<ul class="nav nav-pills nav-justified">
@@ -172,23 +178,27 @@
 								</div>
 							</div>
 						</div>
-						
+						{% endif %}
+
+						{% if resp.1 and resp.1 != query %}
 						<div class="col-sm-4">
 							<div class="product-image-wrapper">
 								<div class="single-products">
 									<div class="productinfo text-center">
 										<img src="{% static "images/shop/drone-Syma-X5C.jpg" %}" alt="" />
-										<h2>$56</h2>
-										<p>Easy Polo Black Edition</p>
+										<h2><a href="{% url 'listing-details' resp.1.listing_id %}">{{ resp.1.model_name }}</a></h2>
+										<p><h2> {{ resp.1.price_per_day }} </h2></p>
 										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 									</div>
+									{% comment %}
 									<div class="product-overlay">
 										<div class="overlay-content">
-											<h2>$56</h2>
-											<p>Easy Polo Black Edition</p>
+											<h2> {{ resp.1.price_per_day }} </h2>
+											<p> {{ resp.1.model_name }} </p>
 											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 										</div>
 									</div>
+									{% endcomment %}
 								</div>
 								<div class="choose">
 									<ul class="nav nav-pills nav-justified">
@@ -198,23 +208,27 @@
 								</div>
 							</div>
 						</div>
-						
+						{% endif %}
+
+						{% if resp.2 and resp.2 != query %}
 						<div class="col-sm-4">
 							<div class="product-image-wrapper">
 								<div class="single-products">
 									<div class="productinfo text-center">
 										<img src="{% static "images/shop/drone-01.jpg" %}" alt="" />
-										<h2>$56</h2>
-										<p>Easy Polo Black Edition</p>
+										<h2><a href="{% url 'listing-details' resp.2.listing_id %}">{{ resp.2.model_name }}</a></h2>
+										<p><h2> {{ resp.2.price_per_day }} </h2></p>
 										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 									</div>
+									{% comment %}
 									<div class="product-overlay">
 										<div class="overlay-content">
-											<h2>$56</h2>
-											<p>Easy Polo Black Edition</p>
+											<h2> {{ resp.2.price_per_day }} </h2>
+											<p>{{ resp.2.model_name }}</p>
 											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 										</div>
 									</div>
+									{% endcomment %}
 								</div>
 								<div class="choose">
 									<ul class="nav nav-pills nav-justified">
@@ -224,23 +238,29 @@
 								</div>
 							</div>
 						</div>
+						{% endif %}
 
+						{% if resp.3 and resp.3 != query %}
 						<div class="col-sm-4">
 							<div class="product-image-wrapper">
 								<div class="single-products">
 									<div class="productinfo text-center">
 										<img src="{% static "images/shop/drone-02.jpg" %}" alt="" />
-										<h2>$56</h2>
-										<p>Easy Polo Black Edition</p>
+
+										<h2><a href="{% url 'listing-details' resp.3.listing_id %}">{{ resp.3.model_name }}</a></h2>
+										<p><h2> {{ resp.3.price_per_day }} </h2></p>
+
 										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 									</div>
+									{% comment %}
 									<div class="product-overlay">
 										<div class="overlay-content">
-											<h2>$56</h2>
-											<p>Easy Polo Black Edition</p>
+											<h2> {{ resp.3.price_per_day }} </h2>
+											<p>{{ resp.3.model_name }}</p>
 											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 										</div>
 									</div>
+									{% endcomment %}
 									<img src="{% static "images/home/new.png" %}" class="new" alt="" />
 								</div>
 								<div class="choose">
@@ -251,23 +271,29 @@
 								</div>
 							</div>
 						</div>
+						{% endif %}
 
+						{% if resp.4 and resp.4 != query %}
 						<div class="col-sm-4">
 							<div class="product-image-wrapper">
 								<div class="single-products">
 									<div class="productinfo text-center">
 										<img src="{% static "images/shop/drone-03.png" %}" alt="" />
-										<h2>$56</h2>
-										<p>Easy Polo Black Edition</p>
+										
+										<h2><a href="{% url 'listing-details' resp.4.listing_id %}">{{ resp.4.model_name }}</a></h2>
+										<p><h2> {{ resp.4.price_per_day }} </h2></p>
+
 										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 									</div>
+									{% comment %}
 									<div class="product-overlay">
 										<div class="overlay-content">
-											<h2>$56</h2>
-											<p>Easy Polo Black Edition</p>
+											<h2> {{ resp.4.price_per_day }} </h2>
+											<p>{{ resp.4.model_name }}</p>
 											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 										</div>
 									</div>
+									{% endcomment%}
 									<img src="{% static "images/home/sale.png" %}" class="new" alt="" />
 								</div>
 								<div class="choose">
@@ -278,23 +304,29 @@
 								</div>
 							</div>
 						</div>
+						{% endif %}
 
+						{% if resp.5 and resp.5 != query %}
 						<div class="col-sm-4">
 							<div class="product-image-wrapper">
 								<div class="single-products">
 									<div class="productinfo text-center">
 										<img src="{% static "images/shop/drone-mq1.jpg" %}" alt="" />
-										<h2>$56</h2>
-										<p>Easy Polo Black Edition</p>
+										
+										<h2><a href="{% url 'listing-details' resp.5.listing_id %}">{{ resp.5.model_name }}</a></h2>
+										<p><h2> {{ resp.5.price_per_day }} </h2></p>
+
 										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 									</div>
+									{% comment %}
 									<div class="product-overlay">
 										<div class="overlay-content">
-											<h2>$56</h2>
-											<p>Easy Polo Black Edition</p>
+											<h2> {{ resp.5.price_per_day }} </h2>
+											<p>{{ resp.5.model_name }}</p>
 											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 										</div>
 									</div>
+									{% endcomment %}
 								</div>
 								<div class="choose">
 									<ul class="nav nav-pills nav-justified">
@@ -304,89 +336,106 @@
 								</div>
 							</div>
 						</div>
-						
+						{% endif %}
 
+						{% if resp.6 and resp.6 != query %}
+						<div class="col-sm-4">
+							<div class="product-image-wrapper">
+								<div class="single-products">
+									<div class="productinfo text-center">
+										<img src="{% static "images/shop/drone-Syma-X5C.jpg" %}" alt="" />
+										
+										<h2><a href="{% url 'listing-details' resp.6.listing_id %}">{{ resp.6.model_name }}</a></h2>
+										<p><h2> {{ resp.6.price_per_day }} </h2></p>
 
+										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+									</div>
+									{% comment %}
+									<div class="product-overlay">
+										<div class="overlay-content">
+											<h2> {{ resp.6.price_per_day }} </h2>
+											<p>{{ resp.6.model_name }}</p>
+											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+										</div>
+									</div>
+									{% endcomment %}
+								</div>
+								<div class="choose">
+									<ul class="nav nav-pills nav-justified">
+										<li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+										<li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						{% endif %}
+
+						{% if resp.7 and resp.7 != query %}
+						<div class="col-sm-4">
+							<div class="product-image-wrapper">
+								<div class="single-products">
+									<div class="productinfo text-center">
+										<img src="{% static "images/shop/drone-03.png" %}" alt="" />
+										
+										<h2><a href="{% url 'listing-details' resp.7.listing_id %}">{{ resp.7.model_name }}</a></h2>
+										<p><h2> {{ resp.7.price_per_day }} </h2></p>
+
+										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+									</div>
+									{% comment %}
+									<div class="product-overlay">
+										<div class="overlay-content">
+											<h2> {{ resp.7.price_per_day }} </h2>
+											<p>{{ resp.7.model_name }}</p>
+											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+										</div>
+									</div>
+
+									{% endcomment %}
+								</div>
+								<div class="choose">
+									<ul class="nav nav-pills nav-justified">
+										<li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+										<li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						{% endif %}
+
+						{% if resp.8 and resp.8 != query %}
+						<div class="col-sm-4">
+							<div class="product-image-wrapper">
+								<div class="single-products">
+									<div class="productinfo text-center">
+										<img src="{% static "images/shop/drone-3DR.jpg" %}" alt="" />
+										
+										<h2><a href="{% url 'listing-details' resp.8.listing_id %}">{{ resp.8.model_name }}</a></h2>
+										<p><h2> {{ resp.8.price_per_day }} </h2></p>
+
+										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+									</div>
+									{% comment %}
+									<div class="product-overlay">
+										<div class="overlay-content">
+											<h2> {{ resp.8.price_per_day }} </h2>
+											<p>{{ resp.8.model_name }}</p>
+											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+										</div>
+									</div>
+									{% endcomment %}
+								</div>
+								<div class="choose">
+									<ul class="nav nav-pills nav-justified">
+										<li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+										<li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						{% endif %}
 
 						{% comment %}
-						<div class="col-sm-4">
-							<div class="product-image-wrapper">
-								<div class="single-products">
-									<div class="productinfo text-center">
-										<img src="{% static "images/home/product6.jpg" %}" alt="" />
-										<h2>$56</h2>
-										<p>Easy Polo Black Edition</p>
-										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-									</div>
-									<div class="product-overlay">
-										<div class="overlay-content">
-											<h2>$56</h2>
-											<p>Easy Polo Black Edition</p>
-											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-										</div>
-									</div>
-								</div>
-								<div class="choose">
-									<ul class="nav nav-pills nav-justified">
-										<li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-										<li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-						
-						<div class="col-sm-4">
-							<div class="product-image-wrapper">
-								<div class="single-products">
-									<div class="productinfo text-center">
-										<img src="{% static "images/home/product5.jpg" %}" alt="" />
-										<h2>$56</h2>
-										<p>Easy Polo Black Edition</p>
-										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-									</div>
-									<div class="product-overlay">
-										<div class="overlay-content">
-											<h2>$56</h2>
-											<p>Easy Polo Black Edition</p>
-											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-										</div>
-									</div>
-								</div>
-								<div class="choose">
-									<ul class="nav nav-pills nav-justified">
-										<li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-										<li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-						
-						<div class="col-sm-4">
-							<div class="product-image-wrapper">
-								<div class="single-products">
-									<div class="productinfo text-center">
-										<img src="{% static "images/home/product4.jpg" %}" alt="" />
-										<h2>$56</h2>
-										<p>Easy Polo Black Edition</p>
-										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-									</div>
-									<div class="product-overlay">
-										<div class="overlay-content">
-											<h2>$56</h2>
-											<p>Easy Polo Black Edition</p>
-											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-										</div>
-									</div>
-								</div>
-								<div class="choose">
-									<ul class="nav nav-pills nav-justified">
-										<li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-										<li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-						
 						<div class="col-sm-4">
 							<div class="product-image-wrapper">
 								<div class="single-products">
@@ -467,14 +516,15 @@
 						</div>
 						{% endcomment %}
 
-						
+						{% comment %}
 						<ul class="pagination">
 							<li class="active"><a href="">1</a></li>
 							<li><a href="">2</a></li>
 							<li><a href="">3</a></li>
 							<li><a href="">&raquo;</a></li>
 						</ul>
-					</div><!--featured_items-->
+						{% endcomment %}
+					</div><!--search results-->
 				</div>
 			</div>
 		</div>

@@ -29,8 +29,6 @@ while(True):
   es.index(index='listing_index', doc_type='listing', id=fixtureB['listing_id'], body=fixtureB)
   es.indices.refresh(index='listing_index')
 
-  print("TRYING##################")
-
   try:
     consumer = KafkaConsumer('new-listings-topic', group_id='listing-indexer', bootstrap_servers=['kafka:9092'])
 
@@ -39,10 +37,7 @@ while(True):
     #time.sleep(30)
     consumer = KafkaConsumer('new-listings-topic', group_id='listing-indexer', bootstrap_servers=['kafka:9092'])
 
-  print("BEFORE FOR LOOP #################")
-
   for message in consumer:
-    print("IN FOR LOOP ################3")
     m = json.loads((message.value).decode('utf-8'))
     print(m)
     some_new_listing = {'listing_id':m['listing_id'], 'price_per_day':m['price_per_day'], 'description':m['description'], 'drone_desc' :m['drone']['drone_desc'], 'model_name' :m['drone']['model_name'], 'drone_id' :m['drone']['drone_id'], 'available_for_hire' :m['drone']['available_for_hire']}
