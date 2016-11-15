@@ -237,19 +237,20 @@ def create_listing(request): # /create-listing
     return _error_response(request, err_exp.E_REGISTER_FAILED, "no response from models API")
   if resp['ok'] == False: # could be much more nuanced. makes web view handle errors
     return _error_response(request, err_exp.E_REGISTER_FAILED, {'resp':resp})
- 
+  
+  '''
   # add newly created listing to Kafka 
-  # get listing
+  # get listing 
   req = urllib.request.Request('http://models-api:8000/api/v1/listing/'+resp['listing_id'])
   resp_json = urllib.request.urlopen(req).read().decode('utf-8')
   resp1 = json.loads(resp_json)
   resp1['listing_id'] = resp1['id']
-
+  '''
   # add to kafka
   producer = KafkaProducer(bootstrap_servers='kafka:9092')
 
   # need to pass dictionary object
-  new_listing = resp1['resp']
+  new_listing = resp['resp']
   producer.send('new-listings-topic', json.dumps(new_listing).encode('utf-8'))
   print(new_listing)
   

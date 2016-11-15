@@ -443,7 +443,7 @@ def create_listing(request): # /api/v1/listing/create
 
 
 
-def inspect_listing(request, listing_id): # /api/v1/drone/<listing_id>
+def inspect_listing(request, listing_id): # /api/v1/listing/<listing_id>
   if request.method != 'GET':
     return _error_response(request, err_models.E_BAD_REQUEST, "must make GET request")
  

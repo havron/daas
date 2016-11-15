@@ -388,8 +388,6 @@ def create_listing(request):
   post_encoded = urllib.parse.urlencode(post_data).encode('utf-8')
   req = urllib.request.Request('http://exp-api:8000/listing/create/', data=post_encoded, method='POST')
 
-
-
   resp_json = urllib.request.urlopen(req).read().decode('utf-8')
   resp = json.loads(resp_json)
 

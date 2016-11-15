@@ -17,7 +17,7 @@ import json, time
 #   print("search done")
 
 while(True):
-  time.sleep(30)
+  #time.sleep(30)
   print("loop")
   
   fixtureA = {"listing_id":1,"drone": 2, "owner": 2, "description": "please rent myseediestdrone!", "time_posted": "2016-10-24T04:28:48.932Z", "price_per_day": 10.0}
@@ -34,7 +34,7 @@ while(True):
 
   except:
     print("no kafka queue index found")
-    time.sleep(30)
+    #time.sleep(30)
     consumer = KafkaConsumer('new-listings-topic', group_id='listing-indexer', bootstrap_servers=['kafka:9092'])
 
   for message in consumer:
