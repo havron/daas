@@ -438,7 +438,7 @@ def create_listing(request): # /api/v1/listing/create
   except db.Error:
     return _error_response(request, err_models.E_DATABASE, "db error occurred while saving listing data")
 
-  return _success_response(request, {'listing_id': l.pk})
+  return _success_response(request, {'listing_id': l.pk, 'listing': l.to_json()})
 
 
 

@@ -45,10 +45,12 @@ while(True):
     print("IN FOR LOOP ################3")
     m = json.loads((message.value).decode('utf-8'))
     print(m)
-    some_new_listing = {'owner': m['owner'], 'drone': m['drone'], 'listing_id':m['listing_id'], 'price_per_day':m['price_per_day'],'time_posted':m['time_posted'], 'description':m['description']}
+    some_new_listing = {'listing_id':m['listing_id'], 'price_per_day':m['price_per_day'], 'description':m['description'], 'drone_desc' :m['drone']['drone_desc'], 'model_name' :m['drone']['model_name'], 'drone_id' :m['drone']['drone_id'], 'available_for_hire' :m['drone']['available_for_hire']}
     #some_new_listing = m
     es.index(index='listing_index', doc_type='listing', id=some_new_listing['listing_id'], body=some_new_listing)
     es.indices.refresh(index="listing_index")
-    print("let's search")
-    print(es.search(index='listing_index', body={'query': {'query_string': {'query': 'myseediestdrone'}}, 'size': 10}))
-    print("search done")
+    
+    #search test
+    #print("let's search")
+    #print(es.search(index='listing_index', body={'query': {'query_string': {'query': 'myseediestdrone'}}, 'size': 10}))
+    #print("search done")
