@@ -213,7 +213,7 @@
 				  <!-- listing fields -->
 				  <p><b>Time Posted: </b> {{resp.time_posted }} </p>
 				  <!-- drone and owner fields -->
-                  <p><b>Demo Link: </b> {{ resp.drone.demo_link }} </p>
+                  <p><b>Demo Link: </b> <a href="{{ resp.drone.demo_link }}"> {{ resp.drone.demo_link }} </a></p>
                   <p><b>Permissions: </b> {{ resp.drone.permissions }} </p>
                   <p><b>Owner Email: </b> {{ resp.owner.email_address }} </p>
                   <p><b>Battery Level: </b> {{ resp.drone.battery_level }} </p>
