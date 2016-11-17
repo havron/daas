@@ -27,19 +27,25 @@ class ListingFormTests(TestCase):
 
     resp = json.loads(response.content.decode('utf8'))
     self.assertEquals(response.status_code, 200)
-    print("listing_atts" + str(resp))
 
     es = Elasticsearch(['es'])
     es.index(index='listing_index', doc_type='listing', id=fixtureA['listing_id'], body=fixtureA)
     es.index(index='listing_index', doc_type='listing', id=fixtureB['listing_id'], body=fixtureB)
     es.indices.refresh(index='listing_index')
 
-    print("let's search")
-    print(es.search(index='listing_index', body={'query': {'query_string': {'query': 'myseediestdrone'}}, 'size': 10}))
+    # search by description
+    res = es.search(index='listing_index', body={'query': {'query_string': {'query': 'myseediestdrone'}}, 'size': 10})
 
-    self.assertEquals(es.search(index='listing_index', body={'query': {'query_string': {'query': 'myseediestdrone'}}, 'size': 10})['hits']['hits'][0], fixtureA)
+    hits = res['hits']['hits']
+    hit = hits[0]['_source']
+    self.assertEquals(hit, fixtureA)
 
-    print("search successful!")
+    # search by price-per-day
+    res = es.search(index='listing_index', body={'query': {'query_string': {'query': '10.0'}}, 'size': 10})
+    hits = res['hits']['hits']
+    hit = hits[0]['_source']
+    self.assertEquals(hit, fixtureA)
+    print("searches successful!")
 
   def est1_kafka(self): # not passing 
     #producer = KafkaProducer(bootstrap_servers='kafka:9092')
