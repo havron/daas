@@ -402,8 +402,8 @@ def create_listing(request):
 
   next = '/listing/' + str(resp['resp']['listing_id'])
   response = HttpResponseRedirect(next)
-  #messages.success(request, 'Successfully created Listing!')
-  messages.success(request, resp['resp'])
+  messages.success(request, 'Successfully created Listing!')
+  #messages.success(request, resp['resp'])
   return response
     
   '''
