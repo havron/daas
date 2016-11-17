@@ -201,22 +201,33 @@
                 <button id="search_submit" type="submit" >Submit</button>
             </form>
             <span class="input-group-btn"><button class="btn btn-default" type="submit"> Search </button></span>
-                {% endcomment %}
 
             <form method="post" action="{% url 'search' %}">
             {% csrf_token %}
             <input type="text" class="input-lg" name="q" placeholder="Search daas!">
             
-            {% comment %}
             <div class="input-group">
             <input type="text" class="form-control" placeholder="search" name="q">
             <span class='input-group-btn'>
               <button class="btn btn-secondary" type="button">Go!</button>
             </span>
             </div>
+            </form>
             {% endcomment %}
 
+     <form action="{% url 'search' %}" method="post" class="navbar-form navbar-right">
+            {% csrf_token %}
+            <div class="input-group">
+            <input type="Search" name="q" placeholder="Search..." class="form-control" />
+            <div class="input-group-btn">
+            <button class="btn btn-warning btn-lg">
+            <span class="glyphicon glyphicon-search"></span>
+            </button>
+            </div>
+            </div>
             </form>
+
+
 						</div>
 					</div>
 				</div>
