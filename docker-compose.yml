@@ -11,6 +11,8 @@ models: # PORT 8002
 
 exp: # PORT 8001
     image: tp33/django
+    external_links:
+      -  mysql:db
     links:
       - models:models-api
       - kafka:kafka

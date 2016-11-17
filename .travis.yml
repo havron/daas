@@ -37,6 +37,10 @@ script:
     pip install -r requirements.txt &&
     pip install coveralls && 
     python manage.py test --noinput && cat .coverage && coverage report" # run Django unit tests on models
+  - >
+    docker exec -it exp bash -c
+    "pip install -r requirements.txt &&
+    python manage.py test --noinput" # run Django unit tests on experience layer
   # can put other tests (e.g. integrations) here too with exp, web containers
 
 after_success: 

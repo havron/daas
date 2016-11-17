@@ -28,7 +28,7 @@ urlpatterns = [
     url(r'^product-details/(?P<drone_id>\d+)$', views.productdetails),
     url(r'^userprofile/(?P<user_id>\d+)$', views.userprofile),
     url(r'^listing/(?P<listing_id>\d+)$', views.listing),
-    url(r'^listing/create/$', views.create_listing),
+    url(r'^listing/create/$', views.create_listing, name="create-listing"),
     #url(r'^shop/$', views.featured_items, name='featured_items'),
     url(r'^my-drones/$', views.my_drones),
     url(r'^search/$', views.search),
