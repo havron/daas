@@ -18,12 +18,12 @@
 
     <br> <br>
     <b><p> Products </b></p>
-    <p> Click on 'woa, c00l dr0n35' on the home page to access product page. We currently have 200 drones on the site.  Find them by putting a monotically increasing user id number at the end of the url. e.g /product-details/64.  If you request a drone id above the number of fixtures we have installed, you will be redirected to a custom 404 error page.</p>
+    <p> Click on 'Drones' on the home page to access product page. We currently have 200 drones on the site.  Find them by putting a monotically increasing user id number at the end of the url. e.g /product-details/64.  If you request a drone id above the number of fixtures we have installed, you will be redirected to a custom 404 error page.</p>
     <a href = "{% url 'product-details_noargs' %} " > Click here to take you to Product Page. </a>
 
     <br> <br>
     <b><p> Listings </p></b>
-    <p> To create a listing, you must first log in. Then navigate to create-listing where you can enter information about your listing. This creates a new listing as well as a new drone under the product-details page.</p>
+    <p> To create a listing, you must first log in. Then navigate to create-listing under the 'Drones' tab where you can enter information about your listing. This creates a new listing as well as a new drone under the product-details page.</p>
     <a href = "{% url 'create-listing' %} " > Click here to create a new listing (make sure you're logged in!). </a>
     <p> Viewing a listing - We currently have 200 listings in our db. Find them by putting a listing id number at the end of the url. ex. ../listing/64. If you request a listing id above the number of fixtures we have installed, you will be redirected to a custon 404 error page. If you created a new listing, you will be able to see both that listing and the new drone. </p>
     <a href = "{% url 'listing_noargs' %} " > Click here to take you to the Listings Page. </a>
@@ -39,17 +39,15 @@
 <li class="list-group-item list-group-item-info"> 
  <h3 class="list-group-item-heading">User Stories</h3>
   <p class="list-group-item-text">
-    <h1> Project 3 </h1>
+    <h3> Project 3 </h3>
     <p> 1. As a user, I would like to be able to create a user profile. </p>
     <p> 2. As a user, I would like to be able to retrieve my own information and see other user's profiles. </p>
     <p> 3. As a user, I would like to get information on a drone. </p>
     <p> 4. As a user, I would like to have a biography section to express myself. </p>
     <p> 5. As a user, I would like to show people how long I've been on the site. </p>
     <p> 6. As a user, I would like to see the three most recent drones available. </p>
-    <h1> Project 4 </h1>
+    <h3> Project 4 </h3>
     <p> 7. As a user new to this site, I would like to create my own account so I can begin leasing and renting drones. </p>
-
-
     {% comment %}<p> 8. As a drone owner, I would like to lease out my drones so I can make money. </p>
     <p> 9. As a user, I would like to browse drones that are currently available for lease. </p>
     <p> 10. As a user, I would like my sell orders to be publicly listed. </p> 
@@ -59,7 +57,7 @@
     <p> 9. As a pre-existing user, I would like to log in to access my account information. </p>
     
     <p> 10. As a user, I want my password to be safe!!!!!!! </p>
-    <h1> Project 5 </h1>
+    <h3> Project 5 </h3>
     <p> 11. As a user, I want to be able to search for new listings of drones which I can lease or rent. 
     </p>
     <p> 12. As a user, I want to be able to search for new listings of drones by any of their rent details: description, legal lease usage, maintenance status, etc. 
