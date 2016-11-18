@@ -218,11 +218,11 @@ def register(request): # /login
     return render(request, 'web/t404.html', resp)
 
   if resp['ok'] == False: # could be much more nuanced. 
-    resp = {'resp':err_web.E_REGISTER_FAILED}
-    return render(request, 'web/login.html', {'login_form':login_form, 'register_form': register_form, 'resp':resp })
+    #resp = {'resp':err_web.E_REGISTER_FAILED}
+    return render(request, 'web/login.html', {'login_form':login_form, 'register_form': register_form, 'resp':err_web.E_REGISTER_FAILED})
 
 
-  resp = '<span style="font-size:30px; color=orange">congrats, you registered an account successfully! login to get started :)</span>'
+  resp = 'congrats, you registered an account successfully! login to get started :)'
   return render(request, 'web/login.html', {'resp':resp})
 
 

@@ -14,3 +14,4 @@ E_FORM_INVALID='the form you filled out was not complete. please finish filling 
 E_USER_NOT_FOUND="we couldn't find the user requested. sorry :("
 E_DRONE_NOT_FOUND="we couldn't find the drone requested. sorry :("
 E_LISTING_NOT_FOUND = "we couldn't find the listing requested. sorry :/"
+E_REGISTER_FAILED = "we could not register you sorry :/"
