@@ -9,10 +9,10 @@ import socket
 os.environ['DJANGO_LIVE_TEST_SERVER_ADDRESS'] = '0.0.0.0:8000'
 
 class SeleniumTests(StaticLiveServerTestCase):
-    fixtures = ['././models/db.json']
+   # fixtures = ['../../models/db.json']
 
-    #live_server_url = 'http://{}:8000'.format(
-     #   socket.gethostbyname(socket.gethostname()))
+    live_server_url = 'http://{}:8000'.format(
+       socket.gethostbyname(socket.gethostname()))
 
     @classmethod
     def setUpClass(self):
@@ -39,33 +39,36 @@ class SeleniumTests(StaticLiveServerTestCase):
 
     def test_1signup(self):
         #self.selenium.get('%s%s' % (self.live_server_url, '/login/'))
-        #self.browser.get('%s%s' % (self.live_server_url, '/login/'))
-        '''
-        f_name_input = self.selenium.find_element_by_name("f_name")
+        self.browser.get('%s%s' % (self.live_server_url, '/login/'))
+        f_name_input = self.browser.find_element_by_name("f_name")
         f_name_input.send_keys('Monica')
-        l_name_input = self.selenium.find_element_by_name("l_name")
+        l_name_input = self.browser.find_element_by_name("l_name")
         l_name_input.send_keys('Kuo')
-        username_input = self.selenium.find_element_by_name("username")
+        username_input = self.browser.find_element_by_name("username")
         username_input.send_keys('mdk6jd')
-        email1_input = self.selenium.find_element_by_name("email1")
+        email1_input = self.browser.find_element_by_name("email1")
         email1_input.send_keys('mdk6jd@virginia.edu')
-        email2_input = self.selenium.find_element_by_name("email2")
+        email2_input = self.browser.find_element_by_name("email2")
         email2_input.send_keys('mdk6jd@virginia.edu')
-        bio_input = self.selenium.find_element_by_name("bio")
+        bio_input = self.browser.find_element_by_name("bio")
         bio_input.send_keys('This is a test.')
-        passowrd1_input = self.selenium.find_element_by_name("password1")
+        password1_input = self.browser.find_element_by_name("password1")
         password1_input.send_keys('something')
-        password2_input = self.selenium.find_element_by_name("password2")
+        password2_input = self.browser.find_element_by_name("password2")
         password2_input.send_keys('something')
-        self.selenium.find_element_by_name('Sign up!').click()
-        '''
+        self.browser.find_element_by_name('signup1').click()
 
-    '''
+    
     def test_login(self):
         #self.selenium.get('%s%s' % (self.live_server_url, '/login/'))
         self.browser.get('%s%s' % (self.live_server_url, '/login/'))
-        username_input = self.selenium.find_element_by_name("username")
+        username_input = self.browser.find_element_by_name("username")
         username_input.send_keys('mdk6jd')
-        password_input = self.selenium.find_element_by_name("password")
+        password_input = self.browser.find_element_by_name("password")
         password_input.send_keys('something')
-    '''
+        self.browser.find_element_by_name('loginbtn').click()
+        self.browser.get((self.browser.current_url))
+        #self.browser.find_element_by_name("loginresponse")
+
+
+    
