@@ -41,6 +41,10 @@ script:
     docker exec -it exp bash -c
     "pip install -r requirements.txt &&
     python manage.py test --noinput" # run Django unit tests on experience layer
+  - >
+    docker exec -it web bash -c
+    "pip install -r requirements.txt &&
+    python manage.py test --noinput" # run Django integration tests on web front-end 
   # can put other tests (e.g. integrations) here too with exp, web containers
 
 after_success: 
