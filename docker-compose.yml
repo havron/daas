@@ -28,12 +28,16 @@ web: # PORT 8000
     image: tp33/django
     links:
       -  exp:exp-api
+      -  selenium
     volumes:
       - ./web/:/app
     ports:
       - "8000:8000"
-    command: bash -c "pip install -r requirements.txt && python manage.py collectstatic --noinput && mod_wsgi-express start-server --reload-on-changes ./web/wsgi.py"
+    command: bash -c "pip install -r requirements.txt && python manage.py collectstatic --noinput && mod_wsgi-express start-server --reload-on-changes ./web/wsgi.py && python manage.py test"
     container_name: web
+    environment:
+      - SELENIUM_HOST=http://selenium:4444/wd/hub
+      - TEST_SELENIUM='yest'
 
 kafka:
    image: spotify/kafka
@@ -58,3 +62,8 @@ batch:
    command: bash -c "sleep 30 && echo 'kafka queueing' && python es_index.py"
    volumes:
       - ./batch/:/app
+
+selenium:
+    image: selenium/standalone-firefox
+    ports:
+      -  "5900:5900"

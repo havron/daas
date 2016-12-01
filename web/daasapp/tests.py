@@ -1,26 +1,45 @@
 from django.test import TestCase
-'''
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from selenium import webdriver 
-#from selenium.webdriver.chrome.webdriver import WebDriver
+from selenium.webdriver.firefox.webdriver import WebDriver
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from selenium import webdriver
+import os
+import socket
+
+os.environ['DJANGO_LIVE_TEST_SERVER_ADDRESS'] = '0.0.0.0:8000'
 
 class SeleniumTests(StaticLiveServerTestCase):
     fixtures = ['././models/db.json']
 
+    live_server_url = 'http://{}:8000'.format(
+        socket.gethostbyname(socket.gethostname()))
+
     @classmethod
     def setUpClass(cls):
-        super(SeleniumTests, cls).setUpClass()
-        cls.selenium = webdriver.Chrome('/usr/local/python/lib/python3.5/site-packages/selenium/')
+        
+        #super(SeleniumTests, cls).setUpClass()
+        #System.setProperty("webdriver.gecko.driver", "C:\Users\Monica\Downloads\geckodriver-v0.11.1-win64")
         #cls.selenium = WebDriver()
-        cls.selenium.implicitly_wait(10)
+        #cls.selenium.implicitly_wait(10)
+        
+        #setting.DEBUG = True
+        self.browser = webdriver.Remote(
+            command_executor="http://selenium:4444/wd/hub",
+            desired_capabilities=DesiredCapabilities.FIREFOX
+        )
 
     @classmethod
     def tearDownClass(cls):
+        '''
         cls.selenium.quit()
         super(MySeleniumTests, cls).tearDownClass()
+        '''
+        self.browser.quit()
+        super().tearDown()
 
     def test_1signup(self):
-        self.selenium.get('%s%s' % (self.live_server_url, '/login/'))
+        #self.selenium.get('%s%s' % (self.live_server_url, '/login/'))
+        self.browser.get('%s%s' % (self.live_server_url, '/login/'))
         f_name_input = self.selenium.find_element_by_name("f_name")
         f_name_input.send_keys('Monica')
         l_name_input = self.selenium.find_element_by_name("l_name")
@@ -40,10 +59,9 @@ class SeleniumTests(StaticLiveServerTestCase):
         self.selenium.find_element_by_name('Sign up!').click()
 
     def test_login(self):
-        self.selenium.get('%s%s' % (self.live_server_url, '/login/'))
+        #self.selenium.get('%s%s' % (self.live_server_url, '/login/'))
+        self.browser.get('%s%s' % (self.live_server_url, '/login/'))
         username_input = self.selenium.find_element_by_name("username")
         username_input.send_keys('mdk6jd')
         password_input = self.selenium.find_element_by_name("password")
         password_input.send_keys('something')
-
-'''
