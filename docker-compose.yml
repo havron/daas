@@ -64,6 +64,6 @@ batch:
       - ./batch/:/app
 
 selenium:
-    image: selenium/standalone-firefox
+    image: selenium/standalone-chrome:2.48.2
     ports:
       -  "5900:5900"
