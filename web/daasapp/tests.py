@@ -1,6 +1,8 @@
 from django.test import TestCase
+'''
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from selenium.webdriver.chrome.webdriver import WebDriver
+from selenium import webdriver 
+#from selenium.webdriver.chrome.webdriver import WebDriver
 
 class SeleniumTests(StaticLiveServerTestCase):
     fixtures = ['././models/db.json']
@@ -8,7 +10,8 @@ class SeleniumTests(StaticLiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         super(SeleniumTests, cls).setUpClass()
-        cls.selenium = WebDriver()
+        cls.selenium = webdriver.Chrome('/usr/local/python/lib/python3.5/site-packages/selenium/')
+        #cls.selenium = WebDriver()
         cls.selenium.implicitly_wait(10)
 
     @classmethod
@@ -42,3 +45,5 @@ class SeleniumTests(StaticLiveServerTestCase):
         username_input.send_keys('mdk6jd')
         password_input = self.selenium.find_element_by_name("password")
         password_input.send_keys('something')
+
+'''
