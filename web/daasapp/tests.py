@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import TestCase, Client
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
@@ -39,13 +39,15 @@ class SeleniumTests(StaticLiveServerTestCase):
 
     def test_1signup(self):
         #self.selenium.get('%s%s' % (self.live_server_url, '/login/'))
+        self.browser.save_screenshot('register1.png')
         self.browser.get('%s%s' % (self.live_server_url, '/login/'))
         f_name_input = self.browser.find_element_by_name("f_name")
         f_name_input.send_keys('Monica')
         l_name_input = self.browser.find_element_by_name("l_name")
         l_name_input.send_keys('Kuo')
-        username_input = self.browser.find_element_by_name("username")
-        username_input.send_keys('mdk6jd')
+        username_input = self.browser.find_elements_by_name("username")[1]
+        username_input.send_keys('jobinacci')
+        self.browser.save_screenshot('register12.png')
         email1_input = self.browser.find_element_by_name("email1")
         email1_input.send_keys('mdk6jd@virginia.edu')
         email2_input = self.browser.find_element_by_name("email2")
@@ -56,7 +58,14 @@ class SeleniumTests(StaticLiveServerTestCase):
         password1_input.send_keys('something')
         password2_input = self.browser.find_element_by_name("password2")
         password2_input.send_keys('something')
-        self.browser.find_element_by_name('signup1').click()
+        self.browser.save_screenshot('register2.png')
+        self.browser.find_element_by_name('signup2').click()
+        #print(self.browser.page_source)
+        #print("TAKING SCREENSHOT")
+        self.browser.save_screenshot('register3.png')
+        self.assertEquals(self.browser.current_url, self.live_server_url + "/register/")
+        self.assertTrue("congrats, you registered" in self.browser.page_source)
+        #print(self.browser.find_element_by_name("loginreponse"))
 
     
     def test_login(self):
@@ -67,8 +76,9 @@ class SeleniumTests(StaticLiveServerTestCase):
         password_input = self.browser.find_element_by_name("password")
         password_input.send_keys('something')
         self.browser.find_element_by_name('loginbtn').click()
-        self.browser.get((self.browser.current_url))
-        #self.browser.find_element_by_name("loginresponse")
+       
+        #self.browser.get((self.browser.current_url))
+        #self.browser.find_element_by_name("notif")
 
 
     
