@@ -4,8 +4,6 @@ models: # PORT 8002
       -  mysql:db
     volumes:
       - ./models/:/app
-    ports:
-      - "8002:8000"
     command: bash -c "pip install -r requirements.txt && python manage.py makemigrations && python manage.py migrate && python manage.py loaddata db.json && mod_wsgi-express start-server --reload-on-changes ./models/wsgi.py"
     container_name: models
 
@@ -19,8 +17,6 @@ exp: # PORT 8001
       - es:es
     volumes:
       - ./exp/:/app
-    ports:
-      - "8001:8000"
     command: bash -c "pip install -r requirements.txt && mod_wsgi-express start-server --reload-on-changes ./exp/wsgi.py"
     container_name: exp
 
@@ -50,8 +46,6 @@ kafka:
 es:
    image: elasticsearch:2.0
    container_name: es
-   ports:
-      - "9200:9200"
 
 batch:
    image: tp33/django
@@ -66,5 +60,3 @@ batch:
 selenium:
     image: selenium/standalone-chrome:2.48.2
     container_name: selenium
-    ports:
-      -  "5900:5900"
