@@ -85,20 +85,24 @@ class ListingForm(forms.Form):
 # _ denotes a helper function
 def _success_response(request, resp=None):
   if resp:
-    return JsonResponse({'ok': True, 'resp': resp})
+    return JsonResponse({'ok': True, 'resp': resp,'model_machine':os.environ['DB_NAME'][1:-3]})
   else:
-   return JsonResponse({'ok': True})
+   return JsonResponse({'ok': True,'model_machine':os.environ['DB_NAME'][1:-3]})
 
 # _ denotes a helper function
 # MODEL ERROR CODES DOCUMENTED IN 'err_models.py'
 def _error_response(request, error_msg, error_specific=None):
    if error_specific:
-     return JsonResponse({'ok': False, 'error': error_msg, 'error_info': error_specific})
+     return JsonResponse({'ok': False, 'error': error_msg, 'error_info': error_specific,'model_machine':os.environ['DB_NAME'][1:-3]})
    else:
-     return JsonResponse({'ok': False, 'error': error_msg})
+     return JsonResponse({'ok': False, 'error': error_msg, 'model_machine':os.environ['DB_NAME'][1:-3]})
 
 
 ############# USER APIs ###################
+def machine(request):
+  return JsonResponse({'model_machine':os.environ['DB_NAME'][1:-3]})
+
+
 def create_user(request): # /api/v1/user/create
     if request.method != 'POST':
       return _error_response(request, err_models.E_BAD_REQUEST, "must make POST request")

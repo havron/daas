@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^$', home.index),
     url(r'^api/v1/populate/$', apiposts.populate),
 
+    url(r'^api/v1/machine/$', views.machine, name = 'machine'), 
     url(r'^api/v1/user/create/$', views.create_user, name = 'create_user'), 
     url(r'^api/v1/user/login/$', views.login_user, name = 'login_user'), 
     url(r'^api/v1/user/logout/$', views.logout_user, name = 'logout_user'), 

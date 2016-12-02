@@ -96,13 +96,11 @@ WSGI_APPLICATION = 'exp.wsgi.application'
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
 DATABASES = {
-  'default': {
-  'ENGINE': 'mysql.connector.django',
-  'NAME': 'cs4501',
-  'USER': 'www',
-  'PASSWORD': '$3cureUS',
-  'HOST': 'db',
-  }
+'default': { # not the real mySQL docker database! 
+             # this is only here to placate experience-service testing.
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
 }
 
 

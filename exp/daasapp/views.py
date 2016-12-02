@@ -10,7 +10,7 @@ import datetime
 from kafka import KafkaProducer
 from kafka import KafkaConsumer
 from elasticsearch import Elasticsearch
-import time
+import time, os
 
 # GLOBAL
 es = Elasticsearch(['es']) 
@@ -50,7 +50,7 @@ class ListingForm(forms.Form):
 # _ denotes a helper function
 def _success_response(request, resp=None):
   if resp:
-    return JsonResponse({'ok': True, 'resp': resp})
+    return JsonResponse({'ok': True, 'resp': resp, 'exp_machine':os.environ['MODELS_API_NAME'][1:-11]})
   else:
    return JsonResponse({'ok': True})
 
@@ -58,9 +58,20 @@ def _success_response(request, resp=None):
 # EXP ERROR CODES DOCUMENTED IN 'err_exp.py'
 def _error_response(request, error_msg, error_specific=None):
    if error_specific:
-     return JsonResponse({'ok': False, 'error': error_msg, 'error_info': error_specific})
+     return JsonResponse({'ok': False, 'error': error_msg, 'error_info': error_specific,'exp_machine':os.environ['MODELS_API_NAME'][1:-11]})
    else:
-     return JsonResponse({'ok': False, 'error': error_msg})
+     return JsonResponse({'ok': False, 'error': error_msg, 'exp_machine':os.environ['MODELS_API_NAME'][1:-11]})
+
+
+def machine(request):
+  req = urllib.request.Request('http://models-api:8000/api/v1/machine/')
+  resp_json = urllib.request.urlopen(req).read().decode('utf-8')
+  resp = json.loads(resp_json)
+
+  if not resp:
+    return _error_response(request, err_exp.E_LOGIN_FAILED, "no response from models API")
+  
+  return JsonResponse({'exp_machine':os.environ['MODELS_API_NAME'][1:-11], 'model_machine':resp['model_machine']})
 
 
 def check_auth(request): # /auth

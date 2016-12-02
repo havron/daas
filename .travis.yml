@@ -31,18 +31,16 @@ before_script:
 
 script:
   - >
-    docker exec -it models bash -c
-    "export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH &&
-    export PYTHONPATH=. &&
-    pip install -r requirements.txt &&
+    docker exec -it modelsbal bash -c
+    "pip install -r requirements.txt &&
     pip install coveralls && 
     python manage.py test --noinput && cat .coverage && coverage report" # run Django unit tests on models
   - >
-    docker exec -it exp bash -c
+    docker exec -it expbal bash -c
     "pip install -r requirements.txt &&
     python manage.py test --noinput" # run Django unit tests on experience layer
   - >
-    docker exec -it web bash -c
+    docker exec -it webbal bash -c
     "pip install -r requirements.txt &&
     python manage.py test --noinput" # run Django integration tests on web front-end 
   # can put other tests (e.g. integrations) here too with exp, web containers

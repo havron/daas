@@ -5,8 +5,6 @@ models0: # PORT 8020
       -  mysql:db
     volumes:
       - ./models/:/app
-    ports:
-      - "8020:8000"
     command: bash -c "pip install -r requirements.txt && python manage.py makemigrations && python manage.py migrate && python manage.py loaddata db.json && mod_wsgi-express start-server --reload-on-changes ./models/wsgi.py"
     container_name: models0
 
@@ -16,8 +14,6 @@ models1: # PORT 8021
       -  mysql:db
     volumes:
       - ./models/:/app
-    ports:
-      - "8021:8000"
     command: bash -c "pip install -r requirements.txt && python manage.py makemigrations && python manage.py migrate && python manage.py loaddata db.json && mod_wsgi-express start-server --reload-on-changes ./models/wsgi.py"
     container_name: models1
 
@@ -27,8 +23,6 @@ models2: # PORT 8022
       -  mysql:db
     volumes:
       - ./models/:/app
-    ports:
-      - "8022:8000"
     command: bash -c "pip install -r requirements.txt && python manage.py makemigrations && python manage.py migrate && python manage.py loaddata db.json && mod_wsgi-express start-server --reload-on-changes ./models/wsgi.py"
     container_name: models2
 
@@ -41,8 +35,6 @@ exp0: # PORT 8010
       - es:es
     volumes:
       - ./exp/:/app
-    ports:
-      - "8010:8000"
     command: bash -c "pip install -r requirements.txt && mod_wsgi-express start-server --reload-on-changes ./exp/wsgi.py"
     container_name: exp0
 
@@ -54,8 +46,6 @@ exp1: # PORT 8011
       - es:es
     volumes:
       - ./exp/:/app
-    ports:
-      - "8011:8000"
     command: bash -c "pip install -r requirements.txt && mod_wsgi-express start-server --reload-on-changes ./exp/wsgi.py"
     container_name: exp1
 
@@ -67,8 +57,6 @@ exp2: # PORT 8012
       - es:es
     volumes:
       - ./exp/:/app
-    ports:
-      - "8012:8000"
     command: bash -c "pip install -r requirements.txt && mod_wsgi-express start-server --reload-on-changes ./exp/wsgi.py"
     container_name: exp2
 
@@ -81,8 +69,6 @@ web0: # PORT 8030
       -  selenium
     volumes:
       - ./web/:/app
-    ports:
-      - "8030:8000"
     command: bash -c "pip install -r requirements.txt && python manage.py collectstatic --noinput && mod_wsgi-express start-server --reload-on-changes ./web/wsgi.py && python manage.py test"
     container_name: web0
     environment:
@@ -96,8 +82,6 @@ web1: # PORT 8031
       -  selenium
     volumes:
       - ./web/:/app
-    ports:
-      - "8031:8000"
     command: bash -c "pip install -r requirements.txt && python manage.py collectstatic --noinput && mod_wsgi-express start-server --reload-on-changes ./web/wsgi.py && python manage.py test"
     container_name: web1
     environment:
@@ -111,8 +95,6 @@ web2: # PORT 8032
       -  selenium
     volumes:
       - ./web/:/app
-    ports:
-      - "8032:8000"
     command: bash -c "pip install -r requirements.txt && python manage.py collectstatic --noinput && mod_wsgi-express start-server --reload-on-changes ./web/wsgi.py && python manage.py test"
     container_name: web2
     environment:
@@ -136,8 +118,6 @@ expbal:
       -  exp0:exp0
       -  exp1:exp1
       -  exp2:exp2
-   ports:
-      -  "8001:8000"
    container_name: expbal
 
 modelsbal:
@@ -146,8 +126,6 @@ modelsbal:
       -  models0:models0
       -  models1:models1
       -  models2:models2
-   ports:
-      -  "8002:8000"
    container_name: modelsbal
 
 
@@ -163,8 +141,6 @@ kafka:
 es:
    image: elasticsearch:2.0
    container_name: es
-   ports:
-      - "9200:9200"
 
 batch:
    image: tp33/django
@@ -180,5 +156,3 @@ batch:
 selenium:
     image: selenium/standalone-chrome:2.48.2
     container_name: selenium
-    ports:
-      -  "5900:5900"

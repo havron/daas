@@ -89,6 +89,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'daasapp.context.web_machine',
+                'daasapp.context.api_machines',
             ],
         },
     },
@@ -101,7 +103,8 @@ WSGI_APPLICATION = 'web.wsgi.application'
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
 DATABASES = {
-'default': {
+'default': { # not the real mySQL docker database! 
+             # this is only here to placate selenium testing.
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }

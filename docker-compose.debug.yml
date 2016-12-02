@@ -1,3 +1,5 @@
+# no load balancers for debug console! less messy to read logs
+
 models: # PORT 8002
     image: tp33/django
     external_links:
@@ -58,3 +60,10 @@ batch:
    command: bash -c "sleep 30 && echo 'kafka queueing' && python search.py"
    volumes:
       - ./batch/:/app
+
+# Integration/end-to-end testing
+selenium:
+    image: selenium/standalone-chrome:2.48.2
+    container_name: selenium
+    ports:
+      -  "5900:5900"
