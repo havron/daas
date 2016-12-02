@@ -57,4 +57,4 @@ after_script:
   - docker stop mysql
   - docker rm `docker ps -aq`
   - docker rmi `docker images -q`
-  - rm -rf *
+  - sudo rm -rf *

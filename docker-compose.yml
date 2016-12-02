@@ -120,6 +120,14 @@ web2: # PORT 8032
       - TEST_SELENIUM='yest'
 
 ############## LOAD BALANCERS ###############
+loadwatcher: # logs all load balancing activity to stdout!
+   image: tp33/django
+   container_name: loadwatcher
+   command: bash -c "tail -f /var/log/syslog"
+   volumes:
+     - /dev/log:/dev/log
+     - /var/log:/var/log
+
 webbal:
    build: ./load/web
    links:
@@ -128,7 +136,10 @@ webbal:
       -  web2:web2
    ports:
       -  "8000:8000"
+      -  "1936:1936" # watch stats
    container_name: webbal
+   volumes:
+     - /dev/log:/dev/log
 
 expbal:
    build: ./load/exp
@@ -138,7 +149,10 @@ expbal:
       -  exp2:exp2
    ports:
       -  "8001:8000"
+      -  "1937:1937" # watch stats
    container_name: expbal
+   volumes:
+     - /dev/log:/dev/log
 
 modelsbal:
    build: ./load/models
@@ -148,7 +162,10 @@ modelsbal:
       -  models2:models2
    ports:
       -  "8002:8000"
+      -  "1938:1938" # watch stats
    container_name: modelsbal
+   volumes:
+     - /dev/log:/dev/log
 
 
 ###### SEARCH CONTAINERS ########
