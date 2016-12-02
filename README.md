@@ -7,10 +7,12 @@
 
 Welcome! This repository is home to a daas marketplace, built on multiple
 [dockerized](https://www.docker.com/what-docker) tiers, including: 
-a `mySQL` database, a models/entity API,
-an experience service API, and a bootstrap-powered HTML front-end (the latter
-three built on separate `django` projects). The tiers interact via `http/json`
-requests and responses (only the models API can talk to the database, only the experience API
+a `mySQL` database, a kafka/elasticsearch batch job, an Apache Spark map/reduce
+job, a selenium integration testing web driver, and an HAProxy load balancer 
+for a models/entity API, an experience service API, and a bootstrap-powered HTML 
+front-end (the latter three built on separate `django` projects). 
+The tiers primarily interact via `http/json` requests and responses 
+(only the models API can talk to the database, only the experience API
 can talk to the models, etc); we intentionally implement this marketplace as a set
 of isolated microservices. Static content for the HTML front-end is currently
 served with Django's `whitenoise` wrapper for the Python `wsgi` interface.
@@ -31,12 +33,12 @@ traffic to instances of each app tier.
 - We are currently working on adding a map/reduce job with Apache Spark to
   create a recommendation system for users of the site.
 
-## How to run the site
+## How to run the site 
 To check out our project locally (on your desktop/laptop; `docker` requires root access):
 
 1. install `docker`: [https://www.docker.com/](https://www.docker.com/)
 
-2. install `docker-compose`: [https://docs.docker.com/compose/install/](https://docs.docker.com/compose/install/)
+2. install `docker-compose` (version 1.\*): [https://docs.docker.com/compose/install/](https://docs.docker.com/compose/install/)
 
 3. clone our repository: `git clone https://github.com/samuelhavron/daas.git`
 
@@ -47,13 +49,15 @@ connection](https://github.com/samuelhavron/daas/blob/master/models/models/setti
 the database will be loaded with fixtures (test/dummy data) when you stand the
 `docker` containers up -- so you can interact with a "living" site.
 
-5. run `docker-compose up` to start the marketplace!
+5. run `docker-compose up` to start the marketplace! (it will likely take a
+minute or two for all of the containers to settle)
 
 6. the web front end is available at [http://localhost:8000](http:localhost:8000) 
 on your host (view in your browser). the experience
 APIs are at [http://localhost:8001](http://localhost:8001) and 
 the entity/model APIs are at [http://localhost:8002](http://localhost:8002) 
-(however, they only communicate with JSON responses).
+(however, they only communicate with JSON responses). other `docker` containers have
+exposed ports mostly for debug purposes.
 
 7. have questions? contact us! `{mdk6jd, jat9kf, sgh7cc} @ virginia.edu`
 
@@ -62,7 +66,7 @@ the entity/model APIs are at [http://localhost:8002](http://localhost:8002)
 `touch <container_name>/<container_name>/wsgi.py` to modify their timestamp and force
 `docker` to reload them.
 * if you are already using `docker` and have one or more containers running with
-an alias matching one of `{web, exp, models, mysql}`, you may need to rename
+an alias matching one of the container names, you may need to rename
 your container(s) or those affected in this repository (to do that, simply
 change the `container_name` appropriately in
 [docker-compose.yml](https://github.com/samuelhavron/daas/blob/master/docker-compose.yml).
@@ -72,6 +76,7 @@ appropriately as well as renaming the container in the
 targets of the
 [Makefile](https://github.com/samuelhavron/daas/blob/master/Makefile). a simple
 `sed` expression can be used to automate the process.
+
 ### HAProxy load balancers (round-robin)
 Load balancers for each app tier powered by [HAProxy](http://www.haproxy.org/)'s
 [docker build](http://hub.docker.com/_/haproxy/). Cookie-based policies 

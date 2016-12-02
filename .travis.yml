@@ -30,6 +30,7 @@ before_script:
   - docker-compose up -d
 
 script:
+    # using first instance of each app server
   - >
     docker exec -it models0 bash -c
     "pip install -r requirements.txt &&
@@ -43,7 +44,6 @@ script:
     docker exec -it web0 bash -c
     "pip install -r requirements.txt &&
     python manage.py test --noinput" # run Django integration tests on web front-end 
-  # can put other tests (e.g. integrations) here too with exp, web containers
 
 after_success: 
   - cat models/.coverage
@@ -55,6 +55,6 @@ after_success:
 after_script:
   - docker-compose stop
   - docker stop mysql
-  - docker rm `docker ps -a -q`
+  - docker rm `docker ps -aq`
   - docker rmi `docker images -q`
-  - rm -rf db
+  - rm -rf *
