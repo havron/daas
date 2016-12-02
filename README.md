@@ -5,8 +5,9 @@
 <img src="https://cdn.rawgit.com/samuelhavron/daas/master/web/daasapp/static/images/home/logo.svg" width="350">
 </p>
 
-Welcome! This repository is home to a daas marketplace, built on 4
-[dockerized](https://www.docker.com/what-docker) tiers: a `mySQL` database, a models/entity API,
+Welcome! This repository is home to a daas marketplace, built on multiple
+[dockerized](https://www.docker.com/what-docker) tiers, including: 
+a `mySQL` database, a models/entity API,
 an experience service API, and a bootstrap-powered HTML front-end (the latter
 three built on separate `django` projects). The tiers interact via `http/json`
 requests and responses (only the models API can talk to the database, only the experience API
@@ -14,6 +15,23 @@ can talk to the models, etc); we intentionally implement this marketplace as a s
 of isolated microservices. Static content for the HTML front-end is currently
 served with Django's `whitenoise` wrapper for the Python `wsgi` interface.
 
+## Features (not comprehensive or exhaustive!)
+- Multiple [HAProxy](http://www.haproxy.org/) load balancers are used to forward
+traffic to instances of each app tier.
+- Entries to our `elasticsearch` engine are queued with [Spotify's kafka
+  image](https://hub.docker.com/r/spotify/kafka/)
+- Every push to GitHub triggers a [Travis CI
+  build](https://travis-ci.org/samuelhavron/daas), where our project is built
+  from vanilla and our unit tests
+  (models/db) and integration tests (selenium/end-to-end web) are automatically
+  run and verified for passing.
+- This repository has been successfully deployed to a public cloud provider
+  (DigitalOcean) as a proof-of-concept; many security features necessary for
+  production were implemented.
+- We are currently working on adding a map/reduce job with Apache Spark to
+  create a recommendation system for users of the site.
+
+## How to run the site
 To check out our project locally (on your desktop/laptop; `docker` requires root access):
 
 1. install `docker`: [https://www.docker.com/](https://www.docker.com/)
@@ -54,3 +72,12 @@ appropriately as well as renaming the container in the
 targets of the
 [Makefile](https://github.com/samuelhavron/daas/blob/master/Makefile). a simple
 `sed` expression can be used to automate the process.
+### HAProxy load balancers (round-robin)
+Load balancers for each app tier powered by [HAProxy](http://www.haproxy.org/)'s
+[docker build](http://hub.docker.com/_/haproxy/). Cookie-based policies 
+(e.g. return users to same servers for caching purposes) is currently 
+not enabled; load balancing is purely round-robin style. 
+In actual production, Docker Swarm would (should) be
+used, and could leverage `docker-compose`'s `scale` feature (currently
+not used, app servers are fully enumerated and handled by respective load
+balancers).
