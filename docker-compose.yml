@@ -18,8 +18,10 @@ models1: # PORT 8021
       - ./models/:/app
     ports:
       - "8021:8000"
-    command: bash -c "pip install -r requirements.txt && python manage.py makemigrations && python manage.py migrate && python manage.py loaddata db.json && mod_wsgi-express start-server --reload-on-changes ./models/wsgi.py"
+    command: bash -c "sleep 25 && pip install -r requirements.txt && python manage.py loaddata db.json && mod_wsgi-express start-server --reload-on-changes ./models/wsgi.py"
     container_name: models1
+    # sleep to wait for models0 to spin up and migrate to db
+    # could use `wait-for-it` instead...
 
 models2: # PORT 8022
     image: tp33/django
@@ -29,8 +31,10 @@ models2: # PORT 8022
       - ./models/:/app
     ports:
       - "8022:8000"
-    command: bash -c "pip install -r requirements.txt && python manage.py makemigrations && python manage.py migrate && python manage.py loaddata db.json && mod_wsgi-express start-server --reload-on-changes ./models/wsgi.py"
+    command: bash -c "sleep 25 && pip install -r requirements.txt && python manage.py loaddata db.json && mod_wsgi-express start-server --reload-on-changes ./models/wsgi.py"
     container_name: models2
+    # sleep to wait for models0 to spin up and migrate to db
+    # could use `wait-for-it` instead...
 
 ###### EXP CONTAINERS #############
 exp0: # PORT 8010
@@ -120,7 +124,11 @@ web2: # PORT 8032
       - TEST_SELENIUM='yest'
 
 ############## LOAD BALANCERS ###############
-loadwatcher: # logs all load balancing activity to stdout!
+# yes, docker swarm would probably make more sense here, 
+# in conjunction with compose's scale features.
+# configuring HAProxy is a great learning experience, though :-)
+loadwatcher: # logs all load balancing activity to stdout! 
+             # ...and really anything else. not a great privacy-preserving solution.
    image: tp33/django
    container_name: loadwatcher
    command: bash -c "tail -f /var/log/syslog"
@@ -225,7 +233,7 @@ spark-master:
     - 7077:7077
     - 8080:8080
   volumes:
-    - ./data:/tmp/data
+    - ./recs:/tmp/data
 
 spark-worker:
   image: gettyimages/spark
@@ -250,4 +258,4 @@ spark-worker:
   ports:
     - 8081:8081
   volumes:
-    - ./data:/tmp/data
+    - ./recs:/tmp/data
