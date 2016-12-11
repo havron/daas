@@ -87,7 +87,7 @@ web0: # PORT 8030
       - ./web/:/app
     ports:
       - "8030:8000"
-    command: bash -c "pip install -r requirements.txt && python manage.py collectstatic --noinput && mod_wsgi-express start-server --reload-on-changes ./web/wsgi.py && python manage.py test"
+    command: bash -c "pip install -r requirements.txt && python manage.py collectstatic --noinput && mod_wsgi-express start-server --reload-on-changes ./web/wsgi.py"
     container_name: web0
     environment:
       - SELENIUM_HOST=http://selenium:4444/wd/hub
@@ -102,7 +102,7 @@ web1: # PORT 8031
       - ./web/:/app
     ports:
       - "8031:8000"
-    command: bash -c "pip install -r requirements.txt && python manage.py collectstatic --noinput && mod_wsgi-express start-server --reload-on-changes ./web/wsgi.py && python manage.py test"
+    command: bash -c "pip install -r requirements.txt && python manage.py collectstatic --noinput && mod_wsgi-express start-server --reload-on-changes ./web/wsgi.py"
     container_name: web1
     environment:
       - SELENIUM_HOST=http://selenium:4444/wd/hub
@@ -117,7 +117,7 @@ web2: # PORT 8032
       - ./web/:/app
     ports:
       - "8032:8000"
-    command: bash -c "pip install -r requirements.txt && python manage.py collectstatic --noinput && mod_wsgi-express start-server --reload-on-changes ./web/wsgi.py && python manage.py test"
+    command: bash -c "pip install -r requirements.txt && python manage.py collectstatic --noinput && mod_wsgi-express start-server --reload-on-changes ./web/wsgi.py"
     container_name: web2
     environment:
       - SELENIUM_HOST=http://selenium:4444/wd/hub

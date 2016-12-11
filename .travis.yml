@@ -28,6 +28,7 @@ install: # prepare mySQL database
   - sudo pip install coveralls
 before_script:
   - docker-compose up -d
+  - sleep 45
 
 script:
     # using first instance of each app server
