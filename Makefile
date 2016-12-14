@@ -1,9 +1,13 @@
-.PHONY: github run dev database clean shell
+.PHONY: github run dev database clean shell spark
 MSG=small edit
 dev:
 	sudo docker-compose down
 	sudo docker-compose build
 	sudo docker-compose up
+
+spark:
+	sudo docker-compose -f spark-compose.yml down
+	sudo docker-compose -f spark-compose.yml up
 
 github:
 	git add -A 
