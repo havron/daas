@@ -18,7 +18,7 @@ models1: # PORT 8021
       - ./models/:/app
     ports:
       - "8021:8000"
-    command: bash -c "sleep 45 && pip install -r requirements.txt && python manage.py loaddata db.json && mod_wsgi-express start-server --reload-on-changes ./models/wsgi.py"
+    command: bash -c "sleep 35 && pip install -r requirements.txt && python manage.py loaddata db.json && mod_wsgi-express start-server --reload-on-changes ./models/wsgi.py"
     container_name: models1
     # sleep to wait for models0 to spin up and migrate to db
     # could use `wait-for-it` instead...
@@ -31,7 +31,7 @@ models2: # PORT 8022
       - ./models/:/app
     ports:
       - "8022:8000"
-    command: bash -c "sleep 45 && pip install -r requirements.txt && python manage.py loaddata db.json && mod_wsgi-express start-server --reload-on-changes ./models/wsgi.py"
+    command: bash -c "sleep 35 && pip install -r requirements.txt && python manage.py loaddata db.json && mod_wsgi-express start-server --reload-on-changes ./models/wsgi.py"
     container_name: models2
     # sleep to wait for models0 to spin up and migrate to db
     # could use `wait-for-it` instead...

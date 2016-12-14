@@ -1,4 +1,4 @@
-.PHONY: github run dev database clean shell spark
+.PHONY: github run dev database clean shell spark sparklog
 MSG=small edit
 dev:
 	sudo docker-compose down
@@ -7,7 +7,15 @@ dev:
 
 spark:
 	sudo docker-compose -f spark-compose.yml down
-	sudo docker-compose -f spark-compose.yml up
+	sudo docker-compose -f spark-compose.yml up -d
+	sleep 10 # allow spark nodes time to spin up before running job...
+	sudo docker exec -it spark-master bin/spark-submit --master spark://spark-master:7077 --total-executor-cores 2 --executor-memory 512m /tmp/data/spark.py
+
+sparklog:
+	sudo docker-compose -f spark-compose.yml down
+	sudo docker-compose -f spark-compose.yml up -d
+	sleep 10 # allow spark nodes time to spin up before running job...
+	sudo docker exec -it spark-master bin/spark-submit --master spark://spark-master:7077 --total-executor-cores 2 --executor-memory 512m /tmp/data/spark.py > recs/spark.out
 
 github:
 	git add -A 

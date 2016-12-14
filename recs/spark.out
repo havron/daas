@@ -1,0 +1,272 @@
+16/12/14 07:15:51 INFO spark.SparkContext: Running Spark version 2.0.2
+16/12/14 07:15:51 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+16/12/14 07:15:51 INFO spark.SecurityManager: Changing view acls to: root
+16/12/14 07:15:51 INFO spark.SecurityManager: Changing modify acls to: root
+16/12/14 07:15:51 INFO spark.SecurityManager: Changing view acls groups to: 
+16/12/14 07:15:51 INFO spark.SecurityManager: Changing modify acls groups to: 
+16/12/14 07:15:51 INFO spark.SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users  with view permissions: Set(root); groups with view permissions: Set(); users  with modify permissions: Set(root); groups with modify permissions: Set()
+16/12/14 07:15:52 INFO util.Utils: Successfully started service 'sparkDriver' on port 45305.
+16/12/14 07:15:52 INFO spark.SparkEnv: Registering MapOutputTracker
+16/12/14 07:15:52 INFO spark.SparkEnv: Registering BlockManagerMaster
+16/12/14 07:15:52 INFO storage.DiskBlockManager: Created local directory at /tmp/blockmgr-d22e30e5-65b0-403b-b643-17c6408007ec
+16/12/14 07:15:52 INFO memory.MemoryStore: MemoryStore started with capacity 366.3 MB
+16/12/14 07:15:52 INFO spark.SparkEnv: Registering OutputCommitCoordinator
+16/12/14 07:15:52 INFO util.log: Logging initialized @1542ms
+16/12/14 07:15:52 INFO server.Server: jetty-9.2.z-SNAPSHOT
+16/12/14 07:15:52 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@107ecdbf{/jobs,null,AVAILABLE}
+16/12/14 07:15:52 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@63565c99{/jobs/json,null,AVAILABLE}
+16/12/14 07:15:52 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@744a2198{/jobs/job,null,AVAILABLE}
+16/12/14 07:15:52 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@67ff977f{/jobs/job/json,null,AVAILABLE}
+16/12/14 07:15:52 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@10aad0a{/stages,null,AVAILABLE}
+16/12/14 07:15:52 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@50e98b26{/stages/json,null,AVAILABLE}
+16/12/14 07:15:52 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@758a2642{/stages/stage,null,AVAILABLE}
+16/12/14 07:15:52 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@6ed503e3{/stages/stage/json,null,AVAILABLE}
+16/12/14 07:15:52 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@3ae391ce{/stages/pool,null,AVAILABLE}
+16/12/14 07:15:52 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@264f9d0f{/stages/pool/json,null,AVAILABLE}
+16/12/14 07:15:52 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@2d317b2{/storage,null,AVAILABLE}
+16/12/14 07:15:52 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@44dfc610{/storage/json,null,AVAILABLE}
+16/12/14 07:15:52 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@629452a4{/storage/rdd,null,AVAILABLE}
+16/12/14 07:15:52 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@38690c1c{/storage/rdd/json,null,AVAILABLE}
+16/12/14 07:15:52 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@229df224{/environment,null,AVAILABLE}
+16/12/14 07:15:52 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@18485f21{/environment/json,null,AVAILABLE}
+16/12/14 07:15:52 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@58092ffe{/executors,null,AVAILABLE}
+16/12/14 07:15:52 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@28f0c10f{/executors/json,null,AVAILABLE}
+16/12/14 07:15:52 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@65310ae7{/executors/threadDump,null,AVAILABLE}
+16/12/14 07:15:52 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@3fdae037{/executors/threadDump/json,null,AVAILABLE}
+16/12/14 07:15:52 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@2ebd4eed{/static,null,AVAILABLE}
+16/12/14 07:15:52 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@6b0a8c{/,null,AVAILABLE}
+16/12/14 07:15:52 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@6de05e54{/api,null,AVAILABLE}
+16/12/14 07:15:52 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@5d3c087{/stages/stage/kill,null,AVAILABLE}
+16/12/14 07:15:52 INFO server.ServerConnector: Started ServerConnector@71cd001d{HTTP/1.1}{0.0.0.0:4040}
+16/12/14 07:15:52 INFO server.Server: Started @1623ms
+16/12/14 07:15:52 INFO util.Utils: Successfully started service 'SparkUI' on port 4040.
+16/12/14 07:15:52 INFO ui.SparkUI: Bound SparkUI to 0.0.0.0, and started at http://172.17.0.3:4040
+16/12/14 07:15:52 INFO spark.SparkContext: Added file file:/tmp/data/spark.py at spark://172.17.0.3:45305/files/spark.py with timestamp 1481699752627
+16/12/14 07:15:52 INFO util.Utils: Copying /tmp/data/spark.py to /tmp/spark-10f251e2-f9b7-43df-b151-e9a0e0971952/userFiles-e48370fb-035b-4ba6-8802-36774ebf6fca/spark.py
+16/12/14 07:15:52 INFO client.StandaloneAppClient$ClientEndpoint: Connecting to master spark://spark-master:7077...
+16/12/14 07:15:52 INFO client.TransportClientFactory: Successfully created connection to spark-master/172.17.0.3:7077 after 18 ms (0 ms spent in bootstraps)
+16/12/14 07:15:52 INFO cluster.StandaloneSchedulerBackend: Connected to Spark cluster with app ID app-20161214071552-0000
+16/12/14 07:15:52 INFO util.Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 36656.
+16/12/14 07:15:52 INFO netty.NettyBlockTransferService: Server created on 172.17.0.3:36656
+16/12/14 07:15:52 INFO storage.BlockManagerMaster: Registering BlockManager BlockManagerId(driver, 172.17.0.3, 36656)
+16/12/14 07:15:52 INFO storage.BlockManagerMasterEndpoint: Registering block manager 172.17.0.3:36656 with 366.3 MB RAM, BlockManagerId(driver, 172.17.0.3, 36656)
+16/12/14 07:15:52 INFO storage.BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 172.17.0.3, 36656)
+16/12/14 07:15:52 INFO client.StandaloneAppClient$ClientEndpoint: Executor added: app-20161214071552-0000/0 on worker-20161214071541-172.17.0.4-8881 (172.17.0.4:8881) with 2 cores
+16/12/14 07:15:52 INFO cluster.StandaloneSchedulerBackend: Granted executor ID app-20161214071552-0000/0 on hostPort 172.17.0.4:8881 with 2 cores, 512.0 MB RAM
+16/12/14 07:15:52 INFO client.StandaloneAppClient$ClientEndpoint: Executor updated: app-20161214071552-0000/0 is now RUNNING
+16/12/14 07:15:53 INFO handler.ContextHandler: Started o.s.j.s.ServletContextHandler@3831e134{/metrics/json,null,AVAILABLE}
+16/12/14 07:15:53 INFO cluster.StandaloneSchedulerBackend: SchedulerBackend is ready for scheduling beginning after reached minRegisteredResourcesRatio: 0.0
+page_id 10 count 12
+page_id 4 count 9
+page_id 14 count 7
+page_id 17 count 6
+page_id 20 count 15
+page_id 16 count 17
+page_id 12 count 21
+page_id 8 count 16
+page_id 1 count 10
+page_id 19 count 7
+page_id 9 count 8
+page_id 18 count 17
+page_id 5 count 9
+page_id 3 count 13
+page_id 2 count 15
+page_id 7 count 12
+page_id 11 count 3
+page_id 13 count 5
+page_id 6 count 12
+page_id 15 count 9
+Popular items done
+
+Joshua clicked on the following items: ['6']
+Ashley clicked on the following items: ['18', '16', '16', '12', '16', '12', '18', '8', '2', '2', '14', '6', '8', '8', '8', '20', '8', '16', '16', '16', '2']
+Aimee clicked on the following items: ['8', '18', '12', '20', '14', '2', '8', '20', '20', '10', '16', '14', '12', '18', '18', '8', '12', '12', '6', '20', '20', '14', '16', '2', '10', '2', '12', '12', '20', '20', '12', '18', '2', '8', '18', '16', '16', '2', '20', '6', '10', '6', '18', '2', '18', '18', '4', '8']
+Ryan clicked on the following items: ['18', '14', '8', '18', '10', '6']
+Leslie clicked on the following items: ['8', '10', '8', '10', '16', '16', '6', '12', '18', '2', '20', '16', '4', '10', '4', '8', '20', '12', '6', '10']
+Carrie clicked on the following items: ['7', '11', '3', '5', '3', '13', '1', '7', '3', '13', '5', '3', '1', '17', '7', '3', '3', '9', '1', '1', '17', '5', '15', '19', '9', '5', '9', '15', '7', '17']
+Kimberly clicked on the following items: ['7', '1', '5', '1', '7', '11', '17', '19', '1', '3', '19', '5', '3', '7', '9', '19', '19', '15', '7', '17', '3', '13', '15', '5', '17', '9', '1', '7', '3', '7']
+April clicked on the following items: ['15', '19', '1', '3', '15', '13', '11', '7', '1', '15', '15', '5', '13', '15', '9', '3', '9', '5', '3', '19', '9', '7']
+Tyler clicked on the following items: ['20', '12', '2', '10', '10', '8', '12', '6', '20', '12', '12', '4']
+George clicked on the following items: ['16', '12', '16', '18', '2', '4', '18', '4', '4', '2', '10', '18', '12', '20', '14', '8', '20', '12', '2', '6', '14', '18', '4', '6', '12', '16', '10', '2', '12', '12', '16', '6', '4']
+
+
+Items ('9', '1') were clicked on by ['Kimberly', 'April']
+Items ('13', '5') were clicked on by ['Carrie']
+Items ('3', '13') were clicked on by ['Kimberly', 'April']
+Items ('20', '4') were clicked on by ['Aimee', 'Leslie', 'George', 'Tyler']
+Items ('20', '8') were clicked on by ['Ashley', 'Aimee', 'Leslie', 'George']
+Items ('14', '8') were clicked on by ['Aimee']
+Items ('16', '4') were clicked on by ['Aimee', 'George']
+Items ('15', '13') were clicked on by ['Kimberly', 'April']
+Items ('10', '8') were clicked on by ['Aimee']
+Items ('6', '18') were clicked on by ['Aimee']
+Items ('15', '11') were clicked on by ['April']
+Items ('4', '12') were clicked on by ['Leslie']
+Items ('7', '3') were clicked on by ['Carrie', 'Kimberly']
+Items ('1', '17') were clicked on by ['Carrie']
+Items ('5', '13') were clicked on by ['Kimberly', 'April']
+Items ('1', '19') were clicked on by ['Carrie']
+Items ('12', '8') were clicked on by ['Aimee', 'Leslie']
+Items ('19', '9') were clicked on by ['Carrie', 'Kimberly', 'April']
+Items ('4', '16') were clicked on by ['Leslie']
+Items ('7', '11') were clicked on by ['April']
+Items ('16', '10') were clicked on by ['Aimee', 'Leslie', 'George']
+Items ('16', '8') were clicked on by ['Aimee', 'Leslie']
+Items ('17', '9') were clicked on by ['Carrie', 'Kimberly']
+Items ('15', '7') were clicked on by ['Carrie']
+Items ('12', '20') were clicked on by ['Aimee', 'Tyler']
+Items ('19', '17') were clicked on by ['Carrie', 'Kimberly']
+Items ('7', '15') were clicked on by ['Kimberly', 'April']
+Items ('20', '16') were clicked on by ['Ashley', 'Leslie', 'George']
+Items ('12', '10') were clicked on by ['Aimee', 'Leslie', 'George']
+Items ('4', '8') were clicked on by ['Aimee', 'Leslie']
+Items ('14', '10') were clicked on by ['Aimee', 'Ryan', 'George']
+Items ('10', '4') were clicked on by ['Aimee', 'Tyler']
+Items ('20', '14') were clicked on by ['Ashley', 'George']
+Items ('13', '11') were clicked on by ['Carrie', 'April']
+Items ('18', '2') were clicked on by ['Ashley', 'George']
+Items ('15', '5') were clicked on by ['Carrie', 'Kimberly']
+Items ('20', '10') were clicked on by ['Leslie', 'George']
+Items ('3', '15') were clicked on by ['Kimberly', 'April']
+Items ('8', '4') were clicked on by ['George', 'Tyler']
+Items ('18', '6') were clicked on by ['Ashley', 'Ryan', 'Leslie', 'George']
+Items ('20', '12') were clicked on by ['Ashley', 'Leslie', 'George']
+Items ('10', '20') were clicked on by ['Aimee', 'Tyler']
+Items ('8', '14') were clicked on by ['Ashley', 'Ryan', 'George']
+Items ('3', '7') were clicked on by ['April']
+Items ('8', '16') were clicked on by ['Ashley', 'George']
+Items ('8', '10') were clicked on by ['Ryan', 'Leslie', 'George', 'Tyler']
+Items ('13', '3') were clicked on by ['Carrie']
+Items ('17', '1') were clicked on by ['Kimberly']
+Items ('2', '6') were clicked on by ['Aimee', 'Leslie', 'George', 'Tyler']
+Items ('8', '12') were clicked on by ['Ashley', 'George', 'Tyler']
+Items ('5', '7') were clicked on by ['Carrie', 'April']
+Items ('10', '12') were clicked on by ['Tyler']
+Items ('16', '14') were clicked on by ['Aimee', 'George']
+Items ('11', '3') were clicked on by ['Carrie', 'Kimberly']
+Items ('14', '16') were clicked on by ['Ashley']
+Items ('7', '5') were clicked on by ['Kimberly']
+Items ('11', '7') were clicked on by ['Carrie', 'Kimberly']
+Items ('5', '11') were clicked on by ['April']
+Items ('12', '4') were clicked on by ['Aimee', 'George', 'Tyler']
+Items ('13', '7') were clicked on by ['Carrie']
+Items ('14', '4') were clicked on by ['Aimee', 'George']
+Items ('7', '13') were clicked on by ['Kimberly', 'April']
+Items ('6', '2') were clicked on by ['Ashley']
+Items ('4', '10') were clicked on by ['Leslie', 'George']
+Items ('8', '20') were clicked on by ['Tyler']
+Items ('5', '15') were clicked on by ['April']
+Items ('13', '15') were clicked on by ['Carrie']
+Items ('12', '14') were clicked on by ['Aimee', 'George']
+Items ('3', '11') were clicked on by ['April']
+Items ('11', '5') were clicked on by ['Carrie', 'Kimberly']
+Items ('11', '13') were clicked on by ['Kimberly']
+Items ('2', '18') were clicked on by ['Aimee', 'Leslie']
+Items ('16', '20') were clicked on by ['Aimee']
+Items ('16', '12') were clicked on by ['Aimee']
+Items ('3', '5') were clicked on by ['Kimberly', 'April']
+Items ('1', '9') were clicked on by ['Carrie']
+Items ('14', '12') were clicked on by ['Ashley']
+Items ('14', '20') were clicked on by ['Aimee']
+Items ('12', '16') were clicked on by ['Ashley', 'Leslie', 'George']
+Items ('19', '1') were clicked on by ['Kimberly', 'April']
+Items ('15', '3') were clicked on by ['Carrie']
+Items ('5', '3') were clicked on by ['Carrie']
+Items ('11', '15') were clicked on by ['Carrie', 'Kimberly']
+Items ('3', '19') were clicked on by ['Kimberly', 'April']
+Items ('9', '5') were clicked on by ['Carrie']
+Items ('4', '6') were clicked on by ['Aimee', 'Leslie']
+Items ('3', '1') were clicked on by ['Kimberly', 'April']
+Items ('17', '5') were clicked on by ['Carrie']
+Items ('19', '15') were clicked on by ['Carrie']
+Items ('6', '16') were clicked on by ['George']
+Items ('7', '1') were clicked on by ['Kimberly', 'April']
+Items ('18', '10') were clicked on by ['George']
+Items ('8', '18') were clicked on by ['Ashley', 'Aimee', 'Ryan', 'Leslie']
+Items ('17', '15') were clicked on by ['Carrie']
+Items ('2', '10') were clicked on by ['George', 'Tyler']
+Items ('19', '7') were clicked on by ['Carrie']
+Items ('12', '6') were clicked on by ['Ashley', 'Aimee', 'Leslie']
+Items ('15', '17') were clicked on by ['Kimberly']
+Items ('6', '4') were clicked on by ['George', 'Tyler']
+Items ('1', '7') were clicked on by ['Carrie']
+Items ('2', '4') were clicked on by ['George', 'Tyler']
+Items ('18', '16') were clicked on by ['George']
+Items ('15', '1') were clicked on by ['Kimberly', 'April']
+Items ('20', '2') were clicked on by ['Ashley', 'Aimee', 'Leslie']
+Items ('18', '4') were clicked on by ['George']
+Items ('2', '20') were clicked on by ['George', 'Tyler']
+Items ('14', '6') were clicked on by ['Ashley', 'Aimee', 'Ryan']
+Items ('13', '1') were clicked on by ['Kimberly', 'April']
+Items ('4', '18') were clicked on by ['Aimee', 'Leslie']
+Items ('7', '9') were clicked on by ['Kimberly', 'April']
+Items ('5', '9') were clicked on by ['Kimberly', 'April']
+Items ('18', '14') were clicked on by ['George']
+Items ('19', '3') were clicked on by ['Carrie']
+Items ('1', '5') were clicked on by ['Carrie']
+Items ('11', '17') were clicked on by ['Kimberly']
+Items ('6', '12') were clicked on by ['George', 'Tyler']
+Items ('14', '2') were clicked on by ['Ashley', 'Aimee']
+Items ('5', '19') were clicked on by ['Kimberly', 'April']
+Items ('20', '6') were clicked on by ['Ashley', 'Aimee', 'Leslie']
+Items ('17', '7') were clicked on by ['Carrie']
+Items ('15', '19') were clicked on by ['Kimberly', 'April']
+Items ('18', '8') were clicked on by ['George']
+Items ('13', '19') were clicked on by ['Kimberly', 'April']
+Items ('6', '14') were clicked on by ['George']
+Items ('18', '12') were clicked on by ['George']
+Items ('4', '2') were clicked on by ['Aimee', 'Leslie']
+Items ('5', '17') were clicked on by ['Kimberly']
+Items ('19', '5') were clicked on by ['Carrie']
+Items ('14', '18') were clicked on by ['Ashley', 'Aimee', 'Ryan']
+Items ('9', '13') were clicked on by ['Carrie']
+Items ('20', '18') were clicked on by ['Ashley', 'Aimee', 'Leslie']
+Items ('6', '8') were clicked on by ['George', 'Tyler']
+Items ('3', '17') were clicked on by ['Kimberly']
+Items ('19', '11') were clicked on by ['Carrie']
+Items ('1', '13') were clicked on by ['Carrie']
+Items ('7', '17') were clicked on by ['Kimberly']
+Items ('9', '3') were clicked on by ['Carrie']
+Items ('1', '11') were clicked on by ['Carrie']
+Items ('13', '9') were clicked on by ['Kimberly', 'April']
+Items ('9', '15') were clicked on by ['Carrie']
+Items ('2', '12') were clicked on by ['George', 'Tyler']
+Items ('2', '14') were clicked on by ['George']
+Items ('16', '18') were clicked on by ['Ashley', 'Aimee', 'Leslie']
+Items ('11', '9') were clicked on by ['Kimberly', 'April']
+Items ('17', '13') were clicked on by ['Carrie']
+Items ('16', '6') were clicked on by ['Ashley', 'Aimee', 'Leslie']
+Items ('6', '20') were clicked on by ['George', 'Tyler']
+Items ('9', '11') were clicked on by ['Carrie']
+Items ('10', '2') were clicked on by ['Aimee', 'Leslie']
+Items ('8', '6') were clicked on by ['Ashley', 'Aimee', 'Ryan', 'Leslie']
+Items ('10', '18') were clicked on by ['Aimee', 'Ryan', 'Leslie']
+Items ('1', '3') were clicked on by ['Carrie']
+Items ('2', '8') were clicked on by ['George', 'Tyler']
+Items ('9', '7') were clicked on by ['Carrie']
+Items ('10', '6') were clicked on by ['Aimee', 'Ryan', 'Leslie']
+Items ('13', '17') were clicked on by ['Kimberly']
+Items ('12', '18') were clicked on by ['Ashley', 'Aimee', 'Leslie']
+Items ('18', '20') were clicked on by ['George']
+Items ('2', '16') were clicked on by ['George']
+Items ('15', '9') were clicked on by ['Kimberly', 'April']
+Items ('16', '2') were clicked on by ['Ashley', 'Aimee', 'Leslie']
+Items ('19', '13') were clicked on by ['Carrie']
+Items ('11', '1') were clicked on by ['Kimberly', 'April']
+Items ('1', '15') were clicked on by ['Carrie']
+Items ('6', '10') were clicked on by ['George', 'Tyler']
+Items ('8', '2') were clicked on by ['Ashley', 'Aimee', 'Leslie']
+Items ('5', '1') were clicked on by ['Kimberly', 'April']
+Items ('3', '9') were clicked on by ['Kimberly', 'April']
+Items ('7', '19') were clicked on by ['Kimberly', 'April']
+Items ('12', '2') were clicked on by ['Ashley', 'Aimee', 'Leslie']
+Items ('11', '19') were clicked on by ['Kimberly', 'April']
+Items ('17', '3') were clicked on by ['Carrie']
+Items ('17', '11') were clicked on by ['Carrie']
+
+
+all distinct clicks: [(('20', '8'), 1), (('20', '14'), 1), (('20', '12'), 1), (('20', '16'), 1), (('20', '18'), 1), (('20', '6'), 1), (('20', '2'), 1), (('8', '14'), 1), (('8', '12'), 1), (('8', '16'), 1), (('8', '18'), 1), (('8', '6'), 1), (('8', '2'), 1), (('14', '12'), 1), (('14', '16'), 1), (('14', '18'), 1), (('14', '6'), 1), (('14', '2'), 1), (('12', '16'), 1), (('12', '18'), 1), (('12', '6'), 1), (('12', '2'), 1), (('16', '18'), 1), (('16', '6'), 1), (('16', '2'), 1), (('18', '6'), 1), (('18', '2'), 1), (('6', '2'), 1), (('16', '12'), 1), (('16', '14'), 1), (('16', '10'), 1), (('16', '20'), 1), (('16', '4'), 1), (('16', '8'), 1), (('16', '2'), 1), (('16', '6'), 1), (('16', '18'), 1), (('12', '14'), 1), (('12', '10'), 1), (('12', '20'), 1), (('12', '4'), 1), (('12', '8'), 1), (('12', '2'), 1), (('12', '6'), 1), (('12', '18'), 1), (('14', '10'), 1), (('14', '20'), 1), (('14', '4'), 1), (('14', '8'), 1), (('14', '2'), 1), (('14', '6'), 1), (('14', '18'), 1), (('10', '20'), 1), (('10', '4'), 1), (('10', '8'), 1), (('10', '2'), 1), (('10', '6'), 1), (('10', '18'), 1), (('20', '4'), 1), (('20', '8'), 1), (('20', '2'), 1), (('20', '6'), 1), (('20', '18'), 1), (('4', '8'), 1), (('4', '2'), 1), (('4', '6'), 1), (('4', '18'), 1), (('8', '2'), 1), (('8', '6'), 1), (('8', '18'), 1), (('2', '6'), 1), (('2', '18'), 1), (('6', '18'), 1), (('8', '14'), 1), (('8', '10'), 1), (('8', '18'), 1), (('8', '6'), 1), (('14', '10'), 1), (('14', '18'), 1), (('14', '6'), 1), (('10', '18'), 1), (('10', '6'), 1), (('18', '6'), 1), (('1', '19'), 1), (('1', '17'), 1), (('1', '9'), 1), (('1', '13'), 1), (('1', '11'), 1), (('1', '15'), 1), (('1', '5'), 1), (('1', '7'), 1), (('1', '3'), 1), (('19', '17'), 1), (('19', '9'), 1), (('19', '13'), 1), (('19', '11'), 1), (('19', '15'), 1), (('19', '5'), 1), (('19', '7'), 1), (('19', '3'), 1), (('17', '9'), 1), (('17', '13'), 1), (('17', '11'), 1), (('17', '15'), 1), (('17', '5'), 1), (('17', '7'), 1), (('17', '3'), 1), (('9', '13'), 1), (('9', '11'), 1), (('9', '15'), 1), (('9', '5'), 1), (('9', '7'), 1), (('9', '3'), 1), (('13', '11'), 1), (('13', '15'), 1), (('13', '5'), 1), (('13', '7'), 1), (('13', '3'), 1), (('11', '15'), 1), (('11', '5'), 1), (('11', '7'), 1), (('11', '3'), 1), (('15', '5'), 1), (('15', '7'), 1), (('15', '3'), 1), (('5', '7'), 1), (('5', '3'), 1), (('7', '3'), 1), (('20', '4'), 1), (('20', '12'), 1), (('20', '16'), 1), (('20', '8'), 1), (('20', '10'), 1), (('20', '2'), 1), (('20', '18'), 1), (('20', '6'), 1), (('4', '12'), 1), (('4', '16'), 1), (('4', '8'), 1), (('4', '10'), 1), (('4', '2'), 1), (('4', '18'), 1), (('4', '6'), 1), (('12', '16'), 1), (('12', '8'), 1), (('12', '10'), 1), (('12', '2'), 1), (('12', '18'), 1), (('12', '6'), 1), (('16', '8'), 1), (('16', '10'), 1), (('16', '2'), 1), (('16', '18'), 1), (('16', '6'), 1), (('8', '10'), 1), (('8', '2'), 1), (('8', '18'), 1), (('8', '6'), 1), (('10', '2'), 1), (('10', '18'), 1), (('10', '6'), 1), (('2', '18'), 1), (('2', '6'), 1), (('18', '6'), 1), (('11', '7'), 1), (('11', '3'), 1), (('11', '15'), 1), (('11', '5'), 1), (('11', '13'), 1), (('11', '19'), 1), (('11', '17'), 1), (('11', '9'), 1), (('11', '1'), 1), (('7', '3'), 1), (('7', '15'), 1), (('7', '5'), 1), (('7', '13'), 1), (('7', '19'), 1), (('7', '17'), 1), (('7', '9'), 1), (('7', '1'), 1), (('3', '15'), 1), (('3', '5'), 1), (('3', '13'), 1), (('3', '19'), 1), (('3', '17'), 1), (('3', '9'), 1), (('3', '1'), 1), (('15', '5'), 1), (('15', '13'), 1), (('15', '19'), 1), (('15', '17'), 1), (('15', '9'), 1), (('15', '1'), 1), (('5', '13'), 1), (('5', '19'), 1), (('5', '17'), 1), (('5', '9'), 1), (('5', '1'), 1), (('13', '19'), 1), (('13', '17'), 1), (('13', '9'), 1), (('13', '1'), 1), (('19', '17'), 1), (('19', '9'), 1), (('19', '1'), 1), (('17', '9'), 1), (('17', '1'), 1), (('9', '1'), 1), (('3', '5'), 1), (('3', '7'), 1), (('3', '15'), 1), (('3', '13'), 1), (('3', '11'), 1), (('3', '19'), 1), (('3', '9'), 1), (('3', '1'), 1), (('5', '7'), 1), (('5', '15'), 1), (('5', '13'), 1), (('5', '11'), 1), (('5', '19'), 1), (('5', '9'), 1), (('5', '1'), 1), (('7', '15'), 1), (('7', '13'), 1), (('7', '11'), 1), (('7', '19'), 1), (('7', '9'), 1), (('7', '1'), 1), (('15', '13'), 1), (('15', '11'), 1), (('15', '19'), 1), (('15', '9'), 1), (('15', '1'), 1), (('13', '11'), 1), (('13', '19'), 1), (('13', '9'), 1), (('13', '1'), 1), (('11', '19'), 1), (('11', '9'), 1), (('11', '1'), 1), (('19', '9'), 1), (('19', '1'), 1), (('9', '1'), 1), (('18', '2'), 1), (('18', '6'), 1), (('18', '20'), 1), (('18', '8'), 1), (('18', '12'), 1), (('18', '16'), 1), (('18', '14'), 1), (('18', '4'), 1), (('18', '10'), 1), (('2', '6'), 1), (('2', '20'), 1), (('2', '8'), 1), (('2', '12'), 1), (('2', '16'), 1), (('2', '14'), 1), (('2', '4'), 1), (('2', '10'), 1), (('6', '20'), 1), (('6', '8'), 1), (('6', '12'), 1), (('6', '16'), 1), (('6', '14'), 1), (('6', '4'), 1), (('6', '10'), 1), (('20', '8'), 1), (('20', '12'), 1), (('20', '16'), 1), (('20', '14'), 1), (('20', '4'), 1), (('20', '10'), 1), (('8', '12'), 1), (('8', '16'), 1), (('8', '14'), 1), (('8', '4'), 1), (('8', '10'), 1), (('12', '16'), 1), (('12', '14'), 1), (('12', '4'), 1), (('12', '10'), 1), (('16', '14'), 1), (('16', '4'), 1), (('16', '10'), 1), (('14', '4'), 1), (('14', '10'), 1), (('4', '10'), 1), (('2', '6'), 1), (('2', '8'), 1), (('2', '10'), 1), (('2', '12'), 1), (('2', '20'), 1), (('2', '4'), 1), (('6', '8'), 1), (('6', '10'), 1), (('6', '12'), 1), (('6', '20'), 1), (('6', '4'), 1), (('8', '10'), 1), (('8', '12'), 1), (('8', '20'), 1), (('8', '4'), 1), (('10', '12'), 1), (('10', '20'), 1), (('10', '4'), 1), (('12', '20'), 1), (('12', '4'), 1), (('20', '4'), 1)]
+
+reduced distinct clicks: [(('9', '1'), 2), (('13', '5'), 1), (('3', '13'), 2), (('20', '4'), 4), (('20', '8'), 4), (('14', '8'), 1), (('16', '4'), 2), (('15', '13'), 2), (('10', '8'), 1), (('6', '18'), 1), (('15', '11'), 1), (('4', '12'), 1), (('7', '3'), 2), (('1', '17'), 1), (('5', '13'), 2), (('1', '19'), 1), (('12', '8'), 2), (('19', '9'), 3), (('4', '16'), 1), (('7', '11'), 1), (('16', '10'), 3), (('16', '8'), 2), (('17', '9'), 2), (('15', '7'), 1), (('12', '20'), 2), (('19', '17'), 2), (('7', '15'), 2), (('20', '16'), 3), (('12', '10'), 3), (('4', '8'), 2), (('14', '10'), 3), (('10', '4'), 2), (('20', '14'), 2), (('13', '11'), 2), (('18', '2'), 2), (('15', '5'), 2), (('20', '10'), 2), (('3', '15'), 2), (('8', '4'), 2), (('18', '6'), 4), (('20', '12'), 3), (('10', '20'), 2), (('8', '14'), 3), (('3', '7'), 1), (('8', '16'), 2), (('8', '10'), 4), (('13', '3'), 1), (('17', '1'), 1), (('2', '6'), 4), (('8', '12'), 3), (('5', '7'), 2), (('10', '12'), 1), (('16', '14'), 2), (('11', '3'), 2), (('14', '16'), 1), (('7', '5'), 1), (('11', '7'), 2), (('5', '11'), 1), (('12', '4'), 3), (('13', '7'), 1), (('14', '4'), 2), (('7', '13'), 2), (('6', '2'), 1), (('4', '10'), 2), (('8', '20'), 1), (('5', '15'), 1), (('13', '15'), 1), (('12', '14'), 2), (('3', '11'), 1), (('11', '5'), 2), (('11', '13'), 1), (('2', '18'), 2), (('16', '20'), 1), (('16', '12'), 1), (('3', '5'), 2), (('1', '9'), 1), (('14', '12'), 1), (('14', '20'), 1), (('12', '16'), 3), (('19', '1'), 2), (('15', '3'), 1), (('5', '3'), 1), (('11', '15'), 2), (('3', '19'), 2), (('9', '5'), 1), (('4', '6'), 2), (('3', '1'), 2), (('17', '5'), 1), (('19', '15'), 1), (('6', '16'), 1), (('7', '1'), 2), (('18', '10'), 1), (('8', '18'), 4), (('17', '15'), 1), (('2', '10'), 2), (('19', '7'), 1), (('12', '6'), 3), (('15', '17'), 1), (('6', '4'), 2), (('1', '7'), 1), (('2', '4'), 2), (('18', '16'), 1), (('15', '1'), 2), (('20', '2'), 3), (('18', '4'), 1), (('2', '20'), 2), (('14', '6'), 3), (('13', '1'), 2), (('4', '18'), 2), (('7', '9'), 2), (('5', '9'), 2), (('18', '14'), 1), (('19', '3'), 1), (('1', '5'), 1), (('11', '17'), 1), (('6', '12'), 2), (('14', '2'), 2), (('5', '19'), 2), (('20', '6'), 3), (('17', '7'), 1), (('15', '19'), 2), (('18', '8'), 1), (('13', '19'), 2), (('6', '14'), 1), (('18', '12'), 1), (('4', '2'), 2), (('5', '17'), 1), (('19', '5'), 1), (('14', '18'), 3), (('9', '13'), 1), (('20', '18'), 3), (('6', '8'), 2), (('3', '17'), 1), (('19', '11'), 1), (('1', '13'), 1), (('7', '17'), 1), (('9', '3'), 1), (('1', '11'), 1), (('13', '9'), 2), (('9', '15'), 1), (('2', '12'), 2), (('2', '14'), 1), (('16', '18'), 3), (('11', '9'), 2), (('17', '13'), 1), (('16', '6'), 3), (('6', '20'), 2), (('9', '11'), 1), (('10', '2'), 2), (('8', '6'), 4), (('10', '18'), 3), (('1', '3'), 1), (('2', '8'), 2), (('9', '7'), 1), (('10', '6'), 3), (('13', '17'), 1), (('12', '18'), 3), (('18', '20'), 1), (('2', '16'), 1), (('15', '9'), 2), (('16', '2'), 3), (('19', '13'), 1), (('11', '1'), 2), (('1', '15'), 1), (('6', '10'), 2), (('8', '2'), 3), (('5', '1'), 2), (('3', '9'), 2), (('7', '19'), 2), (('12', '2'), 3), (('11', '19'), 2), (('17', '3'), 1), (('17', '11'), 1)]
+
+filtered mass clicks (THE RESULT OF OUR SPARK JOB): [(('20', '4'), 4), (('20', '8'), 4), (('19', '9'), 3), (('16', '10'), 3), (('20', '16'), 3), (('12', '10'), 3), (('14', '10'), 3), (('18', '6'), 4), (('20', '12'), 3), (('8', '14'), 3), (('8', '10'), 4), (('2', '6'), 4), (('8', '12'), 3), (('12', '4'), 3), (('12', '16'), 3), (('8', '18'), 4), (('12', '6'), 3), (('20', '2'), 3), (('14', '6'), 3), (('20', '6'), 3), (('14', '18'), 3), (('20', '18'), 3), (('16', '18'), 3), (('16', '6'), 3), (('8', '6'), 4), (('10', '18'), 3), (('10', '6'), 3), (('12', '18'), 3), (('16', '2'), 3), (('8', '2'), 3), (('12', '2'), 3)]
