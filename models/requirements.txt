@@ -5,7 +5,7 @@ Faker==0.7.3
 kafka-python==1.0.0
 mod-wsgi==4.5.2
 mysql-connector-python-rf==2.1.3
-Pillow==3.0.0
+Pillow==8.2.0
 python-dateutil==2.5.3
 requests==2.11.1
 six==1.10.0
