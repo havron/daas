@@ -1,5 +1,5 @@
 arrow==0.8.0
-Django==1.8.14
+Django==2.2.24
 elasticsearch==2.4.0
 Faker==0.7.3
 kafka-python==1.0.0
